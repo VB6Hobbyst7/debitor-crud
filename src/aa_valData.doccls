@@ -1,0 +1,209 @@
+﻿Option Explicit
+'----------------------------------------------------------------------------------------------------------------------------
+'@Module: aa_valData *******************************************************************************************************'
+'@Autor: *******************************************************************************************************'
+'@Contact:  **********************************************************************************'
+'----------------------------------------------------------------------------------------------------------------------------
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'GLOBAL VARIABLES ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Const passWordLock As String = "fnextxx" 'Excel Application Password
+Const btnH As Long = 25, btnW As Long = 80, btnPoz As Long = btnH + btnH
+Dim frmDebitor As frm_Debitor, IsLoaded As Boolean, IsEmpty As Boolean, btn As OLEObject
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'SELECTIONCHANGE - Worksheet_SelectionChange
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+
+    Application.ScreenUpdating = False
+'    aa_valData.Unprotect Password:=passWordLock ' unprotect "Form" Worksheet
+    On Error Resume Next
+        'If Header is selected or Form is loaded  then no Buttons should show
+    If ActiveCell.Row = 1 Or IsLoaded <> Application.Run("Form_Settings.IsLoaded", "frm_Debitor") Then
+    On Error GoTo 0
+        For Each btn In aa_valData.OLEObjects
+            btn.Visible = False
+        Next btn
+    Else
+        For Each btn In aa_valData.OLEObjects
+            With btn
+                .Top = ActiveCell.Top + btnH
+                .Left = ActiveCell.Left + 0.8 * ActiveCell.Width
+                .Height = btnH
+                .Width = btnW
+                If ActiveCell.value = "" Or ThisWorkbook.ReadOnly = True Then .Visible = False Else .Visible = True
+                If btn.Name Like "*Edit" Then .Top = ActiveCell.Top + btnPoz
+                If btn.Name Like "*View" Then .Top = ActiveCell.Top + btnPoz
+                If btn.Name Like "*Approve" Then .Top = ActiveCell.Top + btnPoz + btnPoz + btnH
+            End With
+        Next btn
+        If ActiveCell.value = "" Then
+            If ThisWorkbook.ReadOnly = False Then cmb_New.Visible = True
+        Else
+            If ThisWorkbook.ReadOnly = False Then cmb_Edit.Visible = True
+            cmb_Edit.Top = ActiveCell.Top + btnH
+            cmb_View.Top = ActiveCell.Top + btnPoz
+            cmb_Approve.Top = ActiveCell.Top + btnPoz + btnH
+            cmb_New.Visible = False
+            If ThisWorkbook.ReadOnly = True Then cmb_View.Visible = True: cmb_View.Top = ActiveCell.Top + btnH
+        End If
+        'Hide Edit if Account Approverd
+        If ActiveCell.Interior.Color = RGB(226, 239, 218) Then _
+                    cmb_Edit.Visible = False: cmb_View.Top = ActiveCell.Top + btnH: _
+                    cmb_Approve.Top = ActiveCell.Top + btnPoz
+        'Hide Approve if User is not Designer
+        If Application.WorksheetFunction.CountIf(xx_frmConst.Range("Designer_WorkSheet"), _
+            Application.UserName) = 0 Then cmb_Approve.Visible = False
+    End If
+''    aa_valData.Protect Password:=passWordLock, AllowFiltering:=True ' protect "Form" Worksheet
+'    Application.Run "Form_Settings.StopTimer" ' Stop Timer
+''    Application.Run "Form_Settings.SetTimer" ' Start Timer
+End Sub
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'CLICK - cmb_New_Click
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Private Sub cmb_New_Click()
+
+    With Application
+        .Cursor = xlWait
+'        .WindowState = xlMaximized
+        .ScreenUpdating = False
+        .EnableEvents = False
+            For Each btn In aa_valData.OLEObjects
+                btn.Visible = False
+            Next btn
+        Set frmDebitor = New frm_Debitor
+            With frmDebitor
+                .Tag = "New"
+                Application.Run "Form_Rebuild.Position", frmDebitor, .Tag, .tbx_UserLangVal.value
+                .cbx_Kontengruppe.SetFocus
+                .Show vbModeless
+            End With
+        Set frmDebitor = Nothing
+        cmb_New.Enabled = True
+        .Cursor = xlDefault
+        .EnableEvents = True
+    End With
+End Sub
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'CLICK - cmb_Edit_Click//////////////////////////////////////////////////////////////////////////////////////////////////////
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Private Sub cmb_Edit_Click()
+
+    With Application
+        .Cursor = xlWait
+'        .WindowState = xlMaximized
+        .ScreenUpdating = False
+        .EnableEvents = False
+            For Each btn In aa_valData.OLEObjects
+                btn.Visible = False
+            Next btn
+        Set frmDebitor = New frm_Debitor
+            With frmDebitor
+                .Tag = "Edit"
+                Application.Run "Form_Rebuild.Position", frmDebitor, .Tag, .tbx_UserLangVal.value
+                .Show vbModeless
+            End With
+        Set frmDebitor = Nothing
+        cmb_Edit.Enabled = True
+        .Cursor = xlDefault
+        .EnableEvents = True
+    End With
+End Sub
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'CLICK - cmb_View_Click//////////////////////////////////////////////////////////////////////////////////////////////////////
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Private Sub cmb_View_Click()
+
+    With Application
+        .Cursor = xlWait
+'        .WindowState = xlMaximized
+        .ScreenUpdating = False
+        .EnableEvents = False
+            For Each btn In aa_valData.OLEObjects
+                btn.Visible = False
+            Next btn
+        Set frmDebitor = New frm_Debitor
+            With frmDebitor
+                .Tag = "View"
+                Application.Run "Form_Rebuild.Position", frmDebitor, .Tag, .tbx_UserLangVal.value
+                .Show vbModeless
+            End With
+        Set frmDebitor = Nothing
+        cmb_Edit.Enabled = True
+        .Cursor = xlDefault
+        .EnableEvents = True
+    End With
+End Sub
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'CLICK - cmb_Approve_Click///////////////////////////////////////////////////////////////////////////////////////////////////
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Private Sub cmb_Approve_Click()
+
+    With Application
+        .Cursor = xlWait
+        .ScreenUpdating = False
+        .EnableEvents = False
+            For Each btn In aa_valData.OLEObjects
+                btn.Visible = False
+            Next btn
+        Set frmDebitor = New frm_Debitor
+            With frmDebitor
+                .Tag = "Approve"
+                Application.Run "Form_Rebuild.Position", frmDebitor, .Tag, .tbx_UserLangVal.value
+                .Show vbModeless
+            End With
+        Set frmDebitor = Nothing
+        cmb_Edit.Enabled = True
+        .Cursor = xlDefault
+        .EnableEvents = True
+    End With
+End Sub
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'MOUSEMOVE - cmb_New_MouseMove
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Private Sub cmb_New_MouseMove(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+    With Me
+        .cmb_New.ForeColor = &H0& 'Black
+        .cmb_Edit.ForeColor = &HFFFFFF 'White
+        .cmb_View.ForeColor = &HFFFFFF 'White
+        .cmb_Approve.ForeColor = &HFFFFFF 'White
+    End With
+End Sub
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'MOUSEMOVE - cmb_Edit_MouseMove//////////////////////////////////////////////////////////////////////////////////////////////
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Private Sub cmb_Edit_MouseMove(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+    With Me
+        .cmb_New.ForeColor = &HFFFFFF 'White
+        .cmb_Edit.ForeColor = &H0& 'Black
+        .cmb_View.ForeColor = &HFFFFFF 'White
+        .cmb_Approve.ForeColor = &HFFFFFF 'White
+    End With
+End Sub
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'MOUSEMOVE - cmb_View_MouseMove//////////////////////////////////////////////////////////////////////////////////////////////
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Private Sub cmb_View_MouseMove(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+    With Me
+        .cmb_New.ForeColor = &HFFFFFF 'White
+        .cmb_Edit.ForeColor = &HFFFFFF 'White
+        .cmb_View.ForeColor = &H0& 'Black
+        .cmb_Approve.ForeColor = &HFFFFFF 'White
+    End With
+End Sub
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'MOUSEMOVE - cmb_Approve_MouseMove///////////////////////////////////////////////////////////////////////////////////////////
+'////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Private Sub cmb_Approve_MouseMove(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+    With Me
+        .cmb_New.ForeColor = &HFFFFFF 'White
+        .cmb_Edit.ForeColor = &HFFFFFF 'White
+        .cmb_View.ForeColor = &HFFFFFF 'White
+        .cmb_Approve.ForeColor = &H0& 'Black
+    End With
+End Sub

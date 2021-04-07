@@ -1,0 +1,126 @@
+﻿'Option Explicit
+''----------------------------------------------------------------------------------------------------------------------------
+''@Module: ThisWorkbook *****************************************************************************************************'
+''@Autor: *******************************************************************************************************'
+''@Contact:  **********************************************************************************'
+''----------------------------------------------------------------------------------------------------------------------------
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+''GLOBAL VARIABLES ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'Const passWordLock As String = "fnextxx" 'Excel Application Password
+'Public DebtorFile As Workbook, WorkBookForm As String, autoClose As Boolean 'WorkBook Object variables
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+''OPEN - Workbook_Open
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'Private Sub Workbook_Open()
+'
+'Dim UserDesigner As Boolean
+''    With Application
+''        .ScreenUpdating = False
+''        .DisplayFormulaBar = False
+''        .DisplayStatusBar = False
+'''        .ExecuteExcel4Macro "Show.ToolBar(""Ribbon"",false)" 'Hide Ribbon
+''        If .WorksheetFunction.CountIf(xx_frmConst.Range("Designer_WorkSheet"), .UserName) = 1 Then UserDesigner = True
+''        .Run "Form_Settings.WorksheetsSetup", UserDesigner
+''    End With
+''    ZZ_INFO.Protect Password:=passWordLock ' protect "User Guideline" Worksheet
+'End Sub
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+''ACTIVATE - Workbook_Activate
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'Private Sub Workbook_Activate()
+'
+''    On Error Resume Next
+''    If TypeName(ActiveWorkbook) <> "Workbook" Or TypeName(Selection) <> "Range" Then Exit Sub
+''    With Application
+''        .DisplayFormulaBar = False
+''        .DisplayStatusBar = False
+'''        .ExecuteExcel4Macro "Show.ToolBar(""Ribbon"",false)" 'Hide Ribbon
+''    End With
+''    Application.Run "Form_Settings.StopTimer" ' Stop Timer
+'''    Application.Run "Form_Settings.SetTimer" ' Start Timer
+'End Sub
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+''DEACTIVATE - Workbook_Deactivate
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'Private Sub Workbook_Deactivate()
+'
+''    On Error Resume Next
+''    If ThisWorkbook.ReadOnly Then Exit Sub
+''    If TypeName(ActiveWorkbook) <> "Workbook" Or TypeName(Selection) <> "Range" Then Exit Sub
+''    If Not autoClose Then 'User triggering deactivate event
+''        With Application
+''            .DisplayFormulaBar = True
+''            .DisplayStatusBar = True
+'''            .ExecuteExcel4Macro "Show.ToolBar(""Ribbon"",true)" 'Show Ribbon
+''        End With
+''    End If
+'End Sub
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+''SHEETSELECTIONCHANGE - Workbook_SheetSelectionChange
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'Private Sub Workbook_SheetSelectionChange(ByVal Sh As Object, ByVal Target As Excel.Range)
+'
+''    If TypeName(ActiveWorkbook) <> "Workbook" Or TypeName(Selection) <> "Range" Then Exit Sub
+''    Application.Run "Form_Settings.StopTimer" ' Stop Timer
+'''    Application.Run "Form_Settings.SetTimer" ' Start Timer
+'End Sub
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+''BEFORECLOSE - Workbook_BeforeClose
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'Private Sub Workbook_BeforeClose(Cancel As Boolean)
+'
+''    Dim wb As Workbook, win As Window, i As Integer
+''    WorkBookForm = ThisWorkbook.Name
+''    Set DebtorFile = Workbooks(WorkBookForm)
+''    If DebtorFile.ReadOnly Then DebtorFile.Saved = True: GoTo continue
+''    If Cancel = False Then autoClose = True
+''    With Application
+''        .ScreenUpdating = False
+''        aa_valData.Activate
+''        With DebtorFile.Worksheets 'Visible
+''            DebtorFile.Unprotect passWordLock 'Unlock Workbook
+''            If .Item(1).Visible = -1 Then 'Hide Constructor Sheetes (frm_***)
+''                .Item(1).Visible = 0
+''                .Item(2).Visible = 0
+''                .Item(3).Visible = 0
+''                .Item(4).Visible = 0
+''                .Item(5).Visible = 0
+''                .Item(6).Visible = 0
+''                .Item(9).Visible = 0
+''                .Item(10).Visible = 0
+''            End If
+''            DebtorFile.Protect passWordLock, True, True 'Lock Workbook
+''        End With
+''        .Run "Form_Settings.StopTimer" 'Stop AutoClose
+''        Application.EnableEvents = True
+''        Application.DisplayFormulaBar = True
+''        Application.DisplayStatusBar = True
+''        Application.Calculation = xlCalculationAutomatic
+''continue:
+''        i = 0
+''        For Each win In Application.Windows
+''            If win.Visible = True Then i = i + 1
+''        Next win
+''        'make sure that any changes made are saved before closing the workbook
+''        With DebtorFile
+''            If i = 1 Then
+''                If Not .ReadOnly And Not .Saved Then .Save 'Save
+''                If .CanCheckIn Then .CheckIn True, "AutoCheckIn", True 'CheckIn in Workbook
+''                Application.Quit
+''                End
+''            Else
+''                If Not .ReadOnly And Not .Saved Then .Save  'Save
+''                If .CanCheckIn Then .CheckIn True, "AutoCheckIn", True 'CheckIn in Workbook
+''                .Close
+''            End If
+''        End With
+''    End With
+'End Sub
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+''FUNCTION - VBATrusted
+''////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+'Private Function VBATrusted() As Boolean
+'    On Error Resume Next
+'    VBATrusted = (Application.VBE.VBProjects.Count) > 0
+'End Function
