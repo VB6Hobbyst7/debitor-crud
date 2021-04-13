@@ -1,0 +1,3 @@
+﻿'@IgnoreModule UseMeaningfulName
+'@Folder ExcelHost
+Option Explicit
