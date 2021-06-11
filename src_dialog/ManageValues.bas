@@ -4,7 +4,7 @@ Attribute VB_Description = "Main entry in Application"
 Option Explicit
 
 '@ModuleDescription "Main entry in Application"
-'Option Private Module
+Option Private Module
 
 Public Sub Main()
 
@@ -18,9 +18,9 @@ Public Sub Main()
     View.MinimumWidth 540
 
     If View.ShowDialog(workSheetName) Then
-        Debug.Print "Manage Accounts Loaded."
+        Debug.Print "Manage Values Loaded."
     Else
-        Debug.Print "Manage Accounts cancelled."
+        Debug.Print "Manage Values cancelled."
     End If
 
 End Sub

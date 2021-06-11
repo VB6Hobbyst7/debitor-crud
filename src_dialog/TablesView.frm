@@ -145,7 +145,9 @@ Private Function IView_ShowDialog(Optional ByVal workSheetName As String) As Boo
     MakeFormResizable Me, True
     ShowMinimizeButton Me, False
     ShowMaximizeButton Me, False
-
+    
+    Me.AddButton.SetFocus
+    
     Me.Show vbModal
     IView_ShowDialog = Not this.isCancelled
     
@@ -187,5 +189,15 @@ End Sub
 Private Sub QuitButton_Click()
     '@Ignore FunctionReturnValueDiscarded
     OnCancel
+End Sub
+
+Private Sub AddButton_Click()
+    OnCancel
+    AddValues.Add
+End Sub
+
+Private Sub EditButton_Click()
+    OnCancel
+    AddValues.Add
 End Sub
 
