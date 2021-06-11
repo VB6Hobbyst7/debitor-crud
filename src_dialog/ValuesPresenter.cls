@@ -10,8 +10,7 @@ Attribute VB_Exposed = False
 '@Folder("ValidateUserInput.Presenter")
 
 Option Explicit
-Private WithEvents View As LastPageView
-Attribute View.VB_VarHelpID = -1
+'Private WithEvents View As LastPageView
 
 'Private Property Get Dialog() As IDialogView
 '    Set Dialog = View
