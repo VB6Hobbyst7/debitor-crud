@@ -12,7 +12,7 @@ Public Sub Main()
     workSheetName = "TablesValues"
 
     Dim View As IView
-    Set View = TablesValuesView.Create()
+    Set View = TablesView.Create()
 
     View.MinimumHeight 330
     View.MinimumWidth 540
