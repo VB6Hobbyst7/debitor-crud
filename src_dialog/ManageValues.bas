@@ -1,4 +1,5 @@
 Attribute VB_Name = "ManageValues"
+Attribute VB_Description = "Main entry in Application"
 '@Folder("ValidateUserInput.Runner")
 Option Explicit
 
