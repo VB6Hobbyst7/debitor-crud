@@ -13,7 +13,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Attribute VB_Description = "Implementation of an abstract View, which displays for example all entries in DBCustomers"
+Attribute VB_Description = "Implementation of an abstract View, which displays for example all entries in given WorkSheet"
+
+
 '@Folder("ValidateUserInput.View")
 '@ModuleDescription "Implementation of an abstract View, which displays for example all entries in given WorkSheet"
 
@@ -33,6 +35,7 @@ Private this As TView
 
 '@Description "A factory method to create new instances of this View, already wired-up to a ViewModel."
 Public Function Create() As IView
+Attribute Create.VB_Description = "A factory method to create new instances of this View, already wired-up to a ViewModel."
     GuardClauses.GuardNonDefaultInstance Me, TablesValuesView, TypeName(Me)
     
     Dim result As TablesValuesView
@@ -188,5 +191,3 @@ Private Sub QuitButton_Click()
     '@Ignore FunctionReturnValueDiscarded
     OnCancel
 End Sub
-
-
