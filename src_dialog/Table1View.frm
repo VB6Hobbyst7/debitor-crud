@@ -13,10 +13,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 '@Folder("ValidateUserInput.View")
 Option Explicit
 
-Implements IView
+'Implements IView
 Implements ICancellable
 
 Private Type TView
@@ -30,6 +31,7 @@ Private this As TView
 
 '@Description "A factory method to create new instances of this View, already wired-up to a ViewModel."
 Public Function Create() As IView
+Attribute Create.VB_Description = "A factory method to create new instances of this View, already wired-up to a ViewModel."
     GuardClauses.GuardNonDefaultInstance Me, Table1View, TypeName(Me)
     
     Dim result As Table1View
@@ -114,7 +116,7 @@ Private Sub IView_Show(ByVal ViewModel As Object)
     'Not implemented
 End Sub
 
-Private Function IView_ShowDialog(Optional ByVal workSheetName As String) As Boolean
+Private Function IView_ShowDialog() As Boolean
 
 '    Localize GetResourceString("TablesValuesTitel", 2)
 '    InitializeLayouts
@@ -172,7 +174,7 @@ End Sub
 
 Private Sub ManagerButton_Click()
     OnCancel
-    ManageValues.Main
+'    ManageValues.Main
 End Sub
 
 Private Sub NextButton_Click()
@@ -183,10 +185,10 @@ Private Sub NextButton_Click()
     Dim View As IView
     Set View = Table2View.Create()
 
-    View.MinimumHeight 346
-    View.MinimumWidth 318
+'    View.MinimumHeight 346
+'    View.MinimumWidth 318
 
-    If View.ShowDialog(workSheetName) Then
+    If View.ShowDialog() Then
         Debug.Print "Table2 Values Loaded."
     Else
         Debug.Print "Table2 Values cancelled."

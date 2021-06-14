@@ -31,7 +31,7 @@ Optional ByRef OrderByExpression As String = vbNullString)
         .ListItems.Clear
         Dim header As Variant
         For Each header In ColumnNames
-            .ColumnHeaders.Add Text:=header.name
+            .ColumnHeaders.Add text:=header.name
         Next
         
         With DataRecordset
@@ -43,10 +43,10 @@ Optional ByRef OrderByExpression As String = vbNullString)
                     Dim viewListItem As MSComctlLib.ListItem
                     If Count = 1 Then 'If it's the first field of the recordset, that means we have the first column of a new row
                         'If it's a new row, then we will add a new ListItems (ROW) object
-                        Set viewListItem = ListViewObject.ListItems.Add(Text:=IIf(IsNull(fieldItem.value), vbNullString, fieldItem.value))
+                        Set viewListItem = ListViewObject.ListItems.Add(text:=IIf(IsNull(fieldItem.value), vbNullString, fieldItem.value))
                     Else
                         'If it's not a new row, then add a ListSubItem (ELEMENT) instead
-                        viewListItem.ListSubItems.Add Text:=IIf(IsNull(fieldItem.value), vbNullString, fieldItem.value)
+                        viewListItem.ListSubItems.Add text:=IIf(IsNull(fieldItem.value), vbNullString, fieldItem.value)
                     End If
                     Count = Count + 1 'Make sure to increment the count, or else EVERYONE will be a "New Row"
                 Next
@@ -98,7 +98,7 @@ Public Sub SortDataWithNumbers(ByRef ListViewObject As MSComctlLib.ListView)
                 .ListItems(i).SubItems(.SortKey) = stringTemp
             Else
                 RSet stringTemp = .ListItems(i)
-                .ListItems(i).Text = stringTemp
+                .ListItems(i).text = stringTemp
             End If
         Next
         
@@ -109,7 +109,7 @@ Public Sub SortDataWithNumbers(ByRef ListViewObject As MSComctlLib.ListView)
                 .ListItems(i).SubItems(.SortKey) = _
                 LTrim$(.ListItems(i).SubItems(.SortKey))
             Else
-                .ListItems(i).Text = LTrim$(.ListItems(i))
+                .ListItems(i).text = LTrim$(.ListItems(i))
             End If
         Next
     End With

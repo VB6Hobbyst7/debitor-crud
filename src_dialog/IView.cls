@@ -15,7 +15,7 @@ Attribute VB_Description = "Describes a View."
 Option Explicit
 
 '@Description "Displays the View modally and returns a value indicating confirmation (True) or cancellation (False)."
-Public Function ShowDialog(Optional ByVal workSheetName As String) As Boolean
+Public Function ShowDialog() As Boolean
 Attribute ShowDialog.VB_Description = "Displays the View modally and returns a value indicating confirmation (True) or cancellation (False)."
 End Function
 
@@ -29,12 +29,10 @@ Public Sub Hide()
 Attribute Hide.VB_Description = "Hides the View."
 End Sub
 
-'@Description "Set the Minimum Width of the View."
-Public Sub MinimumWidth(ByVal width As Single)
-Attribute MinimumWidth.VB_Description = "Set the Minimum Width of the View."
-End Sub
-
-'@Description "Set the Minimum Height of the View."
-Public Sub MinimumHeight(ByVal height As Single)
-Attribute MinimumHeight.VB_Description = "Set the Minimum Height of the View."
-End Sub
+''@Description "Set the Minimum Width of the View."
+'Public Property Get MinimumWidth() As Double
+'End Property
+'
+''@Description "Set the Minimum Height of the View."
+'Public Property Get MinimumHeight() As Double
+'End Property

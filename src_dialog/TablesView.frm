@@ -23,24 +23,38 @@ Implements ICancellable
 Option Explicit
 
 Private Type TView
-    width As Double
-    height As Double
+    ViewModel As ValuesViewModel
     layoutBindings As List
     isCancelled As Boolean
+
 End Type
 
 Private this As TView
 
 '@Description "A factory method to create new instances of this View, already wired-up to a ViewModel."
-Public Function Create() As IView
+Public Function Create(ByVal ViewModel As ValuesViewModel) As IView
+Attribute Create.VB_Description = "A factory method to create new instances of this View, already wired-up to a ViewModel."
     GuardClauses.GuardNonDefaultInstance Me, TablesView, TypeName(Me)
+    GuardClauses.GuardNullReference ViewModel, TypeName(Me)
     
     Dim result As TablesView
     Set result = New TablesView
     
+    Set result.ViewModel = ViewModel
     Set Create = result
     
 End Function
+
+'@Description "Gets/sets the ViewModelManager to use as a context for property and command bindings."
+Public Property Get ViewModel() As ValuesViewModel
+    Set ViewModel = this.ViewModel
+End Property
+
+Public Property Set ViewModel(ByVal model As ValuesViewModel)
+    GuardClauses.GuardDefaultInstance Me, TablesView, TypeName(Me)
+    GuardClauses.GuardNullReference model
+    Set this.ViewModel = model
+End Property
 
 Private Sub BindViewModelLayouts()
 
@@ -81,18 +95,18 @@ Private Sub InitializeLayouts()
     BindViewModelLayouts
 End Sub
 
-Private Sub Localize(ByVal title As String)
+Private Sub InitializeDisplayLanguage()
 
-    Me.Caption = title
-    Me.Instructions = GetResourceString("TablesValuesInstructions", 2)
+    Me.Caption = GetResourceString("TablesView.Caption", 2)
+    Me.Instructions = GetResourceString("TablesView.Instructions", 2)
     
-    AddButton.Caption = GetResourceString("TablesValuesAddButton", 2)
-    EditButton.Caption = GetResourceString("TablesValuesEditButton", 2)
-    QuitButton.Caption = GetResourceString("TablesValuesQuitButton", 2)
+    AddButton.Caption = GetResourceString("TablesView.AddButton", 2)
+    EditButton.Caption = GetResourceString("TablesView.EditButton", 2)
+    QuitButton.Caption = GetResourceString("TablesView.QuitButton", 2)
 
-    AddButton.ControlTipText = GetResourceString("TablesValuesAddButton", 3)
-    EditButton.ControlTipText = GetResourceString("TablesValuesEditButton", 3)
-    QuitButton.ControlTipText = GetResourceString("TablesValuesQuitButton", 3)
+    AddButton.ControlTipText = GetResourceString("TablesView.AddButton", 3)
+    EditButton.ControlTipText = GetResourceString("TablesView.EditButton", 3)
+    QuitButton.ControlTipText = GetResourceString("TablesView.QuitButton", 3)
     
 End Sub
 
@@ -111,6 +125,7 @@ End Sub
 Private Sub OnCancel()
     this.isCancelled = True
     Me.Hide
+    Application.Visible = True
 End Sub
 
 Private Sub TablesValuesList_ItemClick(ByVal Item As MSComctlLib.ListItem)
@@ -133,11 +148,11 @@ Private Sub IView_Show(ByVal ViewModel As Object)
     'Not implemented
 End Sub
 
-Private Function IView_ShowDialog(Optional ByVal workSheetName As String) As Boolean
+Private Function IView_ShowDialog() As Boolean
 
-    Localize GetResourceString("TablesValuesTitel", 2)
+    InitializeDisplayLanguage
     InitializeLayouts
-    InitializeAccountsList workSheetName
+    InitializeAccountsList this.ViewModel.DataSourceTable
 
     Me.width = GetSystemMetrics32(0) * PointsPerPixel * 0.6 'UF Width in Resolution * DPI * 60%
     Me.height = GetSystemMetrics32(1) * PointsPerPixel * 0.4 'UF Height in Resolution * DPI * 40%
@@ -148,18 +163,12 @@ Private Function IView_ShowDialog(Optional ByVal workSheetName As String) As Boo
     
     Me.AddButton.SetFocus
     
+    Application.Visible = False
+    
     Me.Show vbModal
     IView_ShowDialog = Not this.isCancelled
     
 End Function
-
-Private Sub IView_MinimumWidth(ByVal width As Single)
-    this.width = width
-End Sub
-
-Private Sub IView_MinimumHeight(ByVal height As Single)
-    this.height = height
-End Sub
 
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
     If CloseMode = VbQueryClose.vbFormControlMenu Then
@@ -173,8 +182,8 @@ Private Sub UserForm_Resize()
     On Error Resume Next
     Application.ScreenUpdating = False
     
-    If Me.width < this.width Then Me.width = this.width
-    If Me.height < this.height Then Me.height = this.height
+    If Me.width < ViewModel.ModelWidth Then Me.width = ViewModel.ModelWidth
+    If Me.height < ViewModel.ModelHeight Then Me.height = ViewModel.ModelHeight
     
     Dim Layout As ControlLayout
     For Each Layout In this.layoutBindings
@@ -193,11 +202,10 @@ End Sub
 
 Private Sub AddButton_Click()
     OnCancel
-    AddValues.Add
+    
 End Sub
 
 Private Sub EditButton_Click()
     OnCancel
-    AddValues.Add
+    
 End Sub
-
