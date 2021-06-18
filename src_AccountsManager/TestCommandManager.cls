@@ -22,7 +22,7 @@ Private Sub Class_Initialize()
     Set This.Stub = New TestStubBase
 End Sub
 
-Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByVal Target As Object, ByVal Command As ICommand) As ICommandBinding
+Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByVal Target As Object, ByVal command As ICommand) As ICommandBinding
     This.Stub.OnInvoke "BindCommand"
 End Function
 

@@ -16,9 +16,7 @@ Option Explicit
 Implements INotifyPropertyChanged
 
 Private Type TViewModel
-    'INotifyPropertyChanged state:
     Notifier As INotifyPropertyChanged
-    Validation As IValidationManager
     
     LanguageIDUI As Long
     Instructions As String
@@ -199,7 +197,6 @@ End Sub
 
 Private Sub Class_Initialize()
     Set This.Notifier = New PropertyChangeNotifierBase
-'    Set This.Validation = ValidationManager.Create()
 
     This.AccountGroup = GetRowSourceList("AccountGroup", "AccountGroupDescription", "RowSource")
     

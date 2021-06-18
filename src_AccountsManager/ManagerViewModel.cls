@@ -20,10 +20,12 @@ Option Explicit
     
     Titel As String
     Instructions As String
+    
     FilterCaption As String
     AddButtonCaption As String
     EditButtonCaption As String
     QuitButtonCaption As String
+    
     FilterControlTipText As String
     AddControlTipText As String
     EditControlTipText As String
@@ -36,6 +38,8 @@ Option Explicit
     SourceTable As String
     
     AddCommand As ICommand
+    EditCommand As ICommand
+    QuitCommand As ICommand
 
 End Type
 
@@ -169,6 +173,30 @@ Public Property Let FilterValue(ByVal value As String)
         This.FilterValue = value
         OnPropertyChanged "FilterValue"
     End If
+End Property
+
+Public Property Get AddCommand() As ICommand
+    Set AddCommand = This.AddCommand
+End Property
+
+Public Property Set AddCommand(ByVal command As ICommand)
+    Set This.AddCommand = command
+End Property
+
+Public Property Get EditCommand() As ICommand
+    Set EditCommand = This.EditCommand
+End Property
+
+Public Property Set EditCommand(ByVal command As ICommand)
+    Set This.EditCommand = command
+End Property
+
+Public Property Get QuitCommand() As ICommand
+    Set QuitCommand = This.QuitCommand
+End Property
+
+Public Property Set QuitCommand(ByVal command As ICommand)
+    Set This.QuitCommand = command
 End Property
 
 Public Function Create() As ManagerViewModel

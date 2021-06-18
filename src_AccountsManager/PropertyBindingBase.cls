@@ -273,18 +273,18 @@ Public Sub ApplyToTarget()
     Dim SourceValue As Variant
     Dim UseFallbackDefault As Boolean
     
-    If This.Source.Object Is Nothing Then
+    If This.Source.object Is Nothing Then
         UseFallbackDefault = TryGetDefaultBindingValue(outValue:=SourceValue)
     End If
     
     This.Source.Resolve
     
-    If This.Source.Object Is Nothing And Not UseFallbackDefault Then
+    If This.Source.object Is Nothing And Not UseFallbackDefault Then
         DebugMessage "ApplyToTarget aborted: source object in path '" & This.Source.path & "' is Nothing and there is no fallback default value for this binding."
         This.Applying = False
         Exit Sub
         
-    ElseIf This.Source.Object Is Nothing Then
+    ElseIf This.Source.object Is Nothing Then
         DebugMessage "ApplyToTarget: source object in path '" & This.Source.path & "' is Nothing; binding target property '" & This.Target.PropertyName & "' to default/fallback value."
         
     Else
@@ -428,10 +428,10 @@ Private Function InsertKeypress(ByVal InitialValue As String, ByVal Char As Stri
     On Error Resume Next
     
     Dim SelectionStart As Long
-    SelectionStart = This.Target.Object.SelStart
+    SelectionStart = This.Target.object.SelStart
     
     Dim SelectionLength As Long
-    SelectionLength = This.Target.Object.SelLength
+    SelectionLength = This.Target.object.SelLength
     
     On Error GoTo 0
     
@@ -465,7 +465,7 @@ Private Function InsertKeypress(ByVal InitialValue As String, ByVal Char As Stri
 End Function
 
 Private Function IsValid() As Boolean
-    IsValid = This.Context.Validation.IsValid(This.Source.Object, This.Source.PropertyName)
+    IsValid = This.Context.Validation.IsValid(This.Source.object, This.Source.PropertyName)
 End Function
 
 Private Sub ClearValidationErrors()
@@ -789,7 +789,7 @@ End Sub
 
 Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
     'IHandlePropertyChanged -> INotifyPropertyChanged: source is the ViewModel, so we're propagating to Target here:
-    If Not This.Applying And Source Is This.Source.Object And PropertyName = This.Source.PropertyName Then
+    If Not This.Applying And Source Is This.Source.object And PropertyName = This.Source.PropertyName Then
         ApplyToTarget
     End If
 End Sub

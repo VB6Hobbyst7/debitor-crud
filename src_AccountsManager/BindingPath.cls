@@ -18,7 +18,7 @@ Private Type TState
     Context As Object
     path As String
     
-    Object As Object
+    object As Object
     PropertyName As String
 End Type
 
@@ -67,9 +67,9 @@ Public Property Let path(ByVal RHS As String)
 End Property
 
 '@Description "Gets the bound object reference."
-Public Property Get Object() As Object
-Attribute Object.VB_Description = "Gets the bound object reference."
-    Set Object = This.Object
+Public Property Get object() As Object
+Attribute object.VB_Description = "Gets the bound object reference."
+    Set object = This.object
 End Property
 
 '@Description "Gets the name of the bound property."
@@ -82,7 +82,7 @@ End Property
 Public Sub Resolve()
 Attribute Resolve.VB_Description = "Resolves the Path to a bound object and property."
     This.PropertyName = ResolvePropertyName(This.path)
-    Set This.Object = ResolvePropertyPath(This.Context, This.path)
+    Set This.object = ResolvePropertyPath(This.Context, This.path)
 End Sub
 
 Private Function ResolvePropertyName(ByVal PropertyPath As String) As String
@@ -115,7 +115,7 @@ Private Property Get IBindingPath_Path() As String
 End Property
 
 Private Property Get IBindingPath_Object() As Object
-    Set IBindingPath_Object = This.Object
+    Set IBindingPath_Object = This.object
 End Property
 
 Private Property Get IBindingPath_PropertyName() As String
@@ -123,7 +123,7 @@ Private Property Get IBindingPath_PropertyName() As String
 End Property
 
 Private Sub IBindingPath_Resolve()
-    Set This.Object = ResolvePropertyPath(This.Context, This.path)
+    Set This.object = ResolvePropertyPath(This.Context, This.path)
 End Sub
 
 Private Function IBindingPath_ToString() As String
@@ -133,17 +133,17 @@ Private Function IBindingPath_ToString() As String
 End Function
 
 Private Function IBindingPath_TryReadPropertyValue(ByRef outValue As Variant) As Boolean
-    If This.Object Is Nothing Then Resolve
+    If This.object Is Nothing Then Resolve
     On Error Resume Next
-    outValue = VBA.Interaction.CallByName(This.Object, This.PropertyName, VbGet)
+    outValue = VBA.Interaction.CallByName(This.object, This.PropertyName, VbGet)
     IBindingPath_TryReadPropertyValue = (Err.number = 0)
     On Error GoTo 0
 End Function
 
 Private Function IBindingPath_TryWritePropertyValue(ByVal value As Variant) As Boolean
-    If This.Object Is Nothing Then Resolve
+    If This.object Is Nothing Then Resolve
     On Error Resume Next
-    VBA.Interaction.CallByName This.Object, This.PropertyName, VbLet, value
+    VBA.Interaction.CallByName This.object, This.PropertyName, VbLet, value
     IBindingPath_TryWritePropertyValue = (Err.number = 0)
     On Error GoTo 0
 End Function

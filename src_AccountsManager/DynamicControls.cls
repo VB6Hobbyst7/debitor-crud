@@ -117,7 +117,7 @@ Private Function IDynamicControlBuilder_ComboBoxFor(ByVal SourceValue As IBindin
     
 End Function
 
-Private Function IDynamicControlBuilder_CommandButtonFor(ByVal Command As ICommand, ByVal BindingContext As Object, ByVal SourceCaption As Variant) As MSForms.CommandButton
+Private Function IDynamicControlBuilder_CommandButtonFor(ByVal command As ICommand, ByVal BindingContext As Object, ByVal SourceCaption As Variant) As MSForms.CommandButton
     
     Dim result As MSForms.CommandButton
     Set result = This.Container.add(FormsProgID.CommandButtonProgId)
@@ -125,14 +125,14 @@ Private Function IDynamicControlBuilder_CommandButtonFor(ByVal Command As IComma
     Dim Button As MSForms.Control
     Set Button = result
     
-    If TypeOf Command Is CancelCommand Then
+    If TypeOf command Is CancelCommand Then
         Button.Cancel = True
-    ElseIf TypeOf Command Is AcceptCommand Then
+    ElseIf TypeOf command Is AcceptCommand Then
         Button.Default = True
     End If
     
     BindCaptionSource SourceCaption, result
-    This.Context.Commands.BindCommand BindingContext, result, Command
+    This.Context.Commands.BindCommand BindingContext, result, command
     
     Set IDynamicControlBuilder_CommandButtonFor = result
     

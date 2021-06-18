@@ -59,10 +59,10 @@ Private Sub Class_Initialize()
     Set This.CommandBindings = New Collection
 End Sub
 
-Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByVal Target As Object, ByVal Command As ICommand) As ICommandBinding
+Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByVal Target As Object, ByVal command As ICommand) As ICommandBinding
     GuardClauses.GuardNullReference BindingContext, TypeName(Me)
     GuardClauses.GuardNullReference Target, TypeName(Me)
-    GuardClauses.GuardNullReference Command, TypeName(Me)
+    GuardClauses.GuardNullReference command, TypeName(Me)
     'GuardClauses.GuardDefaultInstance Me, CommandManager
     
     Dim Binding As ICommandBinding
@@ -70,16 +70,16 @@ Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByV
     Select Case True
     
         Case TypeOf Target Is MSForms.CommandButton
-            Set Binding = CommandBinding.ForCommandButton(Target, Command, BindingContext)
+            Set Binding = CommandBinding.ForCommandButton(Target, command, BindingContext)
             
         Case TypeOf Target Is MSForms.Image
-            Set Binding = CommandBinding.ForImage(Target, Command, BindingContext)
+            Set Binding = CommandBinding.ForImage(Target, command, BindingContext)
             
         Case TypeOf Target Is MSForms.Label
-            Set Binding = CommandBinding.ForLabel(Target, Command, BindingContext)
+            Set Binding = CommandBinding.ForLabel(Target, command, BindingContext)
             
         Case TypeOf Target Is MSForms.CheckBox
-            Set Binding = CommandBinding.ForCheckBox(Target, Command, BindingContext)
+            Set Binding = CommandBinding.ForCheckBox(Target, command, BindingContext)
             
         Case Else
             GuardClauses.GuardExpression True, TypeName(BindingContext), "Target type '" & TypeName(Target) & "' does not currently support command bindings."
@@ -89,7 +89,7 @@ Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByV
     This.CommandBindings.add Binding
     Set ICommandManager_BindCommand = Binding
     
-    DebugMessage "Created CommandBinding for " & TypeName(Command) & "."
+    DebugMessage "Created CommandBinding for " & TypeName(command) & "."
     
 End Function
 

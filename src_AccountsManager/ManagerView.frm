@@ -62,7 +62,7 @@ End Property
 
 '@Description "Gets/sets the AccountsManager application context."
 Public Property Get Context() As IAppContext
-Attribute Context.VB_Description = "Gets/sets the DAManager application context."
+Attribute Context.VB_Description = "Gets/sets the AccountsManager application context."
     Set Context = This.Context
 End Property
 
@@ -127,11 +127,11 @@ Private Sub BindViewModelProperties()
 End Sub
 
 Private Sub BindViewModelCommands()
-'    With Context.Commands
-'        .BindCommand ViewModel, Me.ApplyButton, ApplyConfigCommand.Create(Me, This.Context.Validation)
+    With Context.Commands
+        .BindCommand ViewModel, Me.AddButton, AddCommand.Create(Me, This.Context)
 '        .BindCommand ViewModel, Me.CancelButton, CancelCommand.Create(Me)
-'
-'    End With
+
+    End With
 End Sub
 
 Private Sub InitializeLayouts()
@@ -149,7 +149,7 @@ End Sub
 
 Private Sub InitializeBindings()
     BindViewModelProperties
-'    BindViewModelCommands
+    BindViewModelCommands
     This.Context.Bindings.Apply ViewModel
 End Sub
 

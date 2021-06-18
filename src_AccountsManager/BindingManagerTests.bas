@@ -32,7 +32,7 @@ Private Type TState
     SourcePropertyPath As String
     TargetPropertyPath As String
     
-    Command As TestCommand
+    command As TestCommand
     
 End Type
 
@@ -63,7 +63,7 @@ Private Sub TestInitialize()
     Set Test.HandlePropertyChangedSUT = Test.ConcreteSUT
     Set Test.BindingSource = New TestBindingObject
     Set Test.BindingTarget = New TestBindingObject
-    Set Test.Command = New TestCommand
+    Set Test.command = New TestCommand
     Test.SourcePropertyPath = "TestStringProperty"
     Test.TargetPropertyPath = "TestStringProperty"
     Test.SourceProperty = "TestStringProperty"
@@ -77,7 +77,7 @@ Private Sub TestCleanup()
     Set Test.HandlePropertyChangedSUT = Nothing
     Set Test.BindingSource = Nothing
     Set Test.BindingTarget = Nothing
-    Set Test.Command = Nothing
+    Set Test.command = Nothing
     Test.SourcePropertyPath = vbNullString
     Test.TargetPropertyPath = vbNullString
     Test.ExpectedErrNumber = 0

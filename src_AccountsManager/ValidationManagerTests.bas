@@ -29,7 +29,7 @@ Private Type TState
     
     SourcePropertyPath As String
     TargetPropertyPath As String
-    Command As TestCommand
+    command As TestCommand
     
 End Type
 
@@ -67,7 +67,7 @@ Private Sub TestInitialize()
     Set Test.BindingSourceStub = Test.BindingSource
     Set Test.BindingTarget = TestBindingObject.Create(Test.ConcreteSUT)
     Set Test.BindingTargetStub = Test.BindingTarget
-    Set Test.Command = New TestCommand
+    Set Test.command = New TestCommand
     Set Test.CommandManager = New TestCommandManager
     Set Test.CommandManagerStub = Test.CommandManager
     Set Test.Validator = New TestValueValidator
@@ -86,7 +86,7 @@ Private Sub TestCleanup()
     Set Test.HandleValidationErrorSUT = Nothing
     Set Test.BindingSource = Nothing
     Set Test.BindingTarget = Nothing
-    Set Test.Command = Nothing
+    Set Test.command = Nothing
     Set Test.Validator = Nothing
     Set Test.BindingManager = Nothing
     Set Test.BindingManagerStub = Nothing

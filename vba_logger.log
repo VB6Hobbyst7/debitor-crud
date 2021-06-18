@@ -1,0 +1,3 @@
+Logging with logLevel=ALL: ToConsole=True ToBuffer=True ToLogFile=True
+(18.06.2021 15:50:43)-INFO:  ***Starting Logger***
+(18.06.2021 15:50:47)-INFO:  Manager cancelled.

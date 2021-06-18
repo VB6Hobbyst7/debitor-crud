@@ -19,7 +19,7 @@ Option Explicit
 Private Type TCommandBinding
     ViewModel As Object
     Target As Object
-    Command As ICommand
+    command As ICommand
 End Type
 
 '@MemberAttribute VB_VarHelpID, -1
@@ -38,35 +38,35 @@ Attribute LabelEvents.VB_VarHelpID = -1
 Private This As TCommandBinding
 
 '@Description "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified MSForms.CommandButton target."
-Public Function ForCommandButton(ByVal Target As MSForms.CommandButton, ByVal Command As ICommand, ByVal ViewModel As Object) As ICommandBinding
+Public Function ForCommandButton(ByVal Target As MSForms.CommandButton, ByVal command As ICommand, ByVal ViewModel As Object) As ICommandBinding
 Attribute ForCommandButton.VB_Description = "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified MSForms.CommandButton target."
     GuardClauses.GuardNonDefaultInstance Me, CommandBinding
-    Set ForCommandButton = Create(Target, Command, ViewModel)
+    Set ForCommandButton = Create(Target, command, ViewModel)
 End Function
 
 '@Description "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified MSForms.CheckBox target."
-Public Function ForCheckBox(ByVal Target As MSForms.CheckBox, ByVal Command As ICommand, ByVal ViewModel As Object) As ICommandBinding
+Public Function ForCheckBox(ByVal Target As MSForms.CheckBox, ByVal command As ICommand, ByVal ViewModel As Object) As ICommandBinding
 Attribute ForCheckBox.VB_Description = "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified MSForms.CheckBox target."
     GuardClauses.GuardNonDefaultInstance Me, CommandBinding
-    Set ForCheckBox = Create(Target, Command, ViewModel)
+    Set ForCheckBox = Create(Target, command, ViewModel)
 End Function
 
 '@Description "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified MSForms.Image target."
-Public Function ForImage(ByVal Target As MSForms.Image, ByVal Command As ICommand, ByVal ViewModel As Object) As ICommandBinding
+Public Function ForImage(ByVal Target As MSForms.Image, ByVal command As ICommand, ByVal ViewModel As Object) As ICommandBinding
 Attribute ForImage.VB_Description = "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified MSForms.Image target."
     GuardClauses.GuardNonDefaultInstance Me, CommandBinding
-    Set ForImage = Create(Target, Command, ViewModel)
+    Set ForImage = Create(Target, command, ViewModel)
 End Function
 
 '@Description "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified MSForms.Label target."
-Public Function ForLabel(ByVal Target As MSForms.Label, ByVal Command As ICommand, ByVal ViewModel As Object) As ICommandBinding
+Public Function ForLabel(ByVal Target As MSForms.Label, ByVal command As ICommand, ByVal ViewModel As Object) As ICommandBinding
 Attribute ForLabel.VB_Description = "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified MSForms.Label target."
     GuardClauses.GuardNonDefaultInstance Me, CommandBinding
-    Set ForLabel = Create(Target, Command, ViewModel)
+    Set ForLabel = Create(Target, command, ViewModel)
 End Function
 
 '@Description "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified Target."
-Public Function Create(ByVal Target As Object, ByVal Command As ICommand, ByVal ViewModel As Object) As ICommandBinding
+Public Function Create(ByVal Target As Object, ByVal command As ICommand, ByVal ViewModel As Object) As ICommandBinding
 Attribute Create.VB_Description = "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified Target."
     GuardClauses.GuardNonDefaultInstance Me, CommandBinding
     
@@ -75,7 +75,7 @@ Attribute Create.VB_Description = "Creates and returns an ICommandBinding implem
     
     Set result.ViewModel = ViewModel
     Set result.Target = Target
-    Set result.Command = Command
+    Set result.command = command
     
     Set Create = result
     
@@ -120,14 +120,14 @@ Public Property Set Target(ByVal RHS As Object)
     
 End Property
 
-Public Property Get Command() As ICommand
-    Set Command = This.Command
+Public Property Get command() As ICommand
+    Set command = This.command
 End Property
 
-Public Property Set Command(ByVal RHS As ICommand)
-    GuardClauses.GuardDoubleInitialization This.Command, TypeName(Me)
+Public Property Set command(ByVal RHS As ICommand)
+    GuardClauses.GuardDoubleInitialization This.command, TypeName(Me)
     GuardClauses.GuardNullReference RHS, TypeName(Me)
-    Set This.Command = RHS
+    Set This.command = RHS
 End Property
 
 Private Property Get AsInterface() As ICommandBinding
@@ -135,8 +135,8 @@ Private Property Get AsInterface() As ICommandBinding
 End Property
 
 Private Sub OnExecute()
-    If Not This.Command Is Nothing Then
-        This.Command.Execute This.ViewModel
+    If Not This.command Is Nothing Then
+        This.command.Execute This.ViewModel
     Else
         Debug.Print "BUG in " & TypeName(Me) & ": Command is 'Nothing', cannot execute."
         Debug.Assert False ' should not happen, break here if it does.
@@ -145,19 +145,19 @@ End Sub
 
 Private Sub EvaluateCanExecute(ByVal Source As Object)
     If This.Target Is Nothing Then Exit Sub
-    If This.Command Is Nothing Then
+    If This.command Is Nothing Then
         This.Target.Enabled = False
     Else
         On Error Resume Next
-        This.Target.Enabled = This.Command.CanExecute(Source)
+        This.Target.Enabled = This.command.CanExecute(Source)
         'a validation error formatter might have taken over the tooltip?
-        This.Target.ControlTipText = IIf(This.Target.ControlTipText = vbNullString, This.Command.Description, This.Target.ControlTipText)
+        This.Target.ControlTipText = IIf(This.Target.ControlTipText = vbNullString, This.command.Description, This.Target.ControlTipText)
         On Error GoTo 0
     End If
 End Sub
 
 Public Function ToString() As String
-    ToString = TypeName(This.Target) & " -> " & TypeName(This.Command)
+    ToString = TypeName(This.Target) & " -> " & TypeName(This.command)
 End Function
 
 Private Property Get ICommandBinding_Target() As Object
@@ -165,7 +165,7 @@ Private Property Get ICommandBinding_Target() As Object
 End Property
 
 Private Property Get ICommandBinding_Command() As ICommand
-    Set ICommandBinding_Command = This.Command
+    Set ICommandBinding_Command = This.command
 End Property
 
 Private Sub ICommandBinding_EvaluateCanExecute(ByVal Context As Object)
@@ -183,7 +183,7 @@ Private Sub CommandButtonEvents_Click()
 End Sub
 
 Private Sub IDisposable_Dispose()
-    Set This.Command = Nothing
+    Set This.command = Nothing
     Set This.Target = Nothing
     Set This.ViewModel = Nothing
 End Sub

@@ -30,8 +30,8 @@ Optional ByVal OrderByExpression As String = vbNullString) As ADODB.Recordset
     Set dataBase = New ADODB.Connection
     Set dataBase = CreateAdoConnection(workBookConnectionString, adUseClient)
     
-    Dim adoCommand As ADODB.Command
-    Set adoCommand = New ADODB.Command
+    Dim adoCommand As ADODB.command
+    Set adoCommand = New ADODB.command
     With adoCommand
     Set .ActiveConnection = dataBase
         .CommandText = queryString

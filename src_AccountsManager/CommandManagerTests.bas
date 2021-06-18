@@ -20,7 +20,7 @@ Private Type TState
     AbstractSUT As ICommandManager
     
     BindingContext As TestBindingObject
-    Command As TestCommand
+    command As TestCommand
     
 End Type
 
@@ -47,7 +47,7 @@ Private Sub TestInitialize()
     Set Test.ConcreteSUT = New CommandManager
     Set Test.AbstractSUT = Test.ConcreteSUT
     Set Test.BindingContext = New TestBindingObject
-    Set Test.Command = New TestCommand
+    Set Test.command = New TestCommand
 End Sub
 
 '@TestCleanup
@@ -55,7 +55,7 @@ Private Sub TestCleanup()
     Set Test.ConcreteSUT = Nothing
     Set Test.AbstractSUT = Nothing
     Set Test.BindingContext = Nothing
-    Set Test.Command = Nothing
+    Set Test.command = Nothing
 End Sub
 
 Private Sub ExpectError()
@@ -78,14 +78,14 @@ End Sub
 
 Private Function DefaultTargetCommandBindingFor(ByVal ProgID As String, ByRef outTarget As Object) As ICommandBinding
     Set outTarget = CreateObject(ProgID)
-    Set DefaultTargetCommandBindingFor = Test.AbstractSUT.BindCommand(Test.BindingContext, outTarget, Test.Command)
+    Set DefaultTargetCommandBindingFor = Test.AbstractSUT.BindCommand(Test.BindingContext, outTarget, Test.command)
 End Function
 
 '@TestMethod("DefaultCommandTargetBindings")
 Private Sub BindCommand_BindsCommandButton()
     Dim Target As Object
     With DefaultTargetCommandBindingFor(FormsProgID.CommandButtonProgId, outTarget:=Target)
-        Assert.AreSame Test.Command, .Command
+        Assert.AreSame Test.command, .command
         Assert.AreSame Target, .Target
     End With
 End Sub
@@ -94,7 +94,7 @@ End Sub
 Private Sub BindCommand_BindsCheckBox()
     Dim Target As Object
     With DefaultTargetCommandBindingFor(FormsProgID.CheckBoxProgId, outTarget:=Target)
-        Assert.AreSame Test.Command, .Command
+        Assert.AreSame Test.command, .command
         Assert.AreSame Target, .Target
     End With
 End Sub
@@ -103,7 +103,7 @@ End Sub
 Private Sub BindCommand_BindsImage()
     Dim Target As Object
     With DefaultTargetCommandBindingFor(FormsProgID.ImageProgId, outTarget:=Target)
-        Assert.AreSame Test.Command, .Command
+        Assert.AreSame Test.command, .command
         Assert.AreSame Target, .Target
     End With
 End Sub
@@ -112,7 +112,7 @@ End Sub
 Private Sub BindCommand_BindsLabel()
     Dim Target As Object
     With DefaultTargetCommandBindingFor(FormsProgID.LabelProgId, outTarget:=Target)
-        Assert.AreSame Test.Command, .Command
+        Assert.AreSame Test.command, .command
         Assert.AreSame Target, .Target
     End With
 End Sub

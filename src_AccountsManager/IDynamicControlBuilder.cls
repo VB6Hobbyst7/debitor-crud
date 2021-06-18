@@ -50,6 +50,6 @@ Attribute CheckBoxFor.VB_Description = "Creates a MSForms.CheckBoxButton control
 End Function
 
 '@Description "Creates a MSForms.CommandButton control for the specified ICommand, using the specified ViewModel context and Caption string or String property binding path."
-Public Function CommandButtonFor(ByVal Command As ICommand, ByVal BindingContext As Object, ByVal SourceCaption As Variant) As MSForms.CommandButton
+Public Function CommandButtonFor(ByVal command As ICommand, ByVal BindingContext As Object, ByVal SourceCaption As Variant) As MSForms.CommandButton
 Attribute CommandButtonFor.VB_Description = "Creates a MSForms.CommandButton control for the specified ICommand, using the specified ViewModel context and Caption string or String property binding path."
 End Function

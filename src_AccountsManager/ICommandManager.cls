@@ -15,7 +15,7 @@ Attribute VB_Description = "Represents an object responsible for managing comman
 Option Explicit
 
 '@Description "Binds the specified command to user interaction with the specified target UI element (e.g. a MSForms.CommandButton control)."
-Public Function BindCommand(ByVal BindingContext As Object, ByVal Target As Object, ByVal Command As ICommand) As ICommandBinding
+Public Function BindCommand(ByVal BindingContext As Object, ByVal Target As Object, ByVal command As ICommand) As ICommandBinding
 Attribute BindCommand.VB_Description = "Binds the specified command to user interaction with the specified target UI element (e.g. a MSForms.CommandButton control)."
 End Function
 

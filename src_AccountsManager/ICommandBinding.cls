@@ -20,8 +20,8 @@ Attribute Target.VB_Description = "Gets the event source object bound to the com
 End Property
 
 '@Description "Gets the command bound to the event source."
-Public Property Get Command() As ICommand
-Attribute Command.VB_Description = "Gets the command bound to the event source."
+Public Property Get command() As ICommand
+Attribute command.VB_Description = "Gets the command bound to the event source."
 End Property
 
 '@Description "Evaluates whether the command can execute given the binding context."

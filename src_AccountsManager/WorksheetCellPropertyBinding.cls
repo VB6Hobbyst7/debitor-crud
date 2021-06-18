@@ -64,7 +64,7 @@ Public Sub InjectBindingInfo(ByVal BindingInfo As PropertyBindingBase)
     GuardClauses.GuardDoubleInitialization This.Handler, TypeName(Me)
     Set This.Base = BindingInfo
     Set This.Handler = BindingInfo
-    Set TargetEventSource = BindingInfo.Target.Object.Parent
+    Set TargetEventSource = BindingInfo.Target.object.Parent
 End Sub
 
 Private Property Get IsDefaultInstance() As Boolean

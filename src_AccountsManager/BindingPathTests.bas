@@ -179,10 +179,10 @@ Private Sub Resolve_SetsBindingSource()
         .path = Test.path
         Set .Context = Test.BindingContext
         
-        If Not .Object Is Nothing Then Assert.Inconclusive "Object reference is unexpectedly set."
+        If Not .object Is Nothing Then Assert.Inconclusive "Object reference is unexpectedly set."
         .Resolve
         
-        Assert.AreSame Test.BindingSource, .Object
+        Assert.AreSame Test.BindingSource, .object
     End With
 End Sub
 
@@ -210,5 +210,5 @@ End Sub
 Private Sub Create_ResolvesBindingSource()
     Dim SUT As BindingPath
     Set SUT = BindingPath.Create(Test.BindingContext, Test.path)
-    Assert.IsNotNothing SUT.Object
+    Assert.IsNotNothing SUT.object
 End Sub
