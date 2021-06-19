@@ -1,6 +1,6 @@
 # debitor-crud
 
-## Customers Data Manager embedded in Excel Application
+## Accounts Manager embedded in Excel Application
 
 This Project is for my learning purposes, committed to refactor the procedural code to object oriented paradigm.
 
