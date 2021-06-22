@@ -20,7 +20,7 @@ Private Type TState
     TargetFormatter As IValidationErrorFormatter
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Function Create(ByVal Target As Excel.Range, ByVal Formatter As IValidationErrorFormatter) As IDynamicAdorner
     Dim result As WorksheetValidationAdorner
@@ -31,28 +31,28 @@ Public Function Create(ByVal Target As Excel.Range, ByVal Formatter As IValidati
 End Function
 
 Friend Property Get Formatter() As IValidationErrorFormatter
-    Set Formatter = This.TargetFormatter
+    Set Formatter = this.TargetFormatter
 End Property
 
 Friend Property Set Formatter(ByVal RHS As IValidationErrorFormatter)
-    Set This.TargetFormatter = RHS
+    Set this.TargetFormatter = RHS
 End Property
 
 Friend Property Get Target() As Excel.Range
-    Set Target = This.Target
+    Set Target = this.Target
 End Property
 
 Friend Property Set Target(ByVal RHS As Excel.Range)
     GuardClauses.GuardDefaultInstance Me, WorksheetValidationAdorner
-    GuardClauses.GuardDoubleInitialization This.Target, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Target, TypeName(Me)
     GuardClauses.GuardNullReference RHS
-    Set This.Target = RHS
+    Set this.Target = RHS
 End Property
 
 Private Sub IDynamicAdorner_Hide()
-    This.TargetFormatter.Restore This.Target
+    this.TargetFormatter.Restore this.Target
 End Sub
 
 Private Sub IDynamicAdorner_Show(ByVal Message As String)
-    This.TargetFormatter.Apply This.Target, Message
+    this.TargetFormatter.Apply this.Target, Message
 End Sub

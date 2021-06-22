@@ -21,7 +21,7 @@ Private Type TState
     IsValid As Boolean
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Function Create(Optional ByVal ErrorAdornerFactory As IDynamicAdornerFactory) As ValidationManager
     Dim result As ValidationManager
@@ -47,14 +47,14 @@ Private Sub InitAdornerFactory(ByVal Manager As ValidationManager, ByVal Adorner
 End Sub
 
 Public Property Get ErrorAdornerFactory() As IDynamicAdornerFactory
-    Set ErrorAdornerFactory = This.ErrorAdornerFactory
+    Set ErrorAdornerFactory = this.ErrorAdornerFactory
 End Property
 
 Friend Property Set ErrorAdornerFactory(ByVal RHS As IDynamicAdornerFactory)
     GuardClauses.GuardDefaultInstance Me, ValidationManager
     GuardClauses.GuardNullReference RHS, TypeName(ValidationManager)
-    GuardClauses.GuardDoubleInitialization This.ErrorAdornerFactory, TypeName(Me)
-    Set This.ErrorAdornerFactory = RHS
+    GuardClauses.GuardDoubleInitialization this.ErrorAdornerFactory, TypeName(Me)
+    Set this.ErrorAdornerFactory = RHS
 End Property
 
 Public Property Get IsValid(ByVal BindingContext As Object, Optional ByVal PropertyName As String) As Boolean
@@ -64,10 +64,10 @@ Public Property Get IsValid(ByVal BindingContext As Object, Optional ByVal Prope
     result = True
     
     Dim Key As Variant
-    For Each Key In This.ValidationErrors.Keys
+    For Each Key In this.ValidationErrors.Keys
         
         Dim Errors As ValidationErrors
-        Set Errors = This.ValidationErrors.Item(Key)
+        Set Errors = this.ValidationErrors.Item(Key)
         
         If BindingContext Is Errors.BindingContext Or Errors.BindingContext Is Nothing Then
             
@@ -93,10 +93,10 @@ End Property
 Public Property Get ValidationError(ByVal BindingPath As IBindingPath) As IValidationError
     Dim ContextKey As String
     ContextKey = CStr(ObjPtr(BindingPath.Context))
-    If Not This.ValidationErrors.Exists(ContextKey) Then Exit Property
+    If Not this.ValidationErrors.Exists(ContextKey) Then Exit Property
     
     Dim Errors As ValidationErrors
-    Set Errors = This.ValidationErrors(ContextKey)
+    Set Errors = this.ValidationErrors(ContextKey)
     
     'ValidationErrors.Item getter returns Nothing if there's no error for the given property:
     Set ValidationError = Errors.Item(BindingPath.PropertyName)
@@ -105,10 +105,10 @@ End Property
 Private Sub ClearValidationErrors(ByVal BindingPath As IBindingPath)
     Dim ContextKey As String
     ContextKey = CStr(ObjPtr(BindingPath.Context))
-    If Not This.ValidationErrors.Exists(ContextKey) Then Exit Sub
+    If Not this.ValidationErrors.Exists(ContextKey) Then Exit Sub
     
     Dim Errors As ValidationErrors
-    Set Errors = This.ValidationErrors(ContextKey)
+    Set Errors = this.ValidationErrors(ContextKey)
     Errors.Remove BindingPath.PropertyName
 End Sub
 
@@ -117,27 +117,27 @@ Private Sub OnValidationError(ByVal Context As Object, ByVal ValidationError As 
     ContextKey = CStr(ObjPtr(ValidationError.Binding.Source.Context))
     
     Dim Errors As ValidationErrors
-    If This.ValidationErrors.Exists(ContextKey) Then
-        Set Errors = This.ValidationErrors.Item(ContextKey)
+    If this.ValidationErrors.Exists(ContextKey) Then
+        Set Errors = this.ValidationErrors.Item(ContextKey)
     Else
         Set Errors = ValidationErrors.Create(Context)
     End If
     
     Errors.add ValidationError
-    Set This.ValidationErrors.Item(ContextKey) = Errors
+    Set this.ValidationErrors.Item(ContextKey) = Errors
 End Sub
 
 Private Sub Class_Initialize()
-    Set This.ValidationErrors = New Dictionary
-    This.IsValid = True
+    Set this.ValidationErrors = New Dictionary
+    this.IsValid = True
 End Sub
 
 Private Sub Class_Terminate()
-    Set This.ValidationErrors = Nothing
+    Set this.ValidationErrors = Nothing
 End Sub
 
 Private Property Get IValidationManager_AdornerFactory() As IDynamicAdornerFactory
-    Set IValidationManager_AdornerFactory = This.ErrorAdornerFactory
+    Set IValidationManager_AdornerFactory = this.ErrorAdornerFactory
 End Property
 
 Private Sub IValidationManager_ClearValidationError(ByVal BindingPath As IBindingPath)

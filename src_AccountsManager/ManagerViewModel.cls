@@ -43,160 +43,160 @@ Option Explicit
 
 End Type
 
-Private This As TValuesModel
+Private this As TValuesModel
 
 Public Property Get Titel() As String
-    Titel = This.Titel
+    Titel = this.Titel
 End Property
 
 Public Property Let Titel(ByVal text As String)
-    This.Titel = text
+    this.Titel = text
 End Property
 
 Public Property Get Instructions() As String
-    Instructions = This.Instructions
+    Instructions = this.Instructions
 End Property
 
 Public Property Let Instructions(ByVal text As String)
-    If This.Instructions <> text Then
-        This.Instructions = text
+    If this.Instructions <> text Then
+        this.Instructions = text
         OnPropertyChanged "Instructions"
     End If
 End Property
 
 Public Property Get FilterCaption() As String
-    FilterCaption = This.FilterCaption
+    FilterCaption = this.FilterCaption
 End Property
 
 Public Property Let FilterCaption(ByVal text As String)
-    This.FilterCaption = text
+    this.FilterCaption = text
 End Property
 
 Public Property Get AddButtonCaption() As String
-    AddButtonCaption = This.AddButtonCaption
+    AddButtonCaption = this.AddButtonCaption
 End Property
 
 Public Property Let AddButtonCaption(ByVal text As String)
-    This.AddButtonCaption = text
+    this.AddButtonCaption = text
 End Property
 
 Public Property Get EditButtonCaption() As String
-    EditButtonCaption = This.EditButtonCaption
+    EditButtonCaption = this.EditButtonCaption
 End Property
 
 Public Property Let EditButtonCaption(ByVal text As String)
-    This.EditButtonCaption = text
+    this.EditButtonCaption = text
 End Property
 
 Public Property Get QuitButtonCaption() As String
-    QuitButtonCaption = This.QuitButtonCaption
+    QuitButtonCaption = this.QuitButtonCaption
 End Property
 
 Public Property Let QuitButtonCaption(ByVal text As String)
-    This.QuitButtonCaption = text
+    this.QuitButtonCaption = text
 End Property
 
 Public Property Get FilterControlTipText() As String
-    FilterControlTipText = This.FilterControlTipText
+    FilterControlTipText = this.FilterControlTipText
 End Property
 
 Public Property Let FilterControlTipText(ByVal text As String)
-    This.FilterControlTipText = text
+    this.FilterControlTipText = text
 End Property
 
 Public Property Get AddControlTipText() As String
-    AddControlTipText = This.AddControlTipText
+    AddControlTipText = this.AddControlTipText
 End Property
 
 Public Property Let AddControlTipText(ByVal text As String)
-    This.AddControlTipText = text
+    this.AddControlTipText = text
 End Property
 
 Public Property Get EditControlTipText() As String
-    EditControlTipText = This.EditControlTipText
+    EditControlTipText = this.EditControlTipText
 End Property
 
 Public Property Let EditControlTipText(ByVal text As String)
-    This.EditControlTipText = text
+    this.EditControlTipText = text
 End Property
 
 Public Property Get QuitControlTipText() As String
-    QuitControlTipText = This.QuitControlTipText
+    QuitControlTipText = this.QuitControlTipText
 End Property
 
 Public Property Let QuitControlTipText(ByVal text As String)
-    This.QuitControlTipText = text
+    this.QuitControlTipText = text
 End Property
 
 Public Property Get SourceTable() As String
-    SourceTable = This.SourceTable
+    SourceTable = this.SourceTable
 End Property
 
 Public Property Let SourceTable(ByVal table As String)
-    If This.SourceTable <> table Then
-        This.SourceTable = table
+    If this.SourceTable <> table Then
+        this.SourceTable = table
         OnPropertyChanged "SourceTable"
     End If
 End Property
 
 Public Property Get ModelWidth() As Double
-    ModelWidth = This.ModelWidth
+    ModelWidth = this.ModelWidth
 End Property
 
-Public Property Let ModelWidth(ByVal value As Double)
-    This.ModelWidth = value
+Public Property Let ModelWidth(ByVal Value As Double)
+    this.ModelWidth = Value
 End Property
 
 Public Property Get ModelHeight() As Double
-    ModelHeight = This.ModelHeight
+    ModelHeight = this.ModelHeight
 End Property
 
-Public Property Let ModelHeight(ByVal value As Double)
-    This.ModelHeight = value
+Public Property Let ModelHeight(ByVal Value As Double)
+    this.ModelHeight = Value
 End Property
 
 Public Property Get Filter() As Variant
-    Filter = This.Filter
+    Filter = this.Filter
 End Property
 
 Public Property Let Filter(ByVal list As Variant)
-    This.Filter = list
+    this.Filter = list
     OnPropertyChanged "Filter"
 End Property
 
 Public Property Get FilterValue() As String
-    FilterValue = This.FilterValue
+    FilterValue = this.FilterValue
 End Property
 
-Public Property Let FilterValue(ByVal value As String)
-    If This.FilterValue <> value Then
-        This.FilterValue = value
+Public Property Let FilterValue(ByVal Value As String)
+    If this.FilterValue <> Value Then
+        this.FilterValue = Value
         OnPropertyChanged "FilterValue"
     End If
 End Property
 
 Public Property Get AddCommand() As ICommand
-    Set AddCommand = This.AddCommand
+    Set AddCommand = this.AddCommand
 End Property
 
 Public Property Set AddCommand(ByVal command As ICommand)
-    Set This.AddCommand = command
+    Set this.AddCommand = command
 End Property
 
 Public Property Get EditCommand() As ICommand
-    Set EditCommand = This.EditCommand
+    Set EditCommand = this.EditCommand
 End Property
 
 Public Property Set EditCommand(ByVal command As ICommand)
-    Set This.EditCommand = command
+    Set this.EditCommand = command
 End Property
 
 Public Property Get QuitCommand() As ICommand
-    Set QuitCommand = This.QuitCommand
+    Set QuitCommand = this.QuitCommand
 End Property
 
 Public Property Set QuitCommand(ByVal command As ICommand)
-    Set This.QuitCommand = command
+    Set this.QuitCommand = command
 End Property
 
 Public Function Create() As ManagerViewModel
@@ -210,18 +210,18 @@ Public Function Create() As ManagerViewModel
 End Function
 
 Private Sub OnPropertyChanged(ByVal PropertyName As String)
-    This.Notifier.OnPropertyChanged Me, PropertyName
+    this.Notifier.OnPropertyChanged Me, PropertyName
 End Sub
 
 Private Sub Class_Initialize()
-    Set This.Notifier = New PropertyChangeNotifierBase
+    Set this.Notifier = New PropertyChangeNotifierBase
     
 End Sub
 
 Private Sub INotifyPropertyChanged_OnPropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
-    This.Notifier.OnPropertyChanged Source, PropertyName
+    this.Notifier.OnPropertyChanged Source, PropertyName
 End Sub
 
 Private Sub INotifyPropertyChanged_RegisterHandler(ByVal Handler As IHandlePropertyChanged)
-    This.Notifier.RegisterHandler Handler
+    this.Notifier.RegisterHandler Handler
 End Sub

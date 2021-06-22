@@ -30,7 +30,7 @@ Private Type TView
 
 End Type
 
-Private This As TView
+Private this As TView
 
 '@Description "A factory method to create new instances of this View, already wired-up to a ViewModel."
 Public Function Create(ByVal Context As IAppContext, ByVal ViewModel As ManagerViewModel) As IView
@@ -51,31 +51,31 @@ End Function
 '@Description "Gets/sets the ViewModelManager to use as a context for property and command bindings."
 Public Property Get ViewModel() As ManagerViewModel
 Attribute ViewModel.VB_Description = "Gets/sets the ViewModelManager to use as a context for property and command bindings."
-    Set ViewModel = This.ViewModel
+    Set ViewModel = this.ViewModel
 End Property
 
 Public Property Set ViewModel(ByVal model As ManagerViewModel)
     GuardClauses.GuardDefaultInstance Me, ManagerView, TypeName(Me)
     GuardClauses.GuardNullReference model
-    Set This.ViewModel = model
+    Set this.ViewModel = model
 End Property
 
 '@Description "Gets/sets the AccountsManager application context."
 Public Property Get Context() As IAppContext
 Attribute Context.VB_Description = "Gets/sets the AccountsManager application context."
-    Set Context = This.Context
+    Set Context = this.Context
 End Property
 
 Public Property Set Context(ByVal app As IAppContext)
     GuardClauses.GuardDefaultInstance Me, ManagerView, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.Context, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Context, TypeName(Me)
     GuardClauses.GuardNullReference app
-    Set This.Context = app
+    Set this.Context = app
 End Property
 
 Private Sub BindViewModelLayouts()
 
-    Set This.LayoutBindings = New list
+    Set this.LayoutBindings = New list
 
     Dim BackgroundFrameLayout As New ControlLayout
     BackgroundFrameLayout.Bind Me, ManagerFrame, AnchorAll
@@ -101,7 +101,7 @@ Private Sub BindViewModelLayouts()
     Dim EditButtonLayout As New ControlLayout
     EditButtonLayout.Bind Me, EditButton, BottomAnchor + RightAnchor
     
-    This.LayoutBindings.add BackgroundFrameLayout, _
+    this.LayoutBindings.add BackgroundFrameLayout, _
                             InstructionsLayout, _
                             Logo, _
                             ListViewLayout, _
@@ -128,7 +128,7 @@ End Sub
 
 Private Sub BindViewModelCommands()
     With Context.Commands
-        .BindCommand ViewModel, Me.AddButton, AddCommand.Create(Me, This.Context)
+        .BindCommand ViewModel, Me.AddButton, AddCommand.Create(Me, this.Context)
 '        .BindCommand ViewModel, Me.CancelButton, CancelCommand.Create(Me)
 
     End With
@@ -150,7 +150,7 @@ End Sub
 Private Sub InitializeBindings()
     BindViewModelProperties
     BindViewModelCommands
-    This.Context.Bindings.Apply ViewModel
+    this.Context.Bindings.Apply ViewModel
 End Sub
 
 Private Sub InitializeView()
@@ -159,7 +159,7 @@ Private Sub InitializeView()
     
     InitializeBindings
     InitializeLayouts
-    InitializeAccountsList This.ViewModel.SourceTable
+    InitializeAccountsList this.ViewModel.SourceTable
 
     Me.Width = GetSystemMetrics32(0) * PointsPerPixel * 0.6 'UF Width in Resolution * DPI * 60%
     Me.Height = GetSystemMetrics32(1) * PointsPerPixel * 0.4 'UF Height in Resolution * DPI * 40%
@@ -183,7 +183,7 @@ Private Sub TablesValuesList_ColumnClick(ByVal ColumnHeader As MSComctlLib.Colum
 End Sub
 
 Private Sub OnCancel()
-    This.IsCancelled = True
+    this.IsCancelled = True
     Me.Hide
 End Sub
 
@@ -192,7 +192,7 @@ Private Sub TablesValuesList_ItemClick(ByVal Item As MSComctlLib.ListItem)
 End Sub
 
 Private Property Get ICancellable_IsCancelled() As Boolean
-    ICancellable_IsCancelled = This.IsCancelled
+    ICancellable_IsCancelled = this.IsCancelled
 End Property
 
 Private Sub ICancellable_OnCancel()
@@ -211,11 +211,11 @@ End Sub
 Private Function IView_ShowDialog() As Boolean
     InitializeView
     Me.Show vbModal
-    IView_ShowDialog = Not This.IsCancelled
+    IView_ShowDialog = Not this.IsCancelled
 End Function
 
 Private Property Get IView_ViewModel() As Object
-    Set IView_ViewModel = This.ViewModel
+    Set IView_ViewModel = this.ViewModel
 End Property
 
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
@@ -234,7 +234,7 @@ Private Sub UserForm_Resize()
     If Me.Height < ViewModel.ModelHeight Then Me.Height = ViewModel.ModelHeight
     
     Dim Layout As ControlLayout
-    For Each Layout In This.LayoutBindings
+    For Each Layout In this.LayoutBindings
         Layout.Resize Me
     Next
 

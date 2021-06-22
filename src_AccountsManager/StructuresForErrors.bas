@@ -1,5 +1,5 @@
 Attribute VB_Name = "StructuresForErrors"
-'@Folder("AccountsManager.CustomErrors")
+'@Folder "AccountsManager.CustomErrors"
 Option Explicit
 Option Private Module
 
@@ -52,7 +52,8 @@ Public Sub RethrowOnError()
 Attribute RethrowOnError.VB_Description = "Re-raises the current error, if there is one."
     With VBA.Err
         If .number <> 0 Then
-            Debug.Print "Error " & .number, .Description
+            Logging.logINFO "Error " & " " & .number & " " & .Description
+'            Debug.Print "Error " & .number, .Description
             .Raise .number
         End If
     End With

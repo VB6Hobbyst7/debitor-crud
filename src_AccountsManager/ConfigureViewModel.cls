@@ -40,7 +40,7 @@ Private Type TViewModel
     TimeStampCreated As Date
 End Type
 
-Private This As TViewModel
+Private this As TViewModel
 
 Public Function Create() As ConfigureViewModel
     GuardClauses.GuardNonDefaultInstance Me, ConfigureViewModel, TypeName(Me)
@@ -52,26 +52,26 @@ Public Function Create() As ConfigureViewModel
 End Function
 
 Public Property Get LanguageIDUI() As String
-    LanguageIDUI = This.LanguageIDUI
+    LanguageIDUI = this.LanguageIDUI
 End Property
 
-Public Property Let LanguageIDUI(ByVal value As String)
-    This.LanguageIDUI = value
+Public Property Let LanguageIDUI(ByVal Value As String)
+    this.LanguageIDUI = Value
 End Property
 
 Public Property Get Instructions() As String
-    Instructions = This.Instructions
+    Instructions = this.Instructions
 End Property
 
 Public Property Let Instructions(ByVal text As String)
-    If This.Instructions <> text Then
-        This.Instructions = text
+    If this.Instructions <> text Then
+        this.Instructions = text
         OnPropertyChanged "Instructions"
     End If
 End Property
 
 Public Property Get AccountGroup() As Variant
-    AccountGroup = This.AccountGroup
+    AccountGroup = this.AccountGroup
 End Property
 
 'Public Property Let AccountGroup(ByVal varArray As Variant)
@@ -80,18 +80,18 @@ End Property
 'End Property
 
 Public Property Get AccountGroupValue() As String
-    AccountGroupValue = This.AccountGroupValue
+    AccountGroupValue = this.AccountGroupValue
 End Property
 
-Public Property Let AccountGroupValue(ByVal value As String)
-    If This.AccountGroupValue <> value Then
-        This.AccountGroupValue = value
+Public Property Let AccountGroupValue(ByVal Value As String)
+    If this.AccountGroupValue <> Value Then
+        this.AccountGroupValue = Value
         OnPropertyChanged "AccountGroupValue"
     End If
 End Property
 
 Public Property Get SalesOrganization() As Variant
-    SalesOrganization = This.SalesOrganization
+    SalesOrganization = this.SalesOrganization
 End Property
 
 'Public Property Let SalesOrganization(ByVal varArray As Variant)
@@ -100,117 +100,117 @@ End Property
 'End Property
 
 Public Property Get SalesOrganizationValue() As String
-    SalesOrganizationValue = This.SalesOrganizationValue
+    SalesOrganizationValue = this.SalesOrganizationValue
 End Property
 
-Public Property Let SalesOrganizationValue(ByVal value As String)
-    If This.SalesOrganizationValue <> value Then
-        This.SalesOrganizationValue = value
+Public Property Let SalesOrganizationValue(ByVal Value As String)
+    If this.SalesOrganizationValue <> Value Then
+        this.SalesOrganizationValue = Value
         OnPropertyChanged "SalesOrganizationValue"
         ChannelValue = vbNullString
         NewCustomer = False
         Reactivate = False
-        FilterChannelsToOrganisations value
+        FilterChannelsToOrganisations Value
     End If
 End Property
 
 Public Property Get Channel() As Variant
-    Channel = This.Channel
+    Channel = this.Channel
 End Property
 
 Public Property Let Channel(ByVal varArray As Variant)
-    This.Channel = varArray
+    this.Channel = varArray
     OnPropertyChanged "Channel"
 End Property
 
 Public Property Get ChannelValue() As String
-    ChannelValue = This.ChannelValue
+    ChannelValue = this.ChannelValue
 End Property
 
-Public Property Let ChannelValue(ByVal value As String)
-    If This.ChannelValue <> value Then
-        This.ChannelValue = value
+Public Property Let ChannelValue(ByVal Value As String)
+    If this.ChannelValue <> Value Then
+        this.ChannelValue = Value
         OnPropertyChanged "ChannelValue"
     End If
 End Property
 
 Public Property Get NewCustomer() As Boolean
-    NewCustomer = This.NewCustomer
+    NewCustomer = this.NewCustomer
 End Property
 
 Public Property Let NewCustomer(ByVal opt As Boolean)
-    If This.NewCustomer <> opt Then
-        This.NewCustomer = opt
+    If this.NewCustomer <> opt Then
+        this.NewCustomer = opt
         OnPropertyChanged "NewCustomer"
     End If
 End Property
 
 Public Property Get Reactivate() As Boolean
-    Reactivate = This.Reactivate
+    Reactivate = this.Reactivate
 End Property
 
 Public Property Let Reactivate(ByVal opt As Boolean)
-    If This.Reactivate <> opt Then
-        This.Reactivate = opt
+    If this.Reactivate <> opt Then
+        this.Reactivate = opt
         OnPropertyChanged "Reactivate"
     End If
 End Property
 
 Public Property Get AccountID() As Long
-    AccountID = This.AccountID
+    AccountID = this.AccountID
 End Property
 
 Public Property Let AccountID(ByVal Id As Long)
-    If This.AccountID <> Id Then
-        This.AccountID = Id
+    If this.AccountID <> Id Then
+        this.AccountID = Id
         OnPropertyChanged "AccountID"
     End If
 End Property
 
 Public Property Get UserCreated() As String
-    UserCreated = This.UserCreated
+    UserCreated = this.UserCreated
 End Property
 
 Public Property Let UserCreated(ByVal user As String)
-    This.UserCreated = user
+    this.UserCreated = user
 End Property
 
 Public Property Get TimeStampCreated() As Date
-    TimeStampCreated = This.TimeStampCreated
+    TimeStampCreated = this.TimeStampCreated
 End Property
 
 Public Property Let TimeStampCreated(ByVal timeStamp As Date)
-    This.TimeStampCreated = timeStamp
+    this.TimeStampCreated = timeStamp
 End Property
 
 Public Property Get ApplyCommand() As ICommand
-    Set ApplyCommand = This.ApplyCommand
+    Set ApplyCommand = this.ApplyCommand
 End Property
 
 Public Property Set ApplyCommand(ByVal setObject As ICommand)
-    Set This.ApplyCommand = setObject
+    Set this.ApplyCommand = setObject
 End Property
 
 Private Sub OnPropertyChanged(ByVal PropertyName As String)
-    This.Notifier.OnPropertyChanged Me, PropertyName
+    this.Notifier.OnPropertyChanged Me, PropertyName
 End Sub
 
 Private Sub Class_Initialize()
-    Set This.Notifier = New PropertyChangeNotifierBase
+    Set this.Notifier = New PropertyChangeNotifierBase
 
-    This.AccountGroup = GetRowSourceList("AccountGroup", "AccountGroupDescription", "RowSource")
+    this.AccountGroup = GetRowSourceList("AccountGroup", "AccountGroupDescription", "RowSource")
     
-    This.SalesOrganization = GetRowSourceList("SalesOrganization", "SalesOrganizationDescription", "RowSource")
-    This.Channel = Array()
+    this.SalesOrganization = GetRowSourceList("SalesOrganization", "SalesOrganizationDescription", "RowSource")
+    this.Channel = Array()
         
 End Sub
 
 Private Sub INotifyPropertyChanged_OnPropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
-    This.Notifier.OnPropertyChanged Source, PropertyName
+    this.Notifier.OnPropertyChanged Source, PropertyName
 End Sub
 
 Private Sub INotifyPropertyChanged_RegisterHandler(ByVal Handler As IHandlePropertyChanged)
-    This.Notifier.RegisterHandler Handler
+    this.Notifier.RegisterHandler Handler
 End Sub
 
 Private Sub FilterChannelsToOrganisations(ByVal salesOrg As String)

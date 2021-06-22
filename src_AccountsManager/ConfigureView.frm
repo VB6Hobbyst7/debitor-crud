@@ -30,7 +30,7 @@ Private Type TView
     IsCancelled As Boolean
 End Type
 
-Private This As TView
+Private this As TView
 
 '@Description "A factory method to create new instances of this View, already wired-up to a ViewModel."
 Public Function Create(ByVal Context As IAppContext, ByVal ViewModel As ConfigureViewModel) As IView
@@ -54,26 +54,26 @@ End Property
 '@Description "Gets/sets the MaintainCustomers application context."
 Public Property Get Context() As IAppContext
 Attribute Context.VB_Description = "Gets/sets the MaintainCustomers application context."
-    Set Context = This.Context
+    Set Context = this.Context
 End Property
 
 Public Property Set Context(ByVal RHS As IAppContext)
     GuardClauses.GuardDefaultInstance Me, ConfigureView, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.Context, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Context, TypeName(Me)
     GuardClauses.GuardNullReference RHS
-    Set This.Context = RHS
+    Set this.Context = RHS
 End Property
 
 '@Description "Gets/sets the ViewModelManager to use as a context for property and command bindings."
 Public Property Get ViewModel() As ConfigureViewModel
 Attribute ViewModel.VB_Description = "Gets/sets the ViewModelManager to use as a context for property and command bindings."
-    Set ViewModel = This.ViewModel
+    Set ViewModel = this.ViewModel
 End Property
 
 Public Property Set ViewModel(ByVal model As ConfigureViewModel)
     GuardClauses.GuardDefaultInstance Me, ConfigureView, TypeName(Me)
     GuardClauses.GuardNullReference model
-    Set This.ViewModel = model
+    Set this.ViewModel = model
 End Property
 
 Private Sub InitializeBindings()
@@ -82,7 +82,7 @@ Private Sub InitializeBindings()
     BindViewModelCommands
     BindViewModelProperties
     
-    This.Context.Bindings.Apply ViewModel
+    this.Context.Bindings.Apply ViewModel
 End Sub
 
 Private Sub BindViewModelProperties()
@@ -151,12 +151,12 @@ Private Sub Localize(ByVal title As String)
 End Sub
 
 Private Sub OnCancel()
-    This.IsCancelled = True
+    this.IsCancelled = True
     Me.Hide
 End Sub
 
 Private Property Get ICancellable_IsCancelled() As Boolean
-    ICancellable_IsCancelled = This.IsCancelled
+    ICancellable_IsCancelled = this.IsCancelled
 End Property
 
 Private Sub ICancellable_OnCancel()
@@ -183,12 +183,12 @@ Private Function IView_ShowDialog() As Boolean
 '    This.ViewModel.ChannelValue = " "
         
     Me.Show vbModal
-    IView_ShowDialog = Not This.IsCancelled
+    IView_ShowDialog = Not this.IsCancelled
 
 End Function
 
 Private Property Get IView_ViewModel() As Object
-    Set IView_ViewModel = This.ViewModel
+    Set IView_ViewModel = this.ViewModel
 End Property
 
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)

@@ -89,7 +89,7 @@ Public Function GetRowSourceList(ByVal resourceName As String, ByVal resourceDes
             Set ArrayName = rowSourceSheet.Range(lookupRange.End(xlDown), lookupRange.End(xlUp).Offset(1))
             
             Dim resultName As Variant
-            resultName = ArrayName.value
+            resultName = ArrayName.Value
         End If
         
         If lookup = resourceDescription Then
@@ -97,7 +97,7 @@ Public Function GetRowSourceList(ByVal resourceName As String, ByVal resourceDes
             Set ArrayDescription = rowSourceSheet.Range(lookupRange.End(xlDown), lookupRange.End(xlUp).Offset(1))
             
             Dim resultDescription As Variant
-            resultDescription = ArrayDescription.value
+            resultDescription = ArrayDescription.Value
         End If
         
         If (Not ArrayName Is Nothing) And (Not ArrayDescription Is Nothing) Then

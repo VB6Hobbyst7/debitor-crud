@@ -32,7 +32,7 @@ Private Type TView
     
 End Type
 
-Private This As TView
+Private this As TView
 
 '@Description "A factory method to create new instances of this View, already wired-up to a ViewModel."
 Public Function Create(ByVal Context As IAppContext, ByVal ViewModel As ExampleViewModel) As IView
@@ -58,31 +58,31 @@ End Property
 '@Description "Gets/sets the ViewModel to use as a context for property and command bindings."
 Public Property Get ViewModel() As ExampleViewModel
 Attribute ViewModel.VB_Description = "Gets/sets the ViewModel to use as a context for property and command bindings."
-    Set ViewModel = This.ViewModel
+    Set ViewModel = this.ViewModel
 End Property
 
 Public Property Set ViewModel(ByVal RHS As ExampleViewModel)
     GuardClauses.GuardDefaultInstance Me, ExampleView, TypeName(Me)
     GuardClauses.GuardNullReference RHS
-    Set This.ViewModel = RHS
+    Set this.ViewModel = RHS
 End Property
 
 '@Description "Gets/sets the MVVM application context."
 Public Property Get Context() As IAppContext
 Attribute Context.VB_Description = "Gets/sets the MVVM application context."
-    Set Context = This.Context
+    Set Context = this.Context
 End Property
 
 Public Property Set Context(ByVal RHS As IAppContext)
     GuardClauses.GuardDefaultInstance Me, ExampleView, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.Context, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Context, TypeName(Me)
     GuardClauses.GuardNullReference RHS
-    Set This.Context = RHS
+    Set this.Context = RHS
 End Property
 
 Private Sub BindViewModelCommands()
     With Context.Commands
-        .BindCommand ViewModel, Me.OkButton, AcceptCommand.Create(Me, This.Context.Validation)
+        .BindCommand ViewModel, Me.OkButton, AcceptCommand.Create(Me, this.Context.Validation)
         .BindCommand ViewModel, Me.CancelButton, CancelCommand.Create(Me)
         .BindCommand ViewModel, Me.BrowseButton, ViewModel.SomeCommand
         '...
@@ -158,16 +158,16 @@ Private Sub InitializeBindings()
     If ViewModel Is Nothing Then Exit Sub
     BindViewModelProperties
     BindViewModelCommands
-    This.Context.Bindings.Apply ViewModel
+    this.Context.Bindings.Apply ViewModel
 End Sub
 
 Private Sub OnCancel()
-    This.IsCancelled = True
+    this.IsCancelled = True
     Me.Hide
 End Sub
 
 Private Property Get ICancellable_IsCancelled() As Boolean
-    ICancellable_IsCancelled = This.IsCancelled
+    ICancellable_IsCancelled = this.IsCancelled
 End Property
 
 Private Sub ICancellable_OnCancel()
@@ -186,11 +186,11 @@ End Sub
 Private Function IView_ShowDialog() As Boolean
     InitializeBindings
     Me.Show vbModal
-    IView_ShowDialog = Not This.IsCancelled
+    IView_ShowDialog = Not this.IsCancelled
 End Function
 
 Private Property Get IView_ViewModel() As Object
-    Set IView_ViewModel = This.ViewModel
+    Set IView_ViewModel = this.ViewModel
 End Property
 
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)

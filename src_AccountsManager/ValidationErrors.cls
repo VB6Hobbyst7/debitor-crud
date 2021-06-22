@@ -18,7 +18,7 @@ Private Type TState
     BindingContext As Object
     ValidationErrors As Collection
 End Type
-Private This As TState
+Private this As TState
 
 '@Description "Creates a new collection of IValidationError objects for the specified binding context (ViewModel)."
 Public Function Create(ByVal BindingContext As Object)
@@ -32,11 +32,11 @@ End Function
 '@Description "Gets/sets the binding context (ViewModel) for this instance."
 Public Property Get BindingContext() As Object
 Attribute BindingContext.VB_Description = "Gets/sets the binding context (ViewModel) for this instance."
-    Set BindingContext = This.BindingContext
+    Set BindingContext = this.BindingContext
 End Property
 
 Friend Property Set BindingContext(ByVal RHS As Object)
-    Set This.BindingContext = RHS
+    Set this.BindingContext = RHS
 End Property
 
 '@DefaultMember
@@ -49,7 +49,7 @@ Attribute Item.VB_UserMemId = 0
 'actually, this trick needs some explanations for other to understand how come this works
     Dim result As IValidationError
     On Error Resume Next
-    Set result = This.ValidationErrors.Item(PropertyName)
+    Set result = this.ValidationErrors.Item(PropertyName)
     On Error GoTo 0 'key not found: returns Nothing
     Set Item = result
 End Property
@@ -57,7 +57,7 @@ End Property
 '@Description "Gets the number of properties with a validation error in this binding context."
 Public Property Get Count() As Long
 Attribute Count.VB_Description = "Gets the number of properties with a validation error in this binding context."
-    Count = This.ValidationErrors.Count
+    Count = this.ValidationErrors.Count
 End Property
 
 '@Enumerator
@@ -73,7 +73,7 @@ Attribute NewEnum.VB_UserMemId = -4
 'regarding collections
 'http://dailydoseofexcel.com/archives/2010/07/04/custom-collection-class/
 'Attribute NewEnum.VB_MemberFlags = "40" 'for each/next in collection
-    Set NewEnum = This.ValidationErrors.[_NewEnum]
+    Set NewEnum = this.ValidationErrors.[_NewEnum]
 End Property
 
 '@Description "Adds (or replaces) a validation error."
@@ -84,7 +84,7 @@ Attribute add.VB_Description = "Adds (or replaces) a validation error."
     PropertyName = ValidationError.Binding.Source.PropertyName
     
     Remove PropertyName
-    This.ValidationErrors.add ValidationError, PropertyName
+    this.ValidationErrors.add ValidationError, PropertyName
     
 End Sub
 
@@ -94,15 +94,15 @@ Attribute Remove.VB_Description = "Removes validation error for the specified pr
     Dim Existing As IValidationError
     Set Existing = Item(PropertyName)
     If Not Existing Is Nothing Then
-        This.ValidationErrors.Remove PropertyName
+        this.ValidationErrors.Remove PropertyName
         Remove = True
     End If
 End Function
 
 Private Sub Class_Initialize()
-    Set This.ValidationErrors = New Collection
+    Set this.ValidationErrors = New Collection
 End Sub
 
 Private Sub Class_Terminate()
-    Set This.ValidationErrors = Nothing
+    Set this.ValidationErrors = Nothing
 End Sub

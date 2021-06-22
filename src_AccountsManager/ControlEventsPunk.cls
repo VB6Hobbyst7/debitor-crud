@@ -40,33 +40,33 @@ Private Type TState
     Handlers As Collection
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Gets/sets the target MSForms.Control reference."
 Public Property Get Target() As Object
 Attribute Target.VB_Description = "Gets/sets the target MSForms.Control reference."
-    Set Target = This.PunkTarget
+    Set Target = this.PunkTarget
 End Property
 
 Public Property Set Target(ByVal RHS As Object)
-    Set This.PunkTarget = RHS
+    Set this.PunkTarget = RHS
 End Property
 
 '@Description "Registers the listener."
 Public Function Connect() As Boolean
 Attribute Connect.VB_Description = "Registers the listener."
-    GuardClauses.GuardNullReference This.PunkTarget, TypeName(Me), "Target is not set."
-    ConnectToConnectionPoint Me, This.RefIID, True, This.PunkTarget, This.Cookie, 0&
-    This.Connected = This.Cookie <> 0
-    Connect = This.Connected
+    GuardClauses.GuardNullReference this.PunkTarget, TypeName(Me), "Target is not set."
+    ConnectToConnectionPoint Me, this.RefIID, True, this.PunkTarget, this.Cookie, 0&
+    this.Connected = this.Cookie <> 0
+    Connect = this.Connected
 End Function
 
 '@Description "De-registers the listener."
 Public Function Disconnect() As Boolean
 Attribute Disconnect.VB_Description = "De-registers the listener."
-    If Not This.Connected Then Exit Function
-    ConnectToConnectionPoint Me, This.RefIID, False, This.PunkTarget, This.Cookie, 0&
-    This.Connected = False
+    If Not this.Connected Then Exit Function
+    ConnectToConnectionPoint Me, this.RefIID, False, this.PunkTarget, this.Cookie, 0&
+    this.Connected = False
     Disconnect = True
 End Function
 
@@ -76,7 +76,7 @@ Public Sub OnAfterUpdate()
 Attribute OnAfterUpdate.VB_Description = "A callback that handles MSForms.Control.AfterUpdate events for the registered target control."
 Attribute OnAfterUpdate.VB_UserMemId = -2147384832
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandleAfterUpdate
     Next
 End Sub
@@ -87,13 +87,13 @@ Public Sub OnBeforeUpdate(ByVal Cancel As MSForms.IReturnBoolean)
 Attribute OnBeforeUpdate.VB_Description = "A callback that handles MSForms.Control.BeforeUpdate events for the registered target control."
 Attribute OnBeforeUpdate.VB_UserMemId = -2147384831
     Dim LocalCancel As Boolean
-    LocalCancel = Cancel.value
+    LocalCancel = Cancel.Value
     
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         
         Handler.HandleBeforeUpdate LocalCancel
-        Cancel.value = LocalCancel
+        Cancel.Value = LocalCancel
         If LocalCancel Then Exit For
     Next
 End Sub
@@ -104,12 +104,12 @@ Public Sub OnExit(ByVal Cancel As MSForms.IReturnBoolean)
 Attribute OnExit.VB_Description = "A callback that handles MSForms.Control.Exit events for the registered target control."
 Attribute OnExit.VB_UserMemId = -2147384829
     Dim LocalCancel As Boolean
-    LocalCancel = Cancel.value
+    LocalCancel = Cancel.Value
     
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandleExit LocalCancel
-        Cancel.value = LocalCancel
+        Cancel.Value = LocalCancel
         If LocalCancel Then Exit For
     Next
 End Sub
@@ -120,7 +120,7 @@ Public Sub OnEnter()
 Attribute OnEnter.VB_Description = "A callback that handles MSForms.Control.Enter events for the registered target control."
 Attribute OnEnter.VB_UserMemId = -2147384830
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandleEnter
     Next
 End Sub
@@ -129,7 +129,7 @@ End Sub
 Public Sub OnChange()
 Attribute OnChange.VB_Description = "A callback that handles MSForms.Control.Change events for the registered target control."
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandleChange
     Next
 End Sub
@@ -137,18 +137,18 @@ End Sub
 '@Description "Registers the specified object to handle the relayed control events."
 Public Sub RegisterHandler(ByVal Handler As IHandleControlEvents)
 Attribute RegisterHandler.VB_Description = "Registers the specified object to handle the relayed control events."
-    This.Handlers.add Handler
+    this.Handlers.add Handler
 End Sub
 
 Private Sub Class_Initialize()
-    Set This.Handlers = New Collection
-    This.RefIID.Data1 = &H20400
-    This.RefIID.Data4(0) = &HC0
-    This.RefIID.Data4(7) = &H46
+    Set this.Handlers = New Collection
+    this.RefIID.Data1 = &H20400
+    this.RefIID.Data4(0) = &HC0
+    this.RefIID.Data4(7) = &H46
 End Sub
 
 Private Sub Class_Terminate()
-    If This.Cookie <> 0 Then Disconnect
+    If this.Cookie <> 0 Then Disconnect
 End Sub
 
 Private Sub IControlEvents_OnAfterUpdate()

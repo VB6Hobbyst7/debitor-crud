@@ -6,8 +6,7 @@ Attribute VB_Name = "AddCommand"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
-Attribute VB_Exposed = False
-Attribute VB_Ext_KEY = "Rubberduck" ,"Predeclared Class Module"
+Attribute VB_Exposed = True
 '@Folder("AccountsManager.Common.Commands")
 '@PredeclaredId
 '@Exposed
@@ -19,10 +18,11 @@ Private Type TState
     Context As IAppContext
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Creates a new instance of this command."
 Public Function Create(ByVal View As IView, ByVal Context As IAppContext) As ICommand
+Attribute Create.VB_Description = "Creates a new instance of this command."
     Dim result As AddCommand
     Set result = New AddCommand
     Set result.View = View
@@ -31,21 +31,21 @@ Public Function Create(ByVal View As IView, ByVal Context As IAppContext) As ICo
 End Function
 
 Public Property Get View() As IView
-    Set View = This.View
+    Set View = this.View
 End Property
 
 Public Property Set View(ByVal object As IView)
-    GuardClauses.GuardDoubleInitialization This.View, TypeName(Me)
-    Set This.View = object
+    GuardClauses.GuardDoubleInitialization this.View, TypeName(Me)
+    Set this.View = object
 End Property
 
 Public Property Get Context() As IAppContext
-    Set Context = This.Context
+    Set Context = this.Context
 End Property
 
 Public Property Set Context(ByVal object As IAppContext)
-    GuardClauses.GuardDoubleInitialization This.Context, TypeName(Me)
-    Set This.Context = object
+    GuardClauses.GuardDoubleInitialization this.Context, TypeName(Me)
+    Set this.Context = object
 End Property
 
 Private Function ICommand_CanExecute(ByVal Context As Object) As Boolean
@@ -57,7 +57,7 @@ Private Property Get ICommand_Description() As String
 End Property
 
 Private Sub ICommand_Execute(ByVal Context As Object)
-    This.View.Hide
+    this.View.Hide
     InitiateConfigure
 End Sub
 
@@ -82,7 +82,7 @@ Private Sub InitiateConfigure()
     End With
 
     Dim View As IView
-    Set View = ConfigureView.Create(This.Context, ViewModel)
+    Set View = ConfigureView.Create(this.Context, ViewModel)
     
     If View.ShowDialog() Then
         Logging.logINFO "Configure Loaded"

@@ -35,7 +35,7 @@ Attribute ImageEvents.VB_VarHelpID = -1
 Private WithEvents LabelEvents As MSForms.Label
 Attribute LabelEvents.VB_VarHelpID = -1
 
-Private This As TCommandBinding
+Private this As TCommandBinding
 
 '@Description "Creates and returns an ICommandBinding implementation binding the specified ICommand to the specified MSForms.CommandButton target."
 Public Function ForCommandButton(ByVal Target As MSForms.CommandButton, ByVal command As ICommand, ByVal ViewModel As Object) As ICommandBinding
@@ -82,21 +82,21 @@ Attribute Create.VB_Description = "Creates and returns an ICommandBinding implem
 End Function
 
 Public Property Get ViewModel() As Object
-    Set ViewModel = This.ViewModel
+    Set ViewModel = this.ViewModel
 End Property
 
 Public Property Set ViewModel(ByVal RHS As Object)
-    Set This.ViewModel = RHS
+    Set this.ViewModel = RHS
 End Property
 
 Public Property Get Target() As Object
-    Set Target = This.Target
+    Set Target = this.Target
 End Property
 
 Public Property Set Target(ByVal RHS As Object)
     
-    GuardClauses.GuardDoubleInitialization This.Target, TypeName(Me)
-    Set This.Target = RHS
+    GuardClauses.GuardDoubleInitialization this.Target, TypeName(Me)
+    Set this.Target = RHS
     
     Select Case True
         Case TypeOf RHS Is MSForms.CommandButton
@@ -121,13 +121,13 @@ Public Property Set Target(ByVal RHS As Object)
 End Property
 
 Public Property Get command() As ICommand
-    Set command = This.command
+    Set command = this.command
 End Property
 
 Public Property Set command(ByVal RHS As ICommand)
-    GuardClauses.GuardDoubleInitialization This.command, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.command, TypeName(Me)
     GuardClauses.GuardNullReference RHS, TypeName(Me)
-    Set This.command = RHS
+    Set this.command = RHS
 End Property
 
 Private Property Get AsInterface() As ICommandBinding
@@ -135,37 +135,38 @@ Private Property Get AsInterface() As ICommandBinding
 End Property
 
 Private Sub OnExecute()
-    If Not This.command Is Nothing Then
-        This.command.Execute This.ViewModel
+    If Not this.command Is Nothing Then
+        this.command.Execute this.ViewModel
     Else
-        Debug.Print "BUG in " & TypeName(Me) & ": Command is 'Nothing', cannot execute."
+        Logging.logINFO "BUG in " & TypeName(Me) & ": Command is 'Nothing', cannot execute."
+'        Debug.Print "BUG in " & TypeName(Me) & ": Command is 'Nothing', cannot execute."
         Debug.Assert False ' should not happen, break here if it does.
     End If
 End Sub
 
 Private Sub EvaluateCanExecute(ByVal Source As Object)
-    If This.Target Is Nothing Then Exit Sub
-    If This.command Is Nothing Then
-        This.Target.Enabled = False
+    If this.Target Is Nothing Then Exit Sub
+    If this.command Is Nothing Then
+        this.Target.Enabled = False
     Else
         On Error Resume Next
-        This.Target.Enabled = This.command.CanExecute(Source)
+        this.Target.Enabled = this.command.CanExecute(Source)
         'a validation error formatter might have taken over the tooltip?
-        This.Target.ControlTipText = IIf(This.Target.ControlTipText = vbNullString, This.command.Description, This.Target.ControlTipText)
+        this.Target.ControlTipText = IIf(this.Target.ControlTipText = vbNullString, this.command.Description, this.Target.ControlTipText)
         On Error GoTo 0
     End If
 End Sub
 
 Public Function ToString() As String
-    ToString = TypeName(This.Target) & " -> " & TypeName(This.command)
+    ToString = TypeName(this.Target) & " -> " & TypeName(this.command)
 End Function
 
 Private Property Get ICommandBinding_Target() As Object
-    Set ICommandBinding_Target = This.Target
+    Set ICommandBinding_Target = this.Target
 End Property
 
 Private Property Get ICommandBinding_Command() As ICommand
-    Set ICommandBinding_Command = This.command
+    Set ICommandBinding_Command = this.command
 End Property
 
 Private Sub ICommandBinding_EvaluateCanExecute(ByVal Context As Object)
@@ -173,27 +174,27 @@ Private Sub ICommandBinding_EvaluateCanExecute(ByVal Context As Object)
 End Sub
 
 Private Sub CheckBoxEvents_Click()
-    GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.CheckBox, TypeName(Me)
+    GuardClauses.GuardExpression Not TypeOf this.Target Is MSForms.CheckBox, TypeName(Me)
     OnExecute
 End Sub
 
 Private Sub CommandButtonEvents_Click()
-    GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.CommandButton, TypeName(Me)
+    GuardClauses.GuardExpression Not TypeOf this.Target Is MSForms.CommandButton, TypeName(Me)
     OnExecute
 End Sub
 
 Private Sub IDisposable_Dispose()
-    Set This.command = Nothing
-    Set This.Target = Nothing
-    Set This.ViewModel = Nothing
+    Set this.command = Nothing
+    Set this.Target = Nothing
+    Set this.ViewModel = Nothing
 End Sub
 
 Private Sub ImageEvents_Click()
-    GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.Image, TypeName(Me)
+    GuardClauses.GuardExpression Not TypeOf this.Target Is MSForms.Image, TypeName(Me)
     OnExecute
 End Sub
 
 Private Sub LabelEvents_Click()
-    GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.Label, TypeName(Me)
+    GuardClauses.GuardExpression Not TypeOf this.Target Is MSForms.Label, TypeName(Me)
     OnExecute
 End Sub
