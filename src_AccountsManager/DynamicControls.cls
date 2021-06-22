@@ -20,7 +20,7 @@ Private Type TState
     Container As IContainerLayout
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Function Create(ByVal Context As IAppContext, ByVal Container As IContainerLayout) As IDynamicControlBuilder
     Dim result As DynamicControls
@@ -31,19 +31,19 @@ Public Function Create(ByVal Context As IAppContext, ByVal Container As IContain
 End Function
 
 Public Property Get Container() As IContainerLayout
-    Set Container = This.Container
+    Set Container = this.Container
 End Property
 
 Friend Property Set Container(ByVal RHS As IContainerLayout)
-    Set This.Container = RHS
+    Set this.Container = RHS
 End Property
 
 Public Property Get Context() As IAppContext
-    Set Context = This.Context
+    Set Context = this.Context
 End Property
 
 Friend Property Set Context(ByVal RHS As IAppContext)
-    Set This.Context = RHS
+    Set this.Context = RHS
 End Property
 
 Private Sub BindCaptionSource(ByVal Source As Variant, ByVal Target As Object, Optional ByVal FormatString As String, Optional ByVal Converter As IValueConverter)
@@ -54,7 +54,7 @@ Private Sub BindCaptionSource(ByVal Source As Variant, ByVal Target As Object, O
     ElseIf TypeOf Source Is IBindingPath Then
         Dim SourcePath As IBindingPath
         Set SourcePath = Source
-        This.Context.Bindings.BindPropertyPath SourcePath.Context, SourcePath.path, Target, _
+        this.Context.Bindings.BindPropertyPath SourcePath.Context, SourcePath.path, Target, _
             Converter:=Converter, _
             StringFormat:=FormatString
         
@@ -65,7 +65,7 @@ End Sub
 
 Private Function CreateLabel(ByVal SourceCaption As Variant, Optional ByVal FormatString As String, Optional ByVal Converter As IValueConverter, Optional ByVal ApplyMargin As Boolean = True) As MSForms.Label
     Dim result As MSForms.Label
-    Set result = This.Container.add(FormsProgID.LabelProgId, ApplyMargin:=ApplyMargin)
+    Set result = this.Container.add(FormsProgID.LabelProgId, ApplyMargin:=ApplyMargin)
     result.AutoSize = True
     result.WordWrap = False
     BindCaptionSource SourceCaption, result, FormatString, Converter
@@ -76,7 +76,7 @@ Private Function ErrorAdornerOrDefault(ByVal Validator As IValueValidator, ByVal
     Dim result As IDynamicAdorner
     If Not Validator Is Nothing Then
         If ErrorAdorner Is Nothing Then
-            Set result = This.Context.Validation.AdornerFactory.Create(Target)
+            Set result = this.Context.Validation.AdornerFactory.Create(Target)
         Else
             Set result = ErrorAdorner
         End If
@@ -87,10 +87,10 @@ End Function
 Private Function IDynamicControlBuilder_CheckBoxFor(ByVal SourceValue As IBindingPath, ByVal SourceCaption As Variant) As MSForms.CheckBox
     
     Dim result As MSForms.CheckBox
-    Set result = This.Container.add(FormsProgID.CheckBoxProgId)
+    Set result = this.Container.add(FormsProgID.CheckBoxProgId)
     
     BindCaptionSource SourceCaption, result
-    This.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result
+    this.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result
     
     Set IDynamicControlBuilder_CheckBoxFor = result
     
@@ -103,15 +103,15 @@ Private Function IDynamicControlBuilder_ComboBoxFor(ByVal SourceValue As IBindin
     End If
     
     Dim result As MSForms.ComboBox
-    Set result = This.Container.add(FormsProgID.ComboBoxProgId)
+    Set result = this.Container.add(FormsProgID.ComboBoxProgId)
         
-    This.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result, _
+    this.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result, _
         StringFormat:=FormatString, _
         Converter:=Converter, _
         Validator:=Validator, _
         ValidationAdorner:=ErrorAdornerOrDefault(Validator, ErrorAdorner, result)
 
-    This.Context.Bindings.BindPropertyPath SourceItems.Context, SourceItems.path, result
+    this.Context.Bindings.BindPropertyPath SourceItems.Context, SourceItems.path, result
     
     Set IDynamicControlBuilder_ComboBoxFor = result
     
@@ -120,7 +120,7 @@ End Function
 Private Function IDynamicControlBuilder_CommandButtonFor(ByVal command As ICommand, ByVal BindingContext As Object, ByVal SourceCaption As Variant) As MSForms.CommandButton
     
     Dim result As MSForms.CommandButton
-    Set result = This.Container.add(FormsProgID.CommandButtonProgId)
+    Set result = this.Container.add(FormsProgID.CommandButtonProgId)
     
     Dim Button As MSForms.Control
     Set Button = result
@@ -132,7 +132,7 @@ Private Function IDynamicControlBuilder_CommandButtonFor(ByVal command As IComma
     End If
     
     BindCaptionSource SourceCaption, result
-    This.Context.Commands.BindCommand BindingContext, result, command
+    this.Context.Commands.BindCommand BindingContext, result, command
     
     Set IDynamicControlBuilder_CommandButtonFor = result
     
@@ -149,10 +149,10 @@ Private Function IDynamicControlBuilder_ListBoxFor(ByVal SourceValue As IBinding
     End If
     
     Dim result As MSForms.ListBox
-    Set result = This.Container.add(FormsProgID.ListBoxProgId)
+    Set result = this.Container.add(FormsProgID.ListBoxProgId)
     
-    This.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result
-    This.Context.Bindings.BindPropertyPath SourceItems.Context, SourceItems.path, result
+    this.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result
+    this.Context.Bindings.BindPropertyPath SourceItems.Context, SourceItems.path, result
     
     Set IDynamicControlBuilder_ListBoxFor = result
     
@@ -161,10 +161,10 @@ End Function
 Private Function IDynamicControlBuilder_OptionButtonFor(ByVal SourceValue As IBindingPath, ByVal SourceCaption As Variant) As MSForms.OptionButton
     
     Dim result As MSForms.OptionButton
-    Set result = This.Container.add(FormsProgID.OptionButtonProgId)
+    Set result = this.Container.add(FormsProgID.OptionButtonProgId)
     
     BindCaptionSource SourceCaption, result
-    This.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result
+    this.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result
     
     Set IDynamicControlBuilder_OptionButtonFor = result
     
@@ -194,7 +194,7 @@ Private Function IDynamicControlBuilder_TextBoxFor(ByVal SourceValue As IBinding
     End If
     
     Dim result As MSForms.TextBox
-    Set result = This.Container.add(FormsProgID.TextBoxProgId)
+    Set result = this.Container.add(FormsProgID.TextBoxProgId)
     
     Dim Trigger As BindingUpdateSourceTrigger
 '    'VF: Logic error?: would always be zero and that means never // missing: if not validator is nothing then ??? trigger not picked up from validator
@@ -211,7 +211,7 @@ Private Function IDynamicControlBuilder_TextBoxFor(ByVal SourceValue As IBinding
     Trigger = Validator.Trigger
     
     
-    This.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result, _
+    this.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.path, result, _
         StringFormat:=FormatString, _
         Converter:=Converter, _
         Validator:=Validator, _

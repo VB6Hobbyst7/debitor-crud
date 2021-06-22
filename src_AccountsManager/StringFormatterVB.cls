@@ -20,7 +20,7 @@ Private Type TState
     FormatString As String
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Function Create(ByVal FormatString As String) As IStringFormatter
     Dim result As StringFormatterVB
@@ -30,12 +30,12 @@ Public Function Create(ByVal FormatString As String) As IStringFormatter
 End Function
 
 Public Property Get FormatString() As String
-    FormatString = This.FormatString
+    FormatString = this.FormatString
 End Property
 
 Friend Property Let FormatString(ByVal RHS As String)
     GuardClauses.GuardDefaultInstance Me, StringFormatterVB
-    This.FormatString = RHS
+    this.FormatString = RHS
 End Property
 
 Private Function IStringFormatter_Format(ParamArray Values() As Variant) As String
@@ -51,9 +51,9 @@ Private Function IStringFormatter_Format(ParamArray Values() As Variant) As Stri
         Next
     End If
     'NOTE: to myself ToDo: 'VF: try out formatting string array like this separately
-    IStringFormatter_Format = VBA.Strings.Format$(LocalArgs(LBound(LocalArgs)), This.FormatString)
+    IStringFormatter_Format = VBA.Strings.Format$(LocalArgs(LBound(LocalArgs)), this.FormatString)
 End Function
 
 Private Property Get IStringFormatter_FormatString() As String
-    IStringFormatter_FormatString = This.FormatString
+    IStringFormatter_FormatString = this.FormatString
 End Property

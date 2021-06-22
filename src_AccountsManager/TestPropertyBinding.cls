@@ -22,7 +22,7 @@ Private Type TState
     Handler As IHandlePropertyChanged
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Function Create(ByVal Context As IAppContext, ByVal Source As IBindingPath, ByVal Target As Object, _
 Optional ByVal TargetProperty As String = "Value", _
@@ -44,10 +44,10 @@ End Function
 Public Sub InjectBindingInfo(ByVal BindingInfo As PropertyBindingBase)
     GuardClauses.GuardDefaultInstance Me, TestPropertyBinding, TypeName(Me)
     GuardClauses.GuardNullReference BindingInfo, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.Base, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.Handler, TypeName(Me)
-    Set This.Base = BindingInfo
-    Set This.Handler = BindingInfo
+    GuardClauses.GuardDoubleInitialization this.Base, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Handler, TypeName(Me)
+    Set this.Base = BindingInfo
+    Set this.Handler = BindingInfo
 End Sub
 
 Public Property Get AsIHandlePropertyChanged() As IHandlePropertyChanged
@@ -55,127 +55,127 @@ Public Property Get AsIHandlePropertyChanged() As IHandlePropertyChanged
 End Property
 
 Public Property Get Source() As IBindingPath
-    Set Source = This.Base.Source
+    Set Source = this.Base.Source
 End Property
 
 Public Property Set Source(ByVal RHS As IBindingPath)
-    Set This.Base.Source = RHS
+    Set this.Base.Source = RHS
 End Property
 
 Public Property Get Target() As IBindingPath
-    Set Target = This.Base.Target
+    Set Target = this.Base.Target
 End Property
 
 Public Property Set Target(ByVal RHS As IBindingPath)
-    Set This.Base.Target = RHS
+    Set this.Base.Target = RHS
 End Property
 
 Public Property Get Mode() As BindingMode
-    Mode = This.Base.Mode
+    Mode = this.Base.Mode
 End Property
 
 Public Property Let Mode(ByVal RHS As BindingMode)
-    This.Base.Mode = RHS
+    this.Base.Mode = RHS
 End Property
 
 Public Property Get UpdateSourceTrigger() As BindingUpdateSourceTrigger
-    UpdateSourceTrigger = This.Base.UpdateSourceTrigger
+    UpdateSourceTrigger = this.Base.UpdateSourceTrigger
 End Property
 
 Public Property Let UpdateSourceTrigger(ByVal RHS As BindingUpdateSourceTrigger)
-    This.Base.UpdateSourceTrigger = RHS
+    this.Base.UpdateSourceTrigger = RHS
 End Property
 
 Public Property Get Validator() As IValueValidator
-    Set Validator = This.Base.Validator
+    Set Validator = this.Base.Validator
 End Property
 
 Public Property Set Validator(ByVal RHS As IValueValidator)
-    Set This.Base.Validator = RHS
+    Set this.Base.Validator = RHS
 End Property
 
 Public Property Get ValidationAdorner() As IDynamicAdorner
-    Set ValidationAdorner = This.Base.ValidationAdorner
+    Set ValidationAdorner = this.Base.ValidationAdorner
 End Property
 
 Public Property Set ValidationAdorner(ByVal RHS As IDynamicAdorner)
-    Set This.Base.ValidationAdorner = RHS
+    Set this.Base.ValidationAdorner = RHS
 End Property
 
 Public Property Get Converter() As IValueConverter
-    Set Converter = This.Base.Converter
+    Set Converter = this.Base.Converter
 End Property
 
 Public Property Set Converter(ByVal RHS As IValueConverter)
-    Set This.Base.Converter = RHS
+    Set this.Base.Converter = RHS
 End Property
 
 Private Sub Class_Initialize()
-    Set This.Stub = New TestStubBase
+    Set this.Stub = New TestStubBase
 End Sub
 
 Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
-    This.Stub.OnInvoke "HandlePropertyChanged"
-    This.Handler.HandlePropertyChanged Source, PropertyName
+    this.Stub.OnInvoke "HandlePropertyChanged"
+    this.Handler.HandlePropertyChanged Source, PropertyName
 End Sub
 
 Private Property Get IPropertyBinding_CancelExitOnValidationError() As Boolean
-    IPropertyBinding_CancelExitOnValidationError = This.Base.CancelExitOnValidationError
+    IPropertyBinding_CancelExitOnValidationError = this.Base.CancelExitOnValidationError
 End Property
 
 Private Property Get IPropertyBinding_DefaultTargetProperty() As String
-    This.Stub.OnInvoke "DefaultTargetProperty.Get"
+    this.Stub.OnInvoke "DefaultTargetProperty.Get"
     IPropertyBinding_DefaultTargetProperty = vbNullString
 End Property
 
 Private Property Get IPropertyBinding_StringFormat() As IStringFormatter
-    This.Stub.OnInvoke "StringFormat.Get"
-    Set IPropertyBinding_StringFormat = This.Base.StringFormat
+    this.Stub.OnInvoke "StringFormat.Get"
+    Set IPropertyBinding_StringFormat = this.Base.StringFormat
 End Property
 
 Private Property Get IPropertyBinding_Validator() As IValueValidator
-    This.Stub.OnInvoke "Validator.Get"
-    Set IPropertyBinding_Validator = This.Base.Validator
+    this.Stub.OnInvoke "Validator.Get"
+    Set IPropertyBinding_Validator = this.Base.Validator
 End Property
 
 Private Property Get ITestStub_MemberInvokes(ByVal MemberName As String) As Long
-    ITestStub_MemberInvokes = This.Stub.MemberInvokes(MemberName)
+    ITestStub_MemberInvokes = this.Stub.MemberInvokes(MemberName)
 End Property
 
 Private Function ITestStub_ToString() As String
-    ITestStub_ToString = This.Stub.ToString
+    ITestStub_ToString = this.Stub.ToString
 End Function
 
 Private Sub ITestStub_Verify(ByVal Assert As Object, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
-    This.Stub.Verify Assert, MemberName, ExpectedInvokes
+    this.Stub.Verify Assert, MemberName, ExpectedInvokes
 End Sub
 
 Private Property Get IPropertyBinding_Mode() As BindingMode
-    This.Stub.OnInvoke "Mode.Get"
-    IPropertyBinding_Mode = This.Base.Mode
+    this.Stub.OnInvoke "Mode.Get"
+    IPropertyBinding_Mode = this.Base.Mode
 End Property
 
 Private Property Get IPropertyBinding_UpdateSourceTrigger() As BindingUpdateSourceTrigger
-    This.Stub.OnInvoke "UpdateSourceTrigger.Get"
-    IPropertyBinding_UpdateSourceTrigger = This.Base.UpdateSourceTrigger
+    this.Stub.OnInvoke "UpdateSourceTrigger.Get"
+    IPropertyBinding_UpdateSourceTrigger = this.Base.UpdateSourceTrigger
 End Property
 
 Private Property Get IPropertyBinding_Source() As IBindingPath
-    This.Stub.OnInvoke "Source.Get"
-    Set IPropertyBinding_Source = This.Base.Source
+    this.Stub.OnInvoke "Source.Get"
+    Set IPropertyBinding_Source = this.Base.Source
 End Property
 
 Private Property Get IPropertyBinding_Target() As IBindingPath
-    This.Stub.OnInvoke "Target.Get"
-    Set IPropertyBinding_Target = This.Base.Target
+    this.Stub.OnInvoke "Target.Get"
+    Set IPropertyBinding_Target = this.Base.Target
 End Property
 
 Private Property Get IPropertyBinding_Converter() As IValueConverter
-    This.Stub.OnInvoke "Converter.Get"
-    Set IPropertyBinding_Converter = This.Base.Converter
+    this.Stub.OnInvoke "Converter.Get"
+    Set IPropertyBinding_Converter = this.Base.Converter
 End Property
 
 Private Sub IPropertyBinding_Apply()
-    This.Stub.OnInvoke "Apply"
+    this.Stub.OnInvoke "Apply"
 End Sub
 

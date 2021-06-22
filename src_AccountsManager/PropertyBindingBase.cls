@@ -51,7 +51,7 @@ Private Type TState
     
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Property Get DefaultTargetProperty() As String
     DefaultTargetProperty = DefaultTargetControlProperty
@@ -100,28 +100,28 @@ Public Property Get AsINotifyValidationError() As INotifyValidationError
 End Property
 
 Public Property Get Source() As IBindingPath
-    Set Source = This.Source
+    Set Source = this.Source
 End Property
 
 Friend Property Set Source(ByVal RHS As IBindingPath)
-    GuardClauses.GuardDoubleInitialization This.Source, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Source, TypeName(Me)
     GuardClauses.GuardNullReference RHS, TypeName(Me)
-    Set This.Source = RHS
+    Set this.Source = RHS
 End Property
 
 Public Property Get Target() As IBindingPath
-    Set Target = This.Target
+    Set Target = this.Target
 End Property
 
 Friend Property Set Target(ByVal RHS As IBindingPath)
-    GuardClauses.GuardDoubleInitialization This.Target, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Target, TypeName(Me)
     GuardClauses.GuardNullReference RHS, TypeName(Me)
-    Set This.Target = RHS
-    If TypeOf This.Target.Context Is MSForms.Control Then
+    Set this.Target = RHS
+    If TypeOf this.Target.Context Is MSForms.Control Then
         On Error Resume Next
-        Set This.Punk.Target = This.Target.Context
-        If This.Punk.Connect Then
-            This.Punk.RegisterHandler Me
+        Set this.Punk.Target = this.Target.Context
+        If this.Punk.Connect Then
+            this.Punk.RegisterHandler Me
         Else
             DebugMessage "Unable to connect target IConnectionPoint."
         End If
@@ -130,90 +130,90 @@ Friend Property Set Target(ByVal RHS As IBindingPath)
         End If
         On Error GoTo 0
     Else
-        Set This.Punk = Nothing
+        Set this.Punk = Nothing
     End If
 End Property
 
 Public Property Get Mode() As BindingMode
-    Mode = This.Mode
+    Mode = this.Mode
 End Property
 
 Public Property Let Mode(ByVal RHS As BindingMode)
-    This.Mode = RHS
+    this.Mode = RHS
 End Property
 
 Public Property Get UpdateSourceTrigger() As BindingUpdateSourceTrigger
-    UpdateSourceTrigger = This.UpdateSourceTrigger
+    UpdateSourceTrigger = this.UpdateSourceTrigger
 End Property
 
 Public Property Let UpdateSourceTrigger(ByVal RHS As BindingUpdateSourceTrigger)
-    This.UpdateSourceTrigger = RHS
+    this.UpdateSourceTrigger = RHS
 End Property
 
 Public Property Get Converter() As IValueConverter
-    Set Converter = This.Converter
+    Set Converter = this.Converter
 End Property
 
 Public Property Set Converter(ByVal RHS As IValueConverter)
-    GuardClauses.GuardDoubleInitialization This.Converter, TypeName(Me)
-    Set This.Converter = RHS
+    GuardClauses.GuardDoubleInitialization this.Converter, TypeName(Me)
+    Set this.Converter = RHS
 End Property
 
 Public Property Get Validator() As IValueValidator
-    Set Validator = This.Validator
+    Set Validator = this.Validator
 End Property
 
 Friend Property Set Validator(ByVal RHS As IValueValidator)
-    GuardClauses.GuardDoubleInitialization This.Validator, TypeName(Me)
-    Set This.Validator = RHS
-    If Not This.Validator Is Nothing Then This.UpdateSourceTrigger = This.Validator.Trigger
+    GuardClauses.GuardDoubleInitialization this.Validator, TypeName(Me)
+    Set this.Validator = RHS
+    If Not this.Validator Is Nothing Then this.UpdateSourceTrigger = this.Validator.Trigger
 End Property
 
 Public Property Get StringFormat() As IStringFormatter
-    Set StringFormat = This.StringFormat
+    Set StringFormat = this.StringFormat
 End Property
 
 Friend Property Set StringFormat(ByVal RHS As IStringFormatter)
-    GuardClauses.GuardDoubleInitialization This.StringFormat, TypeName(Me)
-    Set This.StringFormat = RHS
+    GuardClauses.GuardDoubleInitialization this.StringFormat, TypeName(Me)
+    Set this.StringFormat = RHS
 End Property
 
 Public Property Get ValidationAdorner() As IDynamicAdorner
-    Set ValidationAdorner = This.ValidationAdorner
+    Set ValidationAdorner = this.ValidationAdorner
 End Property
 
 Friend Property Set ValidationAdorner(ByVal RHS As IDynamicAdorner)
-    GuardClauses.GuardDoubleInitialization This.ValidationAdorner, TypeName(Me)
-    Set This.ValidationAdorner = RHS
+    GuardClauses.GuardDoubleInitialization this.ValidationAdorner, TypeName(Me)
+    Set this.ValidationAdorner = RHS
 End Property
 
 Public Property Get Context() As IAppContext
-    Set Context = This.Context
+    Set Context = this.Context
 End Property
 
 Friend Property Set Context(ByVal RHS As IAppContext)
-    GuardClauses.GuardDoubleInitialization This.Context, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Context, TypeName(Me)
     GuardClauses.GuardNullReference RHS, TypeName(Me)
-    Set This.Context = RHS
+    Set this.Context = RHS
 End Property
 
 Public Property Get CancelExitOnValidationError() As Boolean
-    CancelExitOnValidationError = This.CancelExitOnValidationError
+    CancelExitOnValidationError = this.CancelExitOnValidationError
 End Property
 
 Friend Property Let CancelExitOnValidationError(ByVal RHS As Boolean)
-    This.CancelExitOnValidationError = RHS
+    this.CancelExitOnValidationError = RHS
 End Property
 
-Private Function TryConvert(ByRef value As Variant) As Boolean
+Private Function TryConvert(ByRef Value As Variant) As Boolean
     
-    If This.Converter Is Nothing Then
+    If this.Converter Is Nothing Then
         TryConvert = True
         Exit Function
     End If
     
     On Error Resume Next
-    value = This.Converter.Convert(value)
+    Value = this.Converter.Convert(Value)
     If Err.number = 0 Then
         DebugMessage "Value was successfully converted."
         TryConvert = True
@@ -224,15 +224,15 @@ Private Function TryConvert(ByRef value As Variant) As Boolean
     
 End Function
 
-Private Function TryConvertBack(ByRef value As Variant) As Boolean
+Private Function TryConvertBack(ByRef Value As Variant) As Boolean
     
-    If This.Converter Is Nothing Then
+    If this.Converter Is Nothing Then
         TryConvertBack = True
         Exit Function
     End If
     
     On Error Resume Next
-    value = This.Converter.ConvertBack(value)
+    Value = this.Converter.ConvertBack(Value)
     If Err.number = 0 Then
         DebugMessage "Value was successfully converted back."
         TryConvertBack = True
@@ -244,15 +244,15 @@ Private Function TryConvertBack(ByRef value As Variant) As Boolean
 End Function
 
 Public Sub Apply()
-    If This.Applying Then Exit Sub '<~ could break accidental recursion... leave this here...
+    If this.Applying Then Exit Sub '<~ could break accidental recursion... leave this here...
     
-    If This.Mode = OneTimeBinding Then
-        If Not This.Applied Then ApplyToTarget
+    If this.Mode = OneTimeBinding Then
+        If Not this.Applied Then ApplyToTarget
         
-    ElseIf This.Mode = OneWayBinding Or This.Mode = TwoWayBinding Then
+    ElseIf this.Mode = OneWayBinding Or this.Mode = TwoWayBinding Then
         ApplyToTarget
         
-    ElseIf This.Mode = OneWayToSource Then
+    ElseIf this.Mode = OneWayToSource Then
         ApplyToSource
         
     End If
@@ -261,36 +261,36 @@ End Sub
 
 Private Property Get CanApplyToTarget() As Boolean
     'one-way to source and already-applied one-time binding modes do not apply to target
-    CanApplyToTarget = Not This.Applying And This.Mode <> OneWayToSource And (This.Mode <> OneTimeBinding Or Not This.Applied)
+    CanApplyToTarget = Not this.Applying And this.Mode <> OneWayToSource And (this.Mode <> OneTimeBinding Or Not this.Applied)
 End Property
 
 Public Sub ApplyToTarget()
 'reads from the source and writes to the target.
     
     If Not CanApplyToTarget Then Exit Sub
-    This.Applying = True
+    this.Applying = True
     
     Dim SourceValue As Variant
     Dim UseFallbackDefault As Boolean
     
-    If This.Source.object Is Nothing Then
+    If this.Source.object Is Nothing Then
         UseFallbackDefault = TryGetDefaultBindingValue(outValue:=SourceValue)
     End If
     
-    This.Source.Resolve
+    this.Source.Resolve
     
-    If This.Source.object Is Nothing And Not UseFallbackDefault Then
-        DebugMessage "ApplyToTarget aborted: source object in path '" & This.Source.path & "' is Nothing and there is no fallback default value for this binding."
-        This.Applying = False
+    If this.Source.object Is Nothing And Not UseFallbackDefault Then
+        DebugMessage "ApplyToTarget aborted: source object in path '" & this.Source.path & "' is Nothing and there is no fallback default value for this binding."
+        this.Applying = False
         Exit Sub
         
-    ElseIf This.Source.object Is Nothing Then
-        DebugMessage "ApplyToTarget: source object in path '" & This.Source.path & "' is Nothing; binding target property '" & This.Target.PropertyName & "' to default/fallback value."
+    ElseIf this.Source.object Is Nothing Then
+        DebugMessage "ApplyToTarget: source object in path '" & this.Source.path & "' is Nothing; binding target property '" & this.Target.PropertyName & "' to default/fallback value."
         
     Else
-        If Not This.Source.TryReadPropertyValue(outValue:=SourceValue) Then
+        If Not this.Source.TryReadPropertyValue(outValue:=SourceValue) Then
             DebugMessage "ApplyToTarget failed to read current source property value."
-            This.Applying = False
+            this.Applying = False
             Exit Sub
         End If
     End If
@@ -298,11 +298,11 @@ Public Sub ApplyToTarget()
     Validate SourceValue, Propagate:=False
     SourceValue = Convert(SourceValue)
     
-    This.Target.Resolve
+    this.Target.Resolve
     Dim CurrentValue As Variant
-    If Not This.Target.TryReadPropertyValue(outValue:=CurrentValue) Then
+    If Not this.Target.TryReadPropertyValue(outValue:=CurrentValue) Then
         DebugMessage "ApplyToTarget failed to read current target property value."
-        This.Applying = False
+        this.Applying = False
         Exit Sub
     End If
     
@@ -315,23 +315,23 @@ Public Sub ApplyToTarget()
     
     If Proceed Then
         
-        If Not This.StringFormat Is Nothing Then
-            SourceValue = This.StringFormat.Format(SourceValue)
+        If Not this.StringFormat Is Nothing Then
+            SourceValue = this.StringFormat.Format(SourceValue)
         End If
         
-        If Not This.Target.TryWritePropertyValue(SourceValue) Then
+        If Not this.Target.TryWritePropertyValue(SourceValue) Then
             DebugMessage "ApplyToTarget failed to write to target property."
         Else
             DebugMessage "ApplyToTarget successfully applied to target."
-            This.Applied = True
+            this.Applied = True
         End If
     End If
-    This.Applying = False
+    this.Applying = False
 End Sub
 
 Private Property Get CanApplyToSource() As Boolean
     'one-time and one-way binding modes do not write values to the binding source (ViewModel).
-    CanApplyToSource = Not This.Applying And This.Mode <> OneTimeBinding And This.Mode <> OneWayBinding
+    CanApplyToSource = Not this.Applying And this.Mode <> OneTimeBinding And this.Mode <> OneWayBinding
 End Property
 
 Public Function ApplyToSource(Optional ByVal TargetValidationValue As Variant) As ApplyResult
@@ -340,21 +340,21 @@ Public Function ApplyToSource(Optional ByVal TargetValidationValue As Variant) A
     On Error GoTo CleanFail
 
     If Not CanApplyToSource Then Exit Function
-    This.Applying = True
+    this.Applying = True
     
-    This.Target.Resolve
+    this.Target.Resolve
     Dim TargetValue As Variant
-    If Not This.Target.TryReadPropertyValue(outValue:=TargetValue) Then
+    If Not this.Target.TryReadPropertyValue(outValue:=TargetValue) Then
         DebugMessage "ApplyToSource failed to read target property value."
         ApplyToSource = ApplyResult.BindingFailed
-        This.Applying = False
+        this.Applying = False
         Exit Function
     End If
     
     If IsMissing(TargetValidationValue) Then
         TargetValidationValue = TargetValue
         
-    ElseIf This.UpdateSourceTrigger = BindingUpdateSourceTrigger.OnKeyPress Then
+    ElseIf this.UpdateSourceTrigger = BindingUpdateSourceTrigger.OnKeyPress Then
         'keypress hasn't reached the control yet:
         TargetValue = InsertKeypress(TargetValue, TargetValidationValue)
         
@@ -362,25 +362,25 @@ Public Function ApplyToSource(Optional ByVal TargetValidationValue As Variant) A
     
     If Not TryConvertBack(TargetValue) Then
         ApplyToSource = ApplyResult.BindingConversionError
-        DebugMessage TypeName(This.Converter) & " ConvertBack failed to convert the target value."
+        DebugMessage TypeName(this.Converter) & " ConvertBack failed to convert the target value."
         OnEnter
-        This.Applying = False
+        this.Applying = False
         Exit Function
     End If
     
     If Not Validate(TargetValidationValue) Then
         ApplyToSource = ApplyResult.BindingValidationError
-        DebugMessage TypeName(This.Validator) & " failed to validate the target value."
-        This.Applying = False
+        DebugMessage TypeName(this.Validator) & " failed to validate the target value."
+        this.Applying = False
         Exit Function
     End If
     
-    This.Source.Resolve
+    this.Source.Resolve
     Dim CurrentValue As Variant
-    If Not This.Source.TryReadPropertyValue(outValue:=CurrentValue) Then
+    If Not this.Source.TryReadPropertyValue(outValue:=CurrentValue) Then
         DebugMessage "ApplyToSource failed to read current source property value."
         ApplyToSource = ApplyResult.BindingFailed
-        This.Applying = False
+        this.Applying = False
         Exit Function
     End If
     
@@ -395,7 +395,7 @@ Public Function ApplyToSource(Optional ByVal TargetValidationValue As Variant) A
         
         ClearValidationErrors
         
-        If Not This.Source.TryWritePropertyValue(TargetValue) Then
+        If Not this.Source.TryWritePropertyValue(TargetValue) Then
             DebugMessage "ApplyToSource failed to write to source property."
             ApplyToSource = ApplyResult.BindingFailed
             Exit Function
@@ -407,7 +407,7 @@ Public Function ApplyToSource(Optional ByVal TargetValidationValue As Variant) A
     End If
     
 CleanExit:
-    This.Applying = False
+    this.Applying = False
     Exit Function
     
 CleanFail:
@@ -428,10 +428,10 @@ Private Function InsertKeypress(ByVal InitialValue As String, ByVal Char As Stri
     On Error Resume Next
     
     Dim SelectionStart As Long
-    SelectionStart = This.Target.object.SelStart
+    SelectionStart = this.Target.object.SelStart
     
     Dim SelectionLength As Long
-    SelectionLength = This.Target.object.SelLength
+    SelectionLength = this.Target.object.SelLength
     
     On Error GoTo 0
     
@@ -465,18 +465,18 @@ Private Function InsertKeypress(ByVal InitialValue As String, ByVal Char As Stri
 End Function
 
 Private Function IsValid() As Boolean
-    IsValid = This.Context.Validation.IsValid(This.Source.object, This.Source.PropertyName)
+    IsValid = this.Context.Validation.IsValid(this.Source.object, this.Source.PropertyName)
 End Function
 
 Private Sub ClearValidationErrors()
-    With This.Context
-        .Validation.ClearValidationError This.Source
-        .Commands.EvaluateCanExecute This.Source
+    With this.Context
+        .Validation.ClearValidationError this.Source
+        .Commands.EvaluateCanExecute this.Source
     End With
 End Sub
 
 Private Function ToString() As String
-    ToString = TypeName(This.Source.Context) & "." & This.Source.path & " -> " & TypeName(This.Target.Context) & "." & This.Target.path
+    ToString = TypeName(this.Source.Context) & "." & this.Source.path & " -> " & TypeName(this.Target.Context) & "." & this.Target.path
 End Function
 
 Private Function ResolvePropertyPath(ByVal Source As Object, ByVal PropertyPath As String) As Object
@@ -505,7 +505,7 @@ Private Function TryGetDefaultBindingValue(ByRef outValue As Variant) As Boolean
 'Gets a default value for certain specific target properties, used when source path cannot be fully resolved,
 'e.g. when target binds to "SomeObjectProperty.SomeProperty" and "SomeObjectProperty" is Nothing.
 
-    Select Case This.Target.PropertyName
+    Select Case this.Target.PropertyName
     
         Case "Text", "Caption"
             outValue = vbNullString
@@ -516,8 +516,8 @@ Private Function TryGetDefaultBindingValue(ByRef outValue As Variant) As Boolean
             TryGetDefaultBindingValue = True
             
         Case "Value"
-            If TypeOf This.Target Is MSForms.CheckBox _
-                Or TypeOf This.Target Is MSForms.OptionButton _
+            If TypeOf this.Target Is MSForms.CheckBox _
+                Or TypeOf this.Target Is MSForms.OptionButton _
             Then
                 outValue = False
                 TryGetDefaultBindingValue = True
@@ -526,13 +526,13 @@ Private Function TryGetDefaultBindingValue(ByRef outValue As Variant) As Boolean
     End Select
 End Function
 
-Private Function Convert(ByVal value As Variant) As Variant
+Private Function Convert(ByVal Value As Variant) As Variant
     
     On Error GoTo CleanFail
-    If Not This.Converter Is Nothing Then
-        Convert = This.Converter.Convert(value)
+    If Not this.Converter Is Nothing Then
+        Convert = this.Converter.Convert(Value)
     Else
-        Convert = value
+        Convert = Value
     End If
     
 CleanExit:
@@ -547,17 +547,17 @@ End Function
 
 Public Function Validate(ByVal TargetValue As Variant, Optional ByVal Propagate As Boolean = True) As Boolean
 
-    If This.Validator Is Nothing Then
+    If this.Validator Is Nothing Then
         Validate = True
         Exit Function
     End If
     
     On Error GoTo CleanFail
-    If This.Validator.IsValid(TargetValue, This.Source, This.Target) Then
+    If this.Validator.IsValid(TargetValue, this.Source, this.Target) Then
         
         If Propagate Then
-            This.Context.Validation.ClearValidationError This.Source
-            If Not This.ValidationAdorner Is Nothing Then This.ValidationAdorner.Hide
+            this.Context.Validation.ClearValidationError this.Source
+            If Not this.ValidationAdorner Is Nothing Then this.ValidationAdorner.Hide
         End If
         
         Validate = True
@@ -566,13 +566,13 @@ Public Function Validate(ByVal TargetValue As Variant, Optional ByVal Propagate 
         
         If Propagate Then
             Dim Message As String
-            Message = This.Validator.Message
+            Message = this.Validator.Message
             
-            This.Context.Validation.OnValidationError _
-                Context:=This.Source.Context, _
+            this.Context.Validation.OnValidationError _
+                Context:=this.Source.Context, _
                 ValidationError:=ValidationError.Create(Me, Message)
             
-            If Not This.ValidationAdorner Is Nothing Then This.ValidationAdorner.Show Message
+            If Not this.ValidationAdorner Is Nothing Then this.ValidationAdorner.Show Message
             'VF: commented out as it leads to select all, which is not desired in text and numeric textboxes even though there may be more than one eventhandler
             'OnEnter
         End If
@@ -580,7 +580,7 @@ Public Function Validate(ByVal TargetValue As Variant, Optional ByVal Propagate 
         
 CleanExit:
     If Propagate Then
-        This.Context.Commands.EvaluateCanExecute This.Source.Context
+        this.Context.Commands.EvaluateCanExecute this.Source.Context
     End If
     Exit Function
     
@@ -592,21 +592,21 @@ CleanFail:
 End Function
 
 Private Sub Format()
-    If This.StringFormat Is Nothing Then Exit Sub
+    If this.StringFormat Is Nothing Then Exit Sub
 
     Dim BindingValue As Variant
-    If Not This.Source.TryReadPropertyValue(outValue:=BindingValue) Then Exit Sub
+    If Not this.Source.TryReadPropertyValue(outValue:=BindingValue) Then Exit Sub
         
     On Error GoTo CleanFail
     Dim FormattedValue As String
-    FormattedValue = This.StringFormat.Format(BindingValue)
+    FormattedValue = this.StringFormat.Format(BindingValue)
     On Error GoTo 0
     
-    This.Applying = True
-    If Not This.Target.TryWritePropertyValue(FormattedValue) Then
+    this.Applying = True
+    If Not this.Target.TryWritePropertyValue(FormattedValue) Then
         DebugMessage "Could not format the binding value."
     End If
-    This.Applying = False
+    this.Applying = False
     
 CleanExit:
     Exit Sub
@@ -618,7 +618,7 @@ End Sub
 Private Sub OnAfterUpdate()
     Format
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandleAfterUpdate
     Next
 End Sub
@@ -626,7 +626,7 @@ End Sub
 Private Sub OnBeforeUpdate(ByRef Cancel As Boolean)
     OnBindingUpdateSourceOpportunity Cancel, BindingUpdateSourceTrigger.OnPropertyChanged
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandleBeforeUpdate Cancel
         If Cancel Then Exit For
     Next
@@ -635,14 +635,14 @@ End Sub
 Private Sub OnChange()
     Format
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandleChange
     Next
 End Sub
 
 Private Sub OnEnter()
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandleEnter
     Next
 End Sub
@@ -650,7 +650,7 @@ End Sub
 Private Sub OnExit(ByRef Cancel As Boolean)
     OnBindingUpdateSourceOpportunity Cancel, BindingUpdateSourceTrigger.OnExit
     Dim Handler As IHandleControlEvents
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandleExit Cancel
     Next
 End Sub
@@ -667,7 +667,7 @@ Public Sub OnBindingUpdateSourceOpportunity(ByRef Cancel As Boolean, ByVal Trigg
         Case BindingUpdateSourceTrigger.OnKeyPress, BindingUpdateSourceTrigger.OnChange
         
             'If This.UpdateSourceTrigger = OnKeyPress And Not IsMissing(TargetValidationValue) Then
-            If (This.UpdateSourceTrigger = OnKeyPress Or This.UpdateSourceTrigger = BindingUpdateSourceTrigger.OnChange) _
+            If (this.UpdateSourceTrigger = OnKeyPress Or this.UpdateSourceTrigger = BindingUpdateSourceTrigger.OnChange) _
                 And Not IsMissing(TargetValidationValue) Then
                 'just validate the keypress 'VF: or string pasted
                 result = IIf(Validate(TargetValidationValue), _
@@ -678,16 +678,16 @@ Public Sub OnBindingUpdateSourceOpportunity(ByRef Cancel As Boolean, ByVal Trigg
             
         Case BindingUpdateSourceTrigger.OnPropertyChanged
             
-            If This.UpdateSourceTrigger = OnPropertyChanged Or This.UpdateSourceTrigger = OnKeyPress Then
+            If this.UpdateSourceTrigger = OnPropertyChanged Or this.UpdateSourceTrigger = OnKeyPress Then
                 result = ApplyToSource
             End If
         
         Case BindingUpdateSourceTrigger.OnExit
             
-            If This.UpdateSourceTrigger <> Never Then
+            If this.UpdateSourceTrigger <> Never Then
                 
                 Dim outValue As Variant
-                If This.Target.TryReadPropertyValue(outValue) Then
+                If this.Target.TryReadPropertyValue(outValue) Then
                 
                     result = IIf(Validate(outValue), _
                         ApplyResult.BindingSuccess, _
@@ -698,31 +698,32 @@ Public Sub OnBindingUpdateSourceOpportunity(ByRef Cancel As Boolean, ByVal Trigg
             
     End Select
     
-    Cancel = This.CancelExitOnValidationError And (Cancel Or (result = BindingValidationError) Or (result = BindingConversionError))
+    Cancel = this.CancelExitOnValidationError And (Cancel Or (result = BindingValidationError) Or (result = BindingConversionError))
     
 End Sub
 
 Private Sub OnValidationError()
-    This.Context.Validation.OnValidationError This.Source.Context, ValidationError.Create(Me, This.Validator.Message)
-    This.ValidationAdorner.Show This.Validator.Message
+    this.Context.Validation.OnValidationError this.Source.Context, ValidationError.Create(Me, this.Validator.Message)
+    this.ValidationAdorner.Show this.Validator.Message
 End Sub
 
 Private Sub DebugMessage(ByVal Message As String)
-    If This.Context.Bindings.DebugOutput Then Debug.Print "PropertyBinding: [" & ToString & "] " & Message
+'    If this.Context.Bindings.DebugOutput Then Debug.Print "PropertyBinding: [" & ToString & "] " & Message
+    If this.Context.Bindings.DebugOutput Then Logging.logINFO "PropertyBinding: [" & ToString & "] " & Message
 End Sub
 
 Private Sub Class_Initialize()
     If Not Me Is PropertyBindingBase Then
-        Set This.Handlers = New Collection
-        Set This.Punk = New ControlEventsPunk
+        Set this.Handlers = New Collection
+        Set this.Punk = New ControlEventsPunk
     End If
 End Sub
 
 Private Sub Class_Terminate()
-    Set This.Handlers = Nothing
-    If Not This.Punk Is Nothing Then
-        This.Punk.Disconnect
-        Set This.Punk = Nothing
+    Set this.Handlers = Nothing
+    If Not this.Punk Is Nothing Then
+        this.Punk.Disconnect
+        Set this.Punk = Nothing
     End If
 End Sub
 
@@ -732,9 +733,9 @@ End Sub
 
 Private Sub IControlEvents_OnBeforeUpdate(ByVal Cancel As MSForms.IReturnBoolean)
     Dim LocalCancel As Boolean
-    LocalCancel = Cancel.value
+    LocalCancel = Cancel.Value
     OnBeforeUpdate LocalCancel
-    Cancel.value = LocalCancel
+    Cancel.Value = LocalCancel
 End Sub
 'VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
 Private Sub IControlEvents_OnChange()
@@ -747,23 +748,23 @@ End Sub
 
 Private Sub IControlEvents_OnExit(ByVal Cancel As MSForms.IReturnBoolean)
     Dim LocalCancel As Boolean
-    LocalCancel = Cancel.value
+    LocalCancel = Cancel.Value
     OnExit LocalCancel
     Cancel = LocalCancel
 End Sub
 
 Private Sub IControlEvents_RegisterHandler(ByVal Handler As IHandleControlEvents)
-    This.Handlers.add Handler
+    this.Handlers.add Handler
 End Sub
 
 Private Sub IDisposable_Dispose()
     
-    Set This.Context = Nothing
+    Set this.Context = Nothing
     
-    This.Punk.Disconnect
-    Set This.Punk = Nothing
-    Disposable.TryDispose This.ValidationAdorner
-    Set This.ValidationAdorner = Nothing
+    this.Punk.Disconnect
+    Set this.Punk = Nothing
+    Disposable.TryDispose this.ValidationAdorner
+    Set this.ValidationAdorner = Nothing
     
 End Sub
 
@@ -789,7 +790,7 @@ End Sub
 
 Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
     'IHandlePropertyChanged -> INotifyPropertyChanged: source is the ViewModel, so we're propagating to Target here:
-    If Not This.Applying And Source Is This.Source.object And PropertyName = This.Source.PropertyName Then
+    If Not this.Applying And Source Is this.Source.object And PropertyName = this.Source.PropertyName Then
         ApplyToTarget
     End If
 End Sub
@@ -799,11 +800,11 @@ Private Sub IPropertyBinding_Apply()
 End Sub
 
 Private Property Get IPropertyBinding_CancelExitOnValidationError() As Boolean
-    IPropertyBinding_CancelExitOnValidationError = This.CancelExitOnValidationError
+    IPropertyBinding_CancelExitOnValidationError = this.CancelExitOnValidationError
 End Property
 
 Private Property Get IPropertyBinding_Converter() As IValueConverter
-    Set IPropertyBinding_Converter = This.Converter
+    Set IPropertyBinding_Converter = this.Converter
 End Property
 
 Private Property Get IPropertyBinding_DefaultTargetProperty() As String
@@ -811,27 +812,27 @@ Private Property Get IPropertyBinding_DefaultTargetProperty() As String
 End Property
 
 Private Property Get IPropertyBinding_Mode() As BindingMode
-    IPropertyBinding_Mode = This.Mode
+    IPropertyBinding_Mode = this.Mode
 End Property
 
 Private Property Get IPropertyBinding_Source() As IBindingPath
-    Set IPropertyBinding_Source = This.Source
+    Set IPropertyBinding_Source = this.Source
 End Property
 
 Private Property Get IPropertyBinding_StringFormat() As IStringFormatter
-    Set IPropertyBinding_StringFormat = This.StringFormat
+    Set IPropertyBinding_StringFormat = this.StringFormat
 End Property
 
 Private Property Get IPropertyBinding_Target() As IBindingPath
-    Set IPropertyBinding_Target = This.Target
+    Set IPropertyBinding_Target = this.Target
 End Property
 
 Private Property Get IPropertyBinding_UpdateSourceTrigger() As BindingUpdateSourceTrigger
-    IPropertyBinding_UpdateSourceTrigger = This.UpdateSourceTrigger
+    IPropertyBinding_UpdateSourceTrigger = this.UpdateSourceTrigger
 End Property
 
 Private Property Get IPropertyBinding_Validator() As IValueValidator
-    Set IPropertyBinding_Validator = This.Validator
+    Set IPropertyBinding_Validator = this.Validator
 End Property
 
 

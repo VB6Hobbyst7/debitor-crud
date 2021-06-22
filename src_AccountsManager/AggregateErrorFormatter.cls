@@ -23,7 +23,7 @@ Private Type TState
     Formatters As Collection
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Creates a new composite formatter that aggregates/combines all the specified formatters."
 Public Function Create(ParamArray Formatters() As Variant) As IValidationErrorFormatter
@@ -69,7 +69,7 @@ Attribute AddFormatter.VB_Description = "Adds the specified formatter to this co
     GuardClauses.GuardDefaultInstance Me, AggregateErrorFormatter, TypeName(Me)
     GuardClauses.GuardNullReference Formatter
     
-    This.Formatters.add Formatter
+    this.Formatters.add Formatter
 
 End Sub
 
@@ -78,19 +78,19 @@ Private Property Get IsDefaultInstance() As Boolean
 End Property
 
 Private Sub Class_Initialize()
-    If Not IsDefaultInstance Then Set This.Formatters = New Collection
+    If Not IsDefaultInstance Then Set this.Formatters = New Collection
 End Sub
 
 Private Sub IValidationErrorFormatter_Apply(ByVal Target As Object, ByVal Message As String)
     Dim Formatter As IValidationErrorFormatter
-    For Each Formatter In This.Formatters
+    For Each Formatter In this.Formatters
         Formatter.Apply Target, Message
     Next
 End Sub
 
 Private Sub IValidationErrorFormatter_Restore(ByVal Target As Object)
     Dim Formatter As IValidationErrorFormatter
-    For Each Formatter In This.Formatters
+    For Each Formatter In this.Formatters
         Formatter.Restore Target
     Next
 End Sub

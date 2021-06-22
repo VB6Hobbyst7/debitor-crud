@@ -20,7 +20,7 @@ Private Type TState
     Message As String
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Creates a new instance of a validation error object."
 Public Function Create(ByVal Binding As IPropertyBinding, ByVal Message As String) As IValidationError
@@ -36,27 +36,27 @@ End Function
 '@Description "The validation error message."
 Public Property Get Message() As String
 Attribute Message.VB_Description = "The validation error message."
-    Message = This.Message
+    Message = this.Message
 End Property
 
 Public Property Let Message(ByVal RHS As String)
-    This.Message = RHS
+    this.Message = RHS
 End Property
 
 '@Description "Gets the binding responsible for this validation error."
 Public Property Get Binding() As IPropertyBinding
 Attribute Binding.VB_Description = "Gets the binding responsible for this validation error."
-    Set Binding = This.Binding
+    Set Binding = this.Binding
 End Property
 
 Public Property Set Binding(ByVal RHS As IPropertyBinding)
-    Set This.Binding = RHS
+    Set this.Binding = RHS
 End Property
 
 Private Property Get IValidationError_Message() As String
-    IValidationError_Message = This.Message
+    IValidationError_Message = this.Message
 End Property
 
 Private Property Get IValidationError_Binding() As IPropertyBinding
-    Set IValidationError_Binding = This.Binding
+    Set IValidationError_Binding = this.Binding
 End Property

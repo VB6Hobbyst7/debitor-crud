@@ -41,15 +41,15 @@ Attribute GuardDefaultInstance.VB_Description = "Raises a run-time error if the 
 End Sub
 
 '@Description("Raises a run-time error if the specified object reference is already set.")
-Public Sub GuardDoubleInitialization(ByVal value As Variant, _
+Public Sub GuardDoubleInitialization(ByVal Value As Variant, _
 Optional ByVal Source As String = vbNullString, _
 Optional ByVal Message As String = "Value is already initialized.")
 Attribute GuardDoubleInitialization.VB_Description = "Raises a run-time error if the specified object reference is already set."
     Dim Throw As Boolean
-    If IsObject(value) Then
-        Throw = Not value Is Nothing
+    If IsObject(Value) Then
+        Throw = Not Value Is Nothing
     Else
-        Throw = value <> GetDefaultValue(VarType(value))
+        Throw = Value <> GetDefaultValue(VarType(Value))
     End If
     GuardExpression Throw, Source, Message, ObjectAlreadyInitialized
 End Sub
@@ -88,9 +88,9 @@ Attribute GuardNullReference.VB_Description = "Raises a run-time error if the sp
 End Sub
 
 '@Description("Raises a run-time error if the specified string is empty.")
-Public Sub GuardEmptyString(ByVal value As String, _
+Public Sub GuardEmptyString(ByVal Value As String, _
 Optional ByVal Source As String = vbNullString, _
 Optional ByVal Message As String = "String cannot be empty.")
 Attribute GuardEmptyString.VB_Description = "Raises a run-time error if the specified string is empty."
-    GuardExpression value = vbNullString, Source, Message, StringCannotBeEmpty
+    GuardExpression Value = vbNullString, Source, Message, StringCannotBeEmpty
 End Sub

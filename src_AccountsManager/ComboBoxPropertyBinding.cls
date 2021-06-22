@@ -28,7 +28,7 @@ Private Type TState
     Handler As IHandlePropertyChanged
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Property Get DefaultTargetProperty() As String
     DefaultTargetProperty = DefaultTargetControlProperty
@@ -86,16 +86,19 @@ Private Function InferTargetPropertyFromSource(ByVal Source As IBindingPath, ByR
             Case VarType(SourceValue) = VbVarType.vbString
                 result = "Text"
             Case IsArray(SourceValue) Or VarType(SourceValue) = VbVarType.vbArray
-                Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way."
+                Logging.logINFO TypeName(Me) & ": binding [" & Source.ToString & "] one-way."
+'                Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way."
                 outMode = BindingMode.OneWayBinding
                 result = "List"
             Case Else
-                Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way to source."
+                Logging.logINFO TypeName(Me) & ": binding [" & Source.ToString & "] one-way to source."
+'                Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way to source."
                 outMode = BindingMode.OneWayToSource
                 result = DefaultTargetControlProperty
         End Select
     Else
-        Debug.Print TypeName(Me) & ": Could not read source property value; binding to default target property."
+        Logging.logINFO TypeName(Me) & ": Could not read source property value; binding to default target property."
+'        Debug.Print TypeName(Me) & ": Could not read source property value; binding to default target property."
         result = DefaultTargetControlProperty
     End If
     InferTargetPropertyFromSource = result
@@ -104,11 +107,11 @@ End Function
 Public Sub InjectBindingInfo(ByVal BindingInfo As PropertyBindingBase)
     GuardClauses.GuardDefaultInstance Me, ComboBoxPropertyBinding, TypeName(Me)
     GuardClauses.GuardNullReference BindingInfo, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.Base, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.Handler, TypeName(Me)
-    Set This.Base = BindingInfo
-    Set This.Handler = BindingInfo
-    This.Base.AsIControlEvents.RegisterHandler Me
+    GuardClauses.GuardDoubleInitialization this.Base, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Handler, TypeName(Me)
+    Set this.Base = BindingInfo
+    Set this.Handler = BindingInfo
+    this.Base.AsIControlEvents.RegisterHandler Me
 End Sub
 
 Private Property Get IsDefaultInstance() As Boolean
@@ -116,9 +119,9 @@ Private Property Get IsDefaultInstance() As Boolean
 End Property
 
 Private Sub IDisposable_Dispose()
-    Set This.Handler = Nothing
-    Disposable.TryDispose This.Base
-    Set This.Base = Nothing
+    Set this.Handler = Nothing
+    Disposable.TryDispose this.Base
+    Set this.Base = Nothing
 End Sub
 
 Private Sub IHandleControlEvents_HandleAfterUpdate()
@@ -137,19 +140,19 @@ Private Sub IHandleControlEvents_HandleExit(ByRef Cancel As Boolean)
 End Sub
 
 Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
-    This.Handler.HandlePropertyChanged Source, PropertyName
+    this.Handler.HandlePropertyChanged Source, PropertyName
 End Sub
 
 Private Sub IPropertyBinding_Apply()
-    This.Base.Apply
+    this.Base.Apply
 End Sub
 
 Private Property Get IPropertyBinding_CancelExitOnValidationError() As Boolean
-    IPropertyBinding_CancelExitOnValidationError = This.Base.CancelExitOnValidationError
+    IPropertyBinding_CancelExitOnValidationError = this.Base.CancelExitOnValidationError
 End Property
 
 Private Property Get IPropertyBinding_Converter() As IValueConverter
-    Set IPropertyBinding_Converter = This.Base.Converter
+    Set IPropertyBinding_Converter = this.Base.Converter
 End Property
 
 Private Property Get IPropertyBinding_DefaultTargetProperty() As String
@@ -157,31 +160,31 @@ Private Property Get IPropertyBinding_DefaultTargetProperty() As String
 End Property
 
 Private Property Get IPropertyBinding_Mode() As BindingMode
-    IPropertyBinding_Mode = This.Base.Mode
+    IPropertyBinding_Mode = this.Base.Mode
 End Property
 
 Private Property Get IPropertyBinding_Source() As IBindingPath
-    Set IPropertyBinding_Source = This.Base.Source
+    Set IPropertyBinding_Source = this.Base.Source
 End Property
 
 Private Property Get IPropertyBinding_StringFormat() As IStringFormatter
-    Set IPropertyBinding_StringFormat = This.Base.StringFormat
+    Set IPropertyBinding_StringFormat = this.Base.StringFormat
 End Property
 
 Private Property Get IPropertyBinding_Target() As IBindingPath
-    Set IPropertyBinding_Target = This.Base.Target
+    Set IPropertyBinding_Target = this.Base.Target
 End Property
 
 Private Property Get IPropertyBinding_UpdateSourceTrigger() As BindingUpdateSourceTrigger
-    IPropertyBinding_UpdateSourceTrigger = This.Base.UpdateSourceTrigger
+    IPropertyBinding_UpdateSourceTrigger = this.Base.UpdateSourceTrigger
 End Property
 
 Private Property Get IPropertyBinding_Validator() As IValueValidator
-    Set IPropertyBinding_Validator = This.Base.Validator
+    Set IPropertyBinding_Validator = this.Base.Validator
 End Property
 
 Private Sub CheckBoxEventSource_Change()
-    If This.Base.UpdateSourceTrigger = OnPropertyChanged Then This.Base.ApplyToSource
+    If this.Base.UpdateSourceTrigger = OnPropertyChanged Then this.Base.ApplyToSource
 End Sub
 
 

@@ -22,7 +22,7 @@ Private Type TState
     PropertyName As String
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Creates a new binding path from the specified property path string and binding context."
 Public Function Create(ByVal Context As Object, ByVal path As String) As IBindingPath
@@ -43,46 +43,46 @@ End Function
 '@Description "Gets/Sets the binding context."
 Public Property Get Context() As Object
 Attribute Context.VB_Description = "Gets/Sets the binding context."
-    Set Context = This.Context
+    Set Context = this.Context
 End Property
 
 Public Property Set Context(ByVal RHS As Object)
     GuardClauses.GuardDefaultInstance Me, BindingPath, TypeName(Me)
     GuardClauses.GuardNullReference RHS, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.Context, TypeName(Me)
-    Set This.Context = RHS
+    GuardClauses.GuardDoubleInitialization this.Context, TypeName(Me)
+    Set this.Context = RHS
 End Property
 
 '@Description "Gets/Sets a string representing a property path against the binding context."
 Public Property Get path() As String
 Attribute path.VB_Description = "Gets/Sets a string representing a property path against the binding context."
-    path = This.path
+    path = this.path
 End Property
 
 Public Property Let path(ByVal RHS As String)
     GuardClauses.GuardDefaultInstance Me, BindingPath, TypeName(Me)
     GuardClauses.GuardEmptyString RHS, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.path, TypeName(Me)
-    This.path = RHS
+    GuardClauses.GuardDoubleInitialization this.path, TypeName(Me)
+    this.path = RHS
 End Property
 
 '@Description "Gets the bound object reference."
 Public Property Get object() As Object
 Attribute object.VB_Description = "Gets the bound object reference."
-    Set object = This.object
+    Set object = this.object
 End Property
 
 '@Description "Gets the name of the bound property."
 Public Property Get PropertyName() As String
 Attribute PropertyName.VB_Description = "Gets the name of the bound property."
-    PropertyName = This.PropertyName
+    PropertyName = this.PropertyName
 End Property
 
 '@Description "Resolves the Path to a bound object and property."
 Public Sub Resolve()
 Attribute Resolve.VB_Description = "Resolves the Path to a bound object and property."
-    This.PropertyName = ResolvePropertyName(This.path)
-    Set This.object = ResolvePropertyPath(This.Context, This.path)
+    this.PropertyName = ResolvePropertyName(this.path)
+    Set this.object = ResolvePropertyPath(this.Context, this.path)
 End Sub
 
 Private Function ResolvePropertyName(ByVal PropertyPath As String) As String
@@ -107,43 +107,43 @@ Private Function ResolvePropertyPath(ByVal Context As Object, ByVal PropertyPath
 End Function
 
 Private Property Get IBindingPath_Context() As Object
-    Set IBindingPath_Context = This.Context
+    Set IBindingPath_Context = this.Context
 End Property
 
 Private Property Get IBindingPath_Path() As String
-    IBindingPath_Path = This.path
+    IBindingPath_Path = this.path
 End Property
 
 Private Property Get IBindingPath_Object() As Object
-    Set IBindingPath_Object = This.object
+    Set IBindingPath_Object = this.object
 End Property
 
 Private Property Get IBindingPath_PropertyName() As String
-    IBindingPath_PropertyName = This.PropertyName
+    IBindingPath_PropertyName = this.PropertyName
 End Property
 
 Private Sub IBindingPath_Resolve()
-    Set This.object = ResolvePropertyPath(This.Context, This.path)
+    Set this.object = ResolvePropertyPath(this.Context, this.path)
 End Sub
 
 Private Function IBindingPath_ToString() As String
     IBindingPath_ToString = StringBuilderNet _
-        .AppendFormat("Context: {0}; Path: {1}", TypeName(This.Context), This.path) _
+        .AppendFormat("Context: {0}; Path: {1}", TypeName(this.Context), this.path) _
         .ToString
 End Function
 
 Private Function IBindingPath_TryReadPropertyValue(ByRef outValue As Variant) As Boolean
-    If This.object Is Nothing Then Resolve
+    If this.object Is Nothing Then Resolve
     On Error Resume Next
-    outValue = VBA.Interaction.CallByName(This.object, This.PropertyName, VbGet)
+    outValue = VBA.Interaction.CallByName(this.object, this.PropertyName, VbGet)
     IBindingPath_TryReadPropertyValue = (Err.number = 0)
     On Error GoTo 0
 End Function
 
-Private Function IBindingPath_TryWritePropertyValue(ByVal value As Variant) As Boolean
-    If This.object Is Nothing Then Resolve
+Private Function IBindingPath_TryWritePropertyValue(ByVal Value As Variant) As Boolean
+    If this.object Is Nothing Then Resolve
     On Error Resume Next
-    VBA.Interaction.CallByName This.object, This.PropertyName, VbLet, value
+    VBA.Interaction.CallByName this.object, this.PropertyName, VbLet, Value
     IBindingPath_TryWritePropertyValue = (Err.number = 0)
     On Error GoTo 0
 End Function

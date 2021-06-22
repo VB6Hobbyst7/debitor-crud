@@ -425,7 +425,7 @@ Private Function HWndOfuserForm(ByRef View As Object) As LongPtr
     
 End Function
 
-Private Function ClearBit(ByRef value As Long, ByRef BitNumber As Long) As Long
+Private Function ClearBit(ByRef Value As Long, ByRef BitNumber As Long) As Long
     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     ' ClearBit
     ' Clears the specified bit in Value and returns the result. Bits are
@@ -436,12 +436,12 @@ Private Function ClearBit(ByRef value As Long, ByRef BitNumber As Long) As Long
     Dim ClearMask As Long
     
     BitNumber = Abs(BitNumber) Mod 32
-    SetMask = value
+    SetMask = Value
     
     If BitNumber < 30 Then
         ClearMask = Not (2 ^ (BitNumber - 1))
         ClearBit = SetMask And ClearMask
     Else
-        ClearBit = value And &H7FFFFFFF
+        ClearBit = Value And &H7FFFFFFF
     End If
 End Function

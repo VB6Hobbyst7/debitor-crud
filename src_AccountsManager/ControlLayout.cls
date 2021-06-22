@@ -29,47 +29,47 @@ Private Type TControlLayout
     BoundControl As Control
 End Type
 
-Private This As TControlLayout
+Private this As TControlLayout
 
 Public Sub Bind(ByVal Form As MSForms.UserForm, ByVal formControl As Control, ByVal Anchor As AnchorEdges)
 
-    Set This.FormSize = New ControlSize
-    Set This.Size = New ControlSize
-    Set This.Margins = New SideMargins
-    This.Anchors = Anchor
+    Set this.FormSize = New ControlSize
+    Set this.Size = New ControlSize
+    Set this.Margins = New SideMargins
+    this.Anchors = Anchor
 
-    This.FormSize.Height = Form.InsideHeight
-    This.FormSize.Width = Form.InsideWidth
+    this.FormSize.Height = Form.InsideHeight
+    this.FormSize.Width = Form.InsideWidth
 
-    This.Size.Height = formControl.Height
-    This.Size.Width = formControl.Width
+    this.Size.Height = formControl.Height
+    this.Size.Width = formControl.Width
 
     If (Anchor And BottomAnchor) = BottomAnchor Then
-        This.Margins.BottomMargin = This.FormSize.Height - formControl.Top - formControl.Height
+        this.Margins.BottomMargin = this.FormSize.Height - formControl.Top - formControl.Height
     End If
 
     If (Anchor And LeftAnchor) = LeftAnchor Then
-        This.Margins.LeftMargin = formControl.Left
+        this.Margins.LeftMargin = formControl.Left
     End If
 
     If (Anchor And RightAnchor) = RightAnchor Then
-        This.Margins.RightMargin = This.FormSize.Width - formControl.Left - formControl.Width
+        this.Margins.RightMargin = this.FormSize.Width - formControl.Left - formControl.Width
     End If
 
     If (Anchor And TopAnchor) = TopAnchor Then
-        This.Margins.TopMargin = formControl.Top
+        this.Margins.TopMargin = formControl.Top
     End If
 
-    Set This.BoundControl = formControl
+    Set this.BoundControl = formControl
 
 End Sub
 
 Public Sub Resize(ByVal Form As UserForm)
 
-    This.FormSize.Height = Form.InsideHeight
-    This.FormSize.Width = Form.InsideWidth
+    this.FormSize.Height = Form.InsideHeight
+    this.FormSize.Width = Form.InsideWidth
 
-    Layout This.BoundControl
+    Layout this.BoundControl
 
 End Sub
 
@@ -78,38 +78,38 @@ Private Sub Layout(ByVal formControl As Control)
     If (Anchors And TopAnchor) = TopAnchor Then
 
     If (Anchors And BottomAnchor) = BottomAnchor Then
-        formControl.Height = This.FormSize.Height - formControl.Top - This.Margins.BottomMargin
+        formControl.Height = this.FormSize.Height - formControl.Top - this.Margins.BottomMargin
     End If
 
     ElseIf (Anchors And BottomAnchor) = BottomAnchor Then
-        formControl.Top = This.FormSize.Height - formControl.Height - This.Margins.BottomMargin
+        formControl.Top = this.FormSize.Height - formControl.Height - this.Margins.BottomMargin
     End If
 
 
     If (Anchors And LeftAnchor) = LeftAnchor Then
 
         If (Anchors And RightAnchor) = RightAnchor Then
-            formControl.Width = This.FormSize.Width - formControl.Left - This.Margins.RightMargin
+            formControl.Width = this.FormSize.Width - formControl.Left - this.Margins.RightMargin
         End If
 
     ElseIf (Anchors And RightAnchor) = RightAnchor Then
-        formControl.Left = This.FormSize.Width - formControl.Width - This.Margins.RightMargin
+        formControl.Left = this.FormSize.Width - formControl.Width - this.Margins.RightMargin
     End If
 
 End Sub
 
 Public Property Get Anchors() As AnchorEdges
-    Anchors = This.Anchors
+    Anchors = this.Anchors
 End Property
 
 Public Property Let Anchors(ByVal ancor As AnchorEdges)
-    This.Anchors = ancor
+    this.Anchors = ancor
 End Property
 
 Public Property Get BoundControl() As Control
-    Set BoundControl = This.BoundControl
+    Set BoundControl = this.BoundControl
 End Property
 
 Public Property Set BoundControl(ByVal bound As Control)
-    Set This.BoundControl = bound
+    Set this.BoundControl = bound
 End Property

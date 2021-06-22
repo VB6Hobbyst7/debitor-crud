@@ -14,27 +14,28 @@ Private Type TState
     MemberInvokes As Dictionary
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Tracks a new invoke of the specified member."
 Public Sub OnInvoke(ByVal MemberName As String)
 Attribute OnInvoke.VB_Description = "Tracks a new invoke of the specified member."
     Dim NewValue As Long
-    If This.MemberInvokes.Exists(MemberName) Then
-        NewValue = This.MemberInvokes.Item(MemberName) + 1
-        This.MemberInvokes.Remove MemberName
+    If this.MemberInvokes.Exists(MemberName) Then
+        NewValue = this.MemberInvokes.Item(MemberName) + 1
+        this.MemberInvokes.Remove MemberName
     Else
         NewValue = 1
     End If
-    This.MemberInvokes.add MemberName, NewValue
-    Debug.Print TypeName(Me) & ": OnInvoke(" & MemberName & ") was invoked"
+    this.MemberInvokes.add MemberName, NewValue
+'    Debug.Print TypeName(Me) & ": OnInvoke(" & MemberName & ") was invoked"
+    Logging.logINFO TypeName(Me) & ": OnInvoke(" & MemberName & ") was invoked"
 End Sub
 
 '@Description "Gets the number of invokes made against the specified member in the lifetime of this object."
 Public Property Get MemberInvokes(ByVal MemberName As String) As Long
 Attribute MemberInvokes.VB_Description = "Gets the number of invokes made against the specified member in the lifetime of this object."
-    If This.MemberInvokes.Exists(MemberName) Then
-        MemberInvokes = This.MemberInvokes.Item(MemberName)
+    If this.MemberInvokes.Exists(MemberName) Then
+        MemberInvokes = this.MemberInvokes.Item(MemberName)
     Else
         MemberInvokes = 0
     End If
@@ -44,14 +45,14 @@ End Property
 Public Function ToString() As String
 Attribute ToString.VB_Description = "Gets a string listing the MemberInvokes cache content."
     Dim MemberNames As Variant
-    MemberNames = This.MemberInvokes.Keys
+    MemberNames = this.MemberInvokes.Keys
     
     With New StringBuilderNet
         Dim i As Long
         For i = LBound(MemberNames) To UBound(MemberNames)
             Dim Name As String
             Name = MemberNames(i)
-            .AppendFormat "{0} was invoked {1} time(s)", Name, This.MemberInvokes.Item(Name)
+            .AppendFormat "{0} was invoked {1} time(s)", Name, this.MemberInvokes.Item(Name)
         Next
         ToString = .ToString
     End With
@@ -65,11 +66,11 @@ Public Sub Verify(ByVal Assert As Object, ByVal MemberName As String, ByVal Expe
 End Sub
 
 Private Sub Class_Initialize()
-    Set This.MemberInvokes = New Dictionary
+    Set this.MemberInvokes = New Dictionary
 End Sub
 
 Private Property Get ITestStub_MemberInvokes(ByVal MemberName As String) As Long
-    ITestStub_MemberInvokes = This.MemberInvokes.Item(MemberName)
+    ITestStub_MemberInvokes = this.MemberInvokes.Item(MemberName)
 End Property
 
 Private Function ITestStub_ToString() As String

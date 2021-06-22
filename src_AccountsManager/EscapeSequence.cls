@@ -13,23 +13,23 @@ Private Type tEscapeSequence
     ReplacementString As String
 End Type
 
-Private This As tEscapeSequence
+Private this As tEscapeSequence
 Option Explicit
 
 Public Property Get EscapeString() As String
-    EscapeString = This.EscapeString
+    EscapeString = this.EscapeString
 End Property
 
-Friend Property Let EscapeString(value As String)
-    This.EscapeString = value
+Friend Property Let EscapeString(Value As String)
+    this.EscapeString = Value
 End Property
 
 Public Property Get ReplacementString() As String
-    ReplacementString = This.ReplacementString
+    ReplacementString = this.ReplacementString
 End Property
 
-Friend Property Let ReplacementString(value As String)
-    This.ReplacementString = value
+Friend Property Let ReplacementString(Value As String)
+    this.ReplacementString = Value
 End Property
 
 Public Function Create(escape As String, replacement As String) As EscapeSequence

@@ -20,19 +20,19 @@ Public Function Default() As IValueConverter
     Set Default = StringToDateConverter
 End Function
 
-Private Function IValueConverter_Convert(ByVal value As Variant) As Variant
-    IValueConverter_Convert = Convert(value)
+Private Function IValueConverter_Convert(ByVal Value As Variant) As Variant
+    IValueConverter_Convert = Convert(Value)
 End Function
 
-Private Function IValueConverter_ConvertBack(ByVal value As Variant) As Variant
-    IValueConverter_ConvertBack = Convert(value)
+Private Function IValueConverter_ConvertBack(ByVal Value As Variant) As Variant
+    IValueConverter_ConvertBack = Convert(Value)
 End Function
 
-Private Function Convert(ByVal value As Variant) As Variant
-    GuardClauses.GuardExpression Not IsDate(value), TypeName(Me), "Value '" & value & "' was not recognized as a valid date."
-    If VarType(value) = vbDate Then
-        Convert = CStr(value)
+Private Function Convert(ByVal Value As Variant) As Variant
+    GuardClauses.GuardExpression Not IsDate(Value), TypeName(Me), "Value '" & Value & "' was not recognized as a valid date."
+    If VarType(Value) = vbDate Then
+        Convert = CStr(Value)
     Else
-        Convert = CDate(value)
+        Convert = CDate(Value)
     End If
 End Function

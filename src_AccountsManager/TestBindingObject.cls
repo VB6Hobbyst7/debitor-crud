@@ -24,7 +24,7 @@ Private Type TState
     TestBindingObjectProperty As TestBindingObject
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Function Create() As TestBindingObject
     GuardClauses.GuardNonDefaultInstance Me, TestBindingObject, TypeName(Me)
@@ -34,54 +34,54 @@ Public Function Create() As TestBindingObject
 End Function
 
 Public Property Get TestStringProperty() As String
-    This.Stub.OnInvoke "TestStringProperty.Get"
-    TestStringProperty = This.TestStringProperty
+    this.Stub.OnInvoke "TestStringProperty.Get"
+    TestStringProperty = this.TestStringProperty
 End Property
 
 Public Property Let TestStringProperty(ByVal RHS As String)
-    This.Stub.OnInvoke "TestStringProperty.Let"
-    If This.TestStringProperty <> RHS Then
-        This.TestStringProperty = RHS
+    this.Stub.OnInvoke "TestStringProperty.Let"
+    If this.TestStringProperty <> RHS Then
+        this.TestStringProperty = RHS
         OnPropertyChanged Me, "TestStringProperty"
     End If
 End Property
 
 Public Property Get TestNumericProperty() As Long
-    This.Stub.OnInvoke "TestNumericProperty.Get"
-    TestNumericProperty = This.TestNumericProperty
+    this.Stub.OnInvoke "TestNumericProperty.Get"
+    TestNumericProperty = this.TestNumericProperty
 End Property
 
 Public Property Let TestNumericProperty(ByVal RHS As Long)
-    This.Stub.OnInvoke "TestNumericProperty.Let"
-    If This.TestNumericProperty <> RHS Then
-        This.TestNumericProperty = RHS
+    this.Stub.OnInvoke "TestNumericProperty.Let"
+    If this.TestNumericProperty <> RHS Then
+        this.TestNumericProperty = RHS
         OnPropertyChanged Me, "TestNumericProperty"
     End If
 End Property
 
 Public Property Get TestBindingObjectProperty() As TestBindingObject
-    This.Stub.OnInvoke "TestBindingObjectProperty.Get"
-    Set TestBindingObjectProperty = This.TestBindingObjectProperty
+    this.Stub.OnInvoke "TestBindingObjectProperty.Get"
+    Set TestBindingObjectProperty = this.TestBindingObjectProperty
 End Property
 
 Public Property Set TestBindingObjectProperty(ByVal RHS As TestBindingObject)
-    This.Stub.OnInvoke "TestBindingObjectProperty.Set"
-    If Not This.TestBindingObjectProperty Is RHS Then
-        Set This.TestBindingObjectProperty = RHS
+    this.Stub.OnInvoke "TestBindingObjectProperty.Set"
+    If Not this.TestBindingObjectProperty Is RHS Then
+        Set this.TestBindingObjectProperty = RHS
         OnPropertyChanged Me, "TestBindingObjectProperty"
     End If
 End Property
 
 Private Sub OnPropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
     Dim Handler As IHandlePropertyChanged
-    For Each Handler In This.Handlers
+    For Each Handler In this.Handlers
         Handler.HandlePropertyChanged Source, PropertyName
     Next
 End Sub
 
 Private Sub Class_Initialize()
-    Set This.Stub = New TestStubBase
-    Set This.Handlers = New Collection
+    Set this.Stub = New TestStubBase
+    Set this.Handlers = New Collection
 End Sub
 
 Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
@@ -93,17 +93,17 @@ Private Sub INotifyPropertyChanged_OnPropertyChanged(ByVal Source As Object, ByV
 End Sub
 
 Private Sub INotifyPropertyChanged_RegisterHandler(ByVal Handler As IHandlePropertyChanged)
-    This.Handlers.add Handler
+    this.Handlers.add Handler
 End Sub
 
 Private Property Get ITestStub_MemberInvokes(ByVal MemberName As String) As Long
-    ITestStub_MemberInvokes = This.Stub.MemberInvokes(MemberName)
+    ITestStub_MemberInvokes = this.Stub.MemberInvokes(MemberName)
 End Property
 
 Private Function ITestStub_ToString() As String
-    ITestStub_ToString = This.Stub.ToString
+    ITestStub_ToString = this.Stub.ToString
 End Function
 
 Private Sub ITestStub_Verify(ByVal Assert As Object, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
-    This.Stub.Verify Assert, MemberName, ExpectedInvokes
+    this.Stub.Verify Assert, MemberName, ExpectedInvokes
 End Sub

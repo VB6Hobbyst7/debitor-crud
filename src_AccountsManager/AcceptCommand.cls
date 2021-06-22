@@ -20,7 +20,7 @@ Private Type TState
     ValidationManager As IValidationManager
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Creates a new instance of this command."
 Public Function Create(ByVal View As IView, ByVal ValidationManager As IValidationManager) As ICommand
@@ -36,27 +36,27 @@ Attribute Create.VB_Description = "Creates a new instance of this command."
 End Function
 
 Public Property Get View() As IView
-    Set View = This.View
+    Set View = this.View
 End Property
 
 Friend Property Set View(ByVal RHS As IView)
     GuardClauses.GuardDefaultInstance Me, AcceptCommand
-    GuardClauses.GuardDoubleInitialization This.View, TypeName(Me)
-    Set This.View = RHS
+    GuardClauses.GuardDoubleInitialization this.View, TypeName(Me)
+    Set this.View = RHS
 End Property
 
 Public Property Get ValidationManager() As IValidationManager
-    Set ValidationManager = This.ValidationManager
+    Set ValidationManager = this.ValidationManager
 End Property
 
 Friend Property Set ValidationManager(ByVal RHS As IValidationManager)
     GuardClauses.GuardDefaultInstance Me, AcceptCommand
-    GuardClauses.GuardDoubleInitialization This.ValidationManager, TypeName(Me)
-    Set This.ValidationManager = RHS
+    GuardClauses.GuardDoubleInitialization this.ValidationManager, TypeName(Me)
+    Set this.ValidationManager = RHS
 End Property
 
 Private Function ICommand_CanExecute(ByVal Context As Object) As Boolean
-    ICommand_CanExecute = This.ValidationManager.IsValid(Context)
+    ICommand_CanExecute = this.ValidationManager.IsValid(Context)
 End Function
 
 Private Property Get ICommand_Description() As String
@@ -64,5 +64,5 @@ Private Property Get ICommand_Description() As String
 End Property
 
 Private Sub ICommand_Execute(ByVal Context As Object)
-    This.View.Hide
+    this.View.Hide
 End Sub

@@ -25,6 +25,6 @@ Attribute Message.VB_Description = "A user-friendly message describing the valid
 End Property
 
 '@Description "True if the specified value is valid in itself or in the context of the binding source and target."
-Public Function IsValid(ByVal value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
+Public Function IsValid(ByVal Value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
 Attribute IsValid.VB_Description = "True if the specified value is valid in itself or in the context of the binding source and target."
 End Function

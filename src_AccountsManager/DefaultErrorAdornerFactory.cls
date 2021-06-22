@@ -25,7 +25,8 @@ Private Function IDynamicAdornerFactory_Create(ByVal Target As Object) As IDynam
             Set result = ValidationErrorAdorner.Create(Target, IconPosition:=DynamicControlPosition.Create(InsideRight, 0, TopMargin:=3, RightMargin:=12))
         
         Case Else
-            Debug.Print "A dynamic adorner was requested, but the target type isn't supported."
+            Logging.logINFO "A dynamic adorner was requested, but the target type isn't supported."
+'            Debug.Print "A dynamic adorner was requested, but the target type isn't supported."
         
     End Select
     Set IDynamicAdornerFactory_Create = result

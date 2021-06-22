@@ -101,7 +101,7 @@ Public Function Format(format_string As String, ParamArray Values()) As String
             
             
             'get the format specifier if it is specified:
-            thisString = thisMatch.value
+            thisString = thisMatch.Value
             If StringType.Contains(thisString, ":") Then
                 
                 '@Ignore MultipleDeclarations
@@ -403,7 +403,7 @@ checkEscapes:
                 '"p" contains the octal number representing the ASCII code we're after:
                 p = "&O" & p 'prepend octal prefix
                 Char = CLng(p)
-                return_value = Replace(return_value, thisMatch.value, Chr$(Char))
+                return_value = Replace(return_value, thisMatch.Value, Chr$(Char))
             Next
         End If
         
@@ -423,7 +423,7 @@ checkEscapes:
                 '"p" contains the hex value representing the ASCII code we're after:
                 p = "&H" & p 'prepend hex prefix
                 Char = CLng(p)
-                return_value = Replace(return_value, thisMatch.value, Chr$(Char))
+                return_value = Replace(return_value, thisMatch.Value, Chr$(Char))
             Next
         End If
 

@@ -25,7 +25,7 @@ End Type
 
 Private Const DefaultMargin As Long = 3
 
-Private This As TState
+Private this As TState
 
 Public Function Create(ByVal Parent As MSForms.Controls, Optional ByVal Direction As LayoutDirection, Optional ByVal Top As Long = 0, Optional ByVal Left As Long = 0, Optional ByVal Margin As Long = DefaultMargin) As IContainerLayout
     Dim result As ContainerLayout
@@ -39,53 +39,53 @@ Public Function Create(ByVal Parent As MSForms.Controls, Optional ByVal Directio
 End Function
 
 Public Property Get Parent() As MSForms.Controls
-    Set Parent = This.Parent
+    Set Parent = this.Parent
 End Property
 
 Public Property Set Parent(ByVal RHS As MSForms.Controls)
-    Set This.Parent = RHS
+    Set this.Parent = RHS
 End Property
 
 Public Property Get NextControlTop() As Long
-    NextControlTop = This.NextControlTop
+    NextControlTop = this.NextControlTop
 End Property
 
 Public Property Let NextControlTop(ByVal RHS As Long)
-    This.NextControlTop = RHS
+    this.NextControlTop = RHS
 End Property
 
 Public Property Get NextControlLeft() As Long
-    NextControlLeft = This.NextControlLeft
+    NextControlLeft = this.NextControlLeft
 End Property
 
 Public Property Let NextControlLeft(ByVal RHS As Long)
-    This.NextControlLeft = RHS
+    this.NextControlLeft = RHS
 End Property
 
 Public Property Get Direction() As LayoutDirection
-    Direction = This.Direction
+    Direction = this.Direction
 End Property
 
 Public Property Let Direction(ByVal RHS As LayoutDirection)
-    This.Direction = RHS
+    this.Direction = RHS
 End Property
 
 Public Property Get Margin() As Long
-    Margin = This.Margin
+    Margin = this.Margin
 End Property
 
 Public Property Let Margin(ByVal RHS As Long)
-    This.Margin = RHS
+    this.Margin = RHS
 End Property
 
 Private Sub OffsetControlSize(ByVal Control As MSForms.Control, ByVal Margin As Long)
-    Select Case This.Direction
+    Select Case this.Direction
     
         Case LayoutDirection.TopToBottom
-            This.NextControlTop = Control.Top + Control.Height + Margin
+            this.NextControlTop = Control.Top + Control.Height + Margin
         
         Case LayoutDirection.LeftToRight
-            This.NextControlLeft = Control.Left + Control.Width + Margin
+            this.NextControlLeft = Control.Left + Control.Width + Margin
             
         Case Else
             Debug.Assert False ' not implemented...
@@ -95,10 +95,10 @@ End Sub
 
 Private Function IContainerLayout_Add(ByVal ProgID As String, Optional ByVal Height As Variant, Optional ByVal Width As Variant, Optional ByVal ApplyMargin As Boolean = True) As Object
     Dim result As Control
-    Set result = This.Parent.add(ProgID)
+    Set result = this.Parent.add(ProgID)
     
-    result.Top = This.NextControlTop
-    result.Left = This.NextControlLeft
+    result.Top = this.NextControlTop
+    result.Left = this.NextControlLeft
     
     If Not IsMissing(Height) Then
         result.Height = Height
@@ -108,19 +108,19 @@ Private Function IContainerLayout_Add(ByVal ProgID As String, Optional ByVal Hei
         result.Width = Width
     End If
     
-    OffsetControlSize result, IIf(ApplyMargin, This.Margin, 0)
+    OffsetControlSize result, IIf(ApplyMargin, this.Margin, 0)
     Set IContainerLayout_Add = result
     
 End Function
 
 Private Sub IContainerLayout_SkipPosition(Optional ByVal Margin As Long)
-    Select Case This.Direction
+    Select Case this.Direction
         
         Case LayoutDirection.TopToBottom
-            This.NextControlTop = This.NextControlTop + IIf(Margin > 0, Margin, This.Margin * 2)
+            this.NextControlTop = this.NextControlTop + IIf(Margin > 0, Margin, this.Margin * 2)
             
         Case LayoutDirection.LeftToRight
-            This.NextControlLeft = This.NextControlLeft + IIf(Margin > 0, Margin, This.Margin * 2)
+            this.NextControlLeft = this.NextControlLeft + IIf(Margin > 0, Margin, this.Margin * 2)
             
     End Select
 End Sub

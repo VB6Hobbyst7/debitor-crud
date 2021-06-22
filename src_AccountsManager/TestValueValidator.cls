@@ -18,52 +18,52 @@ Private Type TState
     Message As String
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Gets/sets a value that determines whether this validator evaluates to True or False."
 Public Property Get IsValid() As Boolean
 Attribute IsValid.VB_Description = "Gets/sets a value that determines whether this validator evaluates to True or False."
-    IsValid = This.IsValid
+    IsValid = this.IsValid
 End Property
 
 Public Property Let IsValid(ByVal RHS As Boolean)
-    This.IsValid = RHS
+    this.IsValid = RHS
 End Property
 
 '@Description "Gets/sets the validation error message for this validator."
 Public Property Get Message() As String
 Attribute Message.VB_Description = "Gets/sets the validation error message for this validator."
-    Message = This.Message
+    Message = this.Message
 End Property
 
 Public Property Let Message(ByVal RHS As String)
-    This.Message = RHS
+    this.Message = RHS
 End Property
 
 Private Sub Class_Initialize()
-    Set This.Stub = New TestStubBase
+    Set this.Stub = New TestStubBase
 End Sub
 
-Private Function IValueValidator_IsValid(ByVal value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
-    This.Stub.OnInvoke "IsValid"
-    IValueValidator_IsValid = This.IsValid
+Private Function IValueValidator_IsValid(ByVal Value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
+    this.Stub.OnInvoke "IsValid"
+    IValueValidator_IsValid = this.IsValid
 End Function
 
 Private Property Get IValueValidator_Message() As String
-    This.Stub.OnInvoke "Message"
-    IValueValidator_Message = This.Message
+    this.Stub.OnInvoke "Message"
+    IValueValidator_Message = this.Message
 End Property
 
 Private Property Get ITestStub_MemberInvokes(ByVal MemberName As String) As Long
-    ITestStub_MemberInvokes = This.Stub.MemberInvokes(MemberName)
+    ITestStub_MemberInvokes = this.Stub.MemberInvokes(MemberName)
 End Property
 
 Private Function ITestStub_ToString() As String
-    ITestStub_ToString = This.Stub.ToString
+    ITestStub_ToString = this.Stub.ToString
 End Function
 
 Private Sub ITestStub_Verify(ByVal Assert As Object, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
-    This.Stub.Verify Assert, MemberName, ExpectedInvokes
+    this.Stub.Verify Assert, MemberName, ExpectedInvokes
 End Sub
 
 Private Property Get IValueValidator_Trigger() As BindingUpdateSourceTrigger

@@ -20,16 +20,16 @@ Private Type TState
     DebugOutput As Boolean
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Gets/sets a value indicating whether the object produces debugger output."
 Public Property Get DebugOutput() As Boolean
 Attribute DebugOutput.VB_Description = "Gets/sets a value indicating whether the object produces debugger output."
-    DebugOutput = This.DebugOutput
+    DebugOutput = this.DebugOutput
 End Property
 
 Public Property Let DebugOutput(ByVal RHS As Boolean)
-    This.DebugOutput = RHS
+    this.DebugOutput = RHS
 End Property
 
 '@Description "Releases all held ICommandBinding references, prepares the object for proper destruction."
@@ -37,26 +37,27 @@ Public Sub Dispose()
 Attribute Dispose.VB_Description = "Releases all held ICommandBinding references, prepares the object for proper destruction."
     '@Ignore VariableNotUsed
     Dim Index As Long
-    For Index = 1 To This.CommandBindings.Count
-        Disposable.TryDispose This.CommandBindings.Item(This.CommandBindings.Count)
-        This.CommandBindings.Remove This.CommandBindings.Count
+    For Index = 1 To this.CommandBindings.Count
+        Disposable.TryDispose this.CommandBindings.Item(this.CommandBindings.Count)
+        this.CommandBindings.Remove this.CommandBindings.Count
     Next
-    Set This.CommandBindings = Nothing
+    Set this.CommandBindings = Nothing
 End Sub
 
 Private Sub EvaluateCanExecute(ByVal BindingContext As Object)
     Dim Binding As ICommandBinding
-    For Each Binding In This.CommandBindings
+    For Each Binding In this.CommandBindings
         Binding.EvaluateCanExecute BindingContext
     Next
 End Sub
 
 Private Sub DebugMessage(ByVal Message As String)
-    If This.DebugOutput Then Debug.Print TypeName(Me) & ": " & Message
+'    If this.DebugOutput Then Debug.Print TypeName(Me) & ": " & Message
+    If this.DebugOutput Then Logging.logINFO TypeName(Me) & ": " & Message
 End Sub
 
 Private Sub Class_Initialize()
-    Set This.CommandBindings = New Collection
+    Set this.CommandBindings = New Collection
 End Sub
 
 Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByVal Target As Object, ByVal command As ICommand) As ICommandBinding
@@ -86,7 +87,7 @@ Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByV
             
     End Select
     
-    This.CommandBindings.add Binding
+    this.CommandBindings.add Binding
     Set ICommandManager_BindCommand = Binding
     
     DebugMessage "Created CommandBinding for " & TypeName(command) & "."

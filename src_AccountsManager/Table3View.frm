@@ -27,7 +27,7 @@ Private Type TView
     IsCancelled As Boolean
 End Type
 
-Private This As TView
+Private this As TView
 
 '@Description "A factory method to create new instances of this View, already wired-up to a ViewModel."
 Public Function Create() As IView
@@ -96,12 +96,12 @@ Private Sub Localize(ByVal title As String)
 End Sub
 
 Private Sub OnCancel()
-    This.IsCancelled = True
+    this.IsCancelled = True
     Me.Hide
 End Sub
 
 Private Property Get ICancellable_IsCancelled() As Boolean
-    ICancellable_IsCancelled = This.IsCancelled
+    ICancellable_IsCancelled = this.IsCancelled
 End Property
 
 Private Sub ICancellable_OnCancel()
@@ -130,16 +130,16 @@ Private Function IView_ShowDialog() As Boolean
     ShowMaximizeButton Me, False
     
     Me.Show vbModal
-    IView_ShowDialog = Not This.IsCancelled
+    IView_ShowDialog = Not this.IsCancelled
     
 End Function
 
 Private Sub IView_MinimumWidth(ByVal Width As Single)
-    This.Width = Width
+    this.Width = Width
 End Sub
 
 Private Sub IView_MinimumHeight(ByVal Height As Single)
-    This.Height = Height
+    this.Height = Height
 End Sub
 
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
@@ -154,11 +154,11 @@ Private Sub UserForm_Resize()
     On Error Resume Next
     Application.ScreenUpdating = False
     
-    If Me.Width < This.Width Then Me.Width = This.Width
-    If Me.Height < This.Height Then Me.Height = This.Height
+    If Me.Width < this.Width Then Me.Width = this.Width
+    If Me.Height < this.Height Then Me.Height = this.Height
     
     Dim Layout As ControlLayout
-    For Each Layout In This.LayoutBindings
+    For Each Layout In this.LayoutBindings
         Layout.Resize Me
     Next
 

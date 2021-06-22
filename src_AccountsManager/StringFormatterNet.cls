@@ -20,7 +20,7 @@ Private Type TState
     FormatString As String
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Function Create(ByVal FormatString As String) As IStringFormatter
     Dim result As StringFormatterNet
@@ -30,12 +30,12 @@ Public Function Create(ByVal FormatString As String) As IStringFormatter
 End Function
 
 Public Property Get FormatString() As String
-    FormatString = This.FormatString
+    FormatString = this.FormatString
 End Property
 
 Friend Property Let FormatString(ByVal RHS As String)
     GuardClauses.GuardDefaultInstance Me, StringFormatterNet
-    This.FormatString = RHS
+    this.FormatString = RHS
 End Property
 
 Private Function IStringFormatter_Format(ParamArray Values() As Variant) As String
@@ -51,11 +51,11 @@ Private Function IStringFormatter_Format(ParamArray Values() As Variant) As Stri
             LocalArgs(Index) = Values(Index)
         Next
     End If
-    With StringBuilderNet.AppendFormat(This.FormatString, LocalArgs)
+    With StringBuilderNet.AppendFormat(this.FormatString, LocalArgs)
         IStringFormatter_Format = .ToString
     End With
 End Function
 
 Private Property Get IStringFormatter_FormatString() As String
-    IStringFormatter_FormatString = This.FormatString
+    IStringFormatter_FormatString = this.FormatString
 End Property

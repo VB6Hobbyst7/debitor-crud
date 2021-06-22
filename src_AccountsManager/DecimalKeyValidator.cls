@@ -21,11 +21,11 @@ Private Sub Class_Initialize()
     SeparatorChar = VBA.Strings.Format$(0, ".")
 End Sub
 
-Private Function IValueValidator_IsValid(ByVal value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
+Private Function IValueValidator_IsValid(ByVal Value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
     Dim result As Boolean
-    result = IsNumeric(value)
+    result = IsNumeric(Value)
     
-    If value = SeparatorChar Then
+    If Value = SeparatorChar Then
         
         Dim SourceValue As String
         If Source.TryReadPropertyValue(outValue:=SourceValue) Then

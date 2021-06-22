@@ -27,7 +27,7 @@ Private Type TState
     BindingTargetStrategies As Dictionary
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Function Create(ByVal Context As IAppContext, ByVal StringFormatFactory As IStringFormatterFactory, Optional ByVal Factory As INotifierFactory, Optional ByVal DebugOutput As Boolean = False) As IBindingManager
     GuardClauses.GuardNonDefaultInstance Me, BindingManager, TypeName(Me)
@@ -53,13 +53,13 @@ Public Function Create(ByVal Context As IAppContext, ByVal StringFormatFactory A
 End Function
 
 Public Property Get NotifierFactory() As INotifierFactory
-    Set NotifierFactory = This.NotifierFactory
+    Set NotifierFactory = this.NotifierFactory
 End Property
 
 Public Property Set NotifierFactory(ByVal RHS As INotifierFactory)
     GuardClauses.GuardDefaultInstance Me, BindingManager, TypeName(Me)
-    GuardClauses.GuardDoubleInitialization This.NotifierFactory, TypeName(Me)
-    Set This.NotifierFactory = RHS
+    GuardClauses.GuardDoubleInitialization this.NotifierFactory, TypeName(Me)
+    Set this.NotifierFactory = RHS
 End Property
 
 Private Property Get IsDefaultInstance() As Boolean
@@ -69,47 +69,47 @@ End Property
 Private Sub Apply(ByVal Source As Object)
     GuardClauses.GuardDefaultInstance Me, BindingManager, TypeName(Me), "Member call is invalid against stateless default instance."
     Dim Binding As IPropertyBinding
-    For Each Binding In This.PropertyBindings
+    For Each Binding In this.PropertyBindings
         If Source Is Binding.Source.Context Then Binding.Apply
     Next
 End Sub
 
 Public Property Get Context() As IAppContext
-    Set Context = This.Context
+    Set Context = this.Context
 End Property
 
 Friend Property Set Context(ByVal RHS As IAppContext)
     GuardClauses.GuardDefaultInstance Me, BindingManager
     GuardClauses.GuardNullReference RHS
-    GuardClauses.GuardDoubleInitialization This.Context, TypeName(Me)
-    Set This.Context = RHS
+    GuardClauses.GuardDoubleInitialization this.Context, TypeName(Me)
+    Set this.Context = RHS
 End Property
 
 Public Property Get Handlers() As Collection
-    Set Handlers = This.PropertyBindings
+    Set Handlers = this.PropertyBindings
 End Property
 
 Public Property Get PropertyBindings() As Collection
-    Set PropertyBindings = This.PropertyBindings
+    Set PropertyBindings = this.PropertyBindings
 End Property
 
 Public Property Get StringFormatterFactory() As IStringFormatterFactory
-    Set StringFormatterFactory = This.StringFormatterFactory
+    Set StringFormatterFactory = this.StringFormatterFactory
 End Property
 
 Public Property Set StringFormatterFactory(ByVal RHS As IStringFormatterFactory)
     GuardClauses.GuardDefaultInstance Me, BindingManager
     GuardClauses.GuardNullReference RHS
-    GuardClauses.GuardDoubleInitialization This.StringFormatterFactory, TypeName(Me)
-    Set This.StringFormatterFactory = RHS
+    GuardClauses.GuardDoubleInitialization this.StringFormatterFactory, TypeName(Me)
+    Set this.StringFormatterFactory = RHS
 End Property
 
 Public Property Get DebugOutput() As Boolean
-    DebugOutput = This.DebugOutput
+    DebugOutput = this.DebugOutput
 End Property
 
 Public Property Let DebugOutput(ByVal RHS As Boolean)
-    This.DebugOutput = RHS
+    this.DebugOutput = RHS
 End Property
 
 '@Description "Releases all held property bindings, prepares the object for proper destruction."
@@ -117,18 +117,18 @@ Public Sub Terminate()
 Attribute Terminate.VB_Description = "Releases all held property bindings, prepares the object for proper destruction."
     '@Ignore VariableNotUsed
     Dim Index As Long
-    For Index = 1 To This.PropertyBindings.Count
-        This.PropertyBindings.Remove 1
+    For Index = 1 To this.PropertyBindings.Count
+        this.PropertyBindings.Remove 1
     Next
-    Set This.PropertyBindings = Nothing
+    Set this.PropertyBindings = Nothing
 End Sub
 
 Private Sub Class_Initialize()
     If Not IsDefaultInstance Then
-        Set This.BindingTargetStrategies = New Dictionary
-        Set This.PropertyBindings = New Collection
+        Set this.BindingTargetStrategies = New Dictionary
+        Set this.PropertyBindings = New Collection
         
-        With This.BindingTargetStrategies
+        With this.BindingTargetStrategies
             .add "MSForms.CheckBox", New CheckBoxBindingStrategy
             .add "MSForms.CommandButton", New CommandButtonBindingStrategy
             .add "MSForms.ComboBox", New ComboBoxBindingStrategy
@@ -148,8 +148,8 @@ End Sub
 
 Private Sub Class_Terminate()
     If Not IsDefaultInstance Then
-        Set This.BindingTargetStrategies = Nothing
-        Set This.PropertyBindings = Nothing
+        Set this.BindingTargetStrategies = Nothing
+        Set this.PropertyBindings = Nothing
     End If
 End Sub
 
@@ -165,21 +165,21 @@ Optional ByVal ValidationAdorner As IDynamicAdorner) As IPropertyBinding
     GuardClauses.GuardDefaultInstance Me, BindingManager, TypeName(Me), "Member call is invalid against stateless default instance."
     
     Dim Formatter As IStringFormatter
-    If StringFormat <> vbNullString And Not This.StringFormatterFactory Is Nothing Then
-        Set Formatter = This.StringFormatterFactory.Create(StringFormat)
+    If StringFormat <> vbNullString And Not this.StringFormatterFactory Is Nothing Then
+        Set Formatter = this.StringFormatterFactory.Create(StringFormat)
     End If
     
     Dim Binding As IPropertyBinding
     Dim Strategy As IBindingTargetStrategy
     If TryGetBindingStrategyFor(Target, outStrategy:=Strategy) Then
         If TargetProperty = vbNullString Then
-            Set Binding = Strategy.DefaultPropertyBindingFor(This.Context, BindingPath.Create(Source, PropertyPath), Target, Mode, UpdateTrigger, Validator, Converter, Formatter, ValidationAdorner)
+            Set Binding = Strategy.DefaultPropertyBindingFor(this.Context, BindingPath.Create(Source, PropertyPath), Target, Mode, UpdateTrigger, Validator, Converter, Formatter, ValidationAdorner)
         Else
-            Set Binding = Strategy.PropertyBindingFor(This.Context, BindingPath.Create(Source, PropertyPath), BindingPath.Create(Target, TargetProperty), Mode, UpdateTrigger, Validator, Converter, Formatter, ValidationAdorner)
+            Set Binding = Strategy.PropertyBindingFor(this.Context, BindingPath.Create(Source, PropertyPath), BindingPath.Create(Target, TargetProperty), Mode, UpdateTrigger, Validator, Converter, Formatter, ValidationAdorner)
         End If
     Else
         Set Binding = OneWayPropertyBinding _
-            .Create(This.Context, _
+            .Create(this.Context, _
                 BindingPath.Create(Source, PropertyPath), _
                 BindingPath.Create(Target, TargetProperty), _
                 Validator:=Validator, _
@@ -194,15 +194,17 @@ Optional ByVal ValidationAdorner As IDynamicAdorner) As IPropertyBinding
         Notifier.RegisterHandler Binding
     End If
     
-    This.PropertyBindings.add Binding
+    this.PropertyBindings.add Binding
     Set IBindingManager_BindPropertyPath = Binding
-    If Not This.DebugOutput Then Exit Function
+    If Not this.DebugOutput Then Exit Function
     
     On Error Resume Next
-    If This.DebugOutput And TargetProperty = vbNullString Then
-        Debug.Print TypeName(Me) & ": Binding property path '" & PropertyPath & "' to the default-binding property of type '" & TypeName(Target) & "'."
-    ElseIf This.DebugOutput Then
-        Debug.Print TypeName(Me) & ": Binding property path '" & PropertyPath & "' to '" & TypeName(Target) & "." & TargetProperty & "'."
+    If this.DebugOutput And TargetProperty = vbNullString Then
+        Logging.logINFO TypeName(Me) & ": Binding property path '" & PropertyPath & "' to the default-binding property of type '" & TypeName(Target) & "'."
+'        Debug.Print TypeName(Me) & ": Binding property path '" & PropertyPath & "' to the default-binding property of type '" & TypeName(Target) & "'."
+    ElseIf this.DebugOutput Then
+        Logging.logINFO TypeName(Me) & ": Binding property path '" & PropertyPath & "' to '" & TypeName(Target) & "." & TargetProperty & "'."
+'        Debug.Print TypeName(Me) & ": Binding property path '" & PropertyPath & "' to '" & TypeName(Target) & "." & TargetProperty & "'."
     End If
     On Error GoTo 0
     
@@ -223,8 +225,8 @@ Private Function TryGetBindingStrategyFor(ByVal Target As Object, ByRef outStrat
     
     Dim Key As String
     Key = LibraryName & "." & TypeName(Target)
-    If This.BindingTargetStrategies.Exists(Key) Then
-        Set outStrategy = This.BindingTargetStrategies.Item(Key)
+    If this.BindingTargetStrategies.Exists(Key) Then
+        Set outStrategy = this.BindingTargetStrategies.Item(Key)
         TryGetBindingStrategyFor = True
     End If
     
@@ -236,28 +238,28 @@ Private Sub IBindingManager_Apply(ByVal Source As Object)
 End Sub
 
 Private Property Get IBindingManager_DebugOutput() As Boolean
-    IBindingManager_DebugOutput = This.DebugOutput
+    IBindingManager_DebugOutput = this.DebugOutput
 End Property
 
 Private Property Get IBindingManager_NotifierFactory() As INotifierFactory
     GuardClauses.GuardDefaultInstance Me, BindingManager, TypeName(Me)
-    Set IBindingManager_NotifierFactory = This.NotifierFactory
+    Set IBindingManager_NotifierFactory = this.NotifierFactory
 End Property
 
 Private Property Get IBindingManager_StringFormatterFactory() As IStringFormatterFactory
     GuardClauses.GuardDefaultInstance Me, BindingManager, TypeName(Me)
-    Set IBindingManager_StringFormatterFactory = This.StringFormatterFactory
+    Set IBindingManager_StringFormatterFactory = this.StringFormatterFactory
 End Property
 
 Private Property Get IBindingManager_Validation() As IValidationManager
     GuardClauses.GuardDefaultInstance Me, BindingManager, TypeName(Me)
-    Set IBindingManager_Validation = This.Context.Validation
+    Set IBindingManager_Validation = this.Context.Validation
 End Property
 
 Private Sub IDisposable_Dispose()
-    Set This.Context = Nothing
+    Set this.Context = Nothing
 End Sub
 
 Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
-    This.Context.Commands.EvaluateCanExecute Source
+    this.Context.Commands.EvaluateCanExecute Source
 End Sub

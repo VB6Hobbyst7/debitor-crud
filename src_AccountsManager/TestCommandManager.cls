@@ -16,30 +16,30 @@ Private Type TState
     Stub As TestStubBase
 End Type
 
-Private This As TState
+Private this As TState
 
 Private Sub Class_Initialize()
-    Set This.Stub = New TestStubBase
+    Set this.Stub = New TestStubBase
 End Sub
 
 Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByVal Target As Object, ByVal command As ICommand) As ICommandBinding
-    This.Stub.OnInvoke "BindCommand"
+    this.Stub.OnInvoke "BindCommand"
 End Function
 
 Private Sub ICommandManager_EvaluateCanExecute(ByVal BindingContext As Object)
-    This.Stub.OnInvoke "EvaluateCanExecute"
+    this.Stub.OnInvoke "EvaluateCanExecute"
 End Sub
 
 Private Property Get ITestStub_MemberInvokes(ByVal MemberName As String) As Long
-    ITestStub_MemberInvokes = This.Stub.MemberInvokes(MemberName)
+    ITestStub_MemberInvokes = this.Stub.MemberInvokes(MemberName)
 End Property
 
 Private Function ITestStub_ToString() As String
-    ITestStub_ToString = This.Stub.ToString
+    ITestStub_ToString = this.Stub.ToString
 End Function
 
 Private Sub ITestStub_Verify(ByVal Assert As Object, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
-    This.Stub.Verify Assert, MemberName, ExpectedInvokes
+    this.Stub.Verify Assert, MemberName, ExpectedInvokes
 End Sub
 
 

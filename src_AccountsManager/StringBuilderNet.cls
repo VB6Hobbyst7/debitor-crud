@@ -23,41 +23,41 @@ Private Type TState
     Index As Long
 End Type
 Private AppendsBuffer() As String
-Private This As TState
+Private this As TState
 
 Private Sub Class_Initialize()
     'NOTE: 'VF: why not pass through guardclause?
     If Not IsDefaultInstance Then
         Const DEFAULT_APPENDSBUFFER_SIZE As Long = 10000
-        Set This.Builder = CreateObject("System.Text.StringBuilder")
+        Set this.Builder = CreateObject("System.Text.StringBuilder")
         SetAppendsBufferSize DEFAULT_APPENDSBUFFER_SIZE
-        This.Index = -1
+        this.Index = -1
     End If
 End Sub
 
 Public Property Get Capacity() As Long
     GuardClauses.GuardDefaultInstance Me, StringBuilderNet
-    Capacity = This.Builder.Capacity
+    Capacity = this.Builder.Capacity
 End Property
 
 Private Property Let Capacity(ByVal RHS As Long)
     GuardClauses.GuardDefaultInstance Me, StringBuilderNet
-    This.Builder.Capacity = RHS
+    this.Builder.Capacity = RHS
 End Property
 
 Private Property Get Length() As Long
     GuardClauses.GuardDefaultInstance Me, StringBuilderNet
-    Length = This.Builder.Length
+    Length = this.Builder.Length
 End Property
 
 Public Property Let Length(ByVal RHS As Long)
     GuardClauses.GuardDefaultInstance Me, StringBuilderNet
-    This.Builder.Length = RHS
+    this.Builder.Length = RHS
 End Property
 
 Public Function MaxCapacity() As Long
     GuardClauses.GuardDefaultInstance Me, StringBuilderNet
-    MaxCapacity = This.Builder.MaxCapacity
+    MaxCapacity = this.Builder.MaxCapacity
 End Function
 
 Private Property Get IsDefaultInstance() As Boolean
@@ -72,10 +72,10 @@ Public Function Append(ByRef text As String, Optional RepeatCount As Long = 0) A
         Exit Function
     End If
     
-    This.Index = This.Index + 1
-    AppendsBuffer(This.Index) = text
+    this.Index = this.Index + 1
+    AppendsBuffer(this.Index) = text
     If RepeatCount > 0 Then result.Append text, (RepeatCount - 1)
-    If This.Index = This.AppendsBufferSize Then Compact
+    If this.Index = this.AppendsBufferSize Then Compact
     Set Append = Me
 End Function
 
@@ -105,7 +105,7 @@ Public Function AppendFormat(ByVal Format As Variant, ParamArray Args() As Varia
         Exit Function
     End If
 
-    This.Builder.AppendFormat_4 Format, LocalArgs
+    this.Builder.AppendFormat_4 Format, LocalArgs
     Set AppendFormat = Me
 End Function
 
@@ -148,10 +148,10 @@ Public Function AppendLine(Optional ByRef text As String, Optional ByVal RepeatC
         Exit Function
     End If
     
-    This.Index = This.Index + 1
-    AppendsBuffer(This.Index) = text & vbNewLine
+    this.Index = this.Index + 1
+    AppendsBuffer(this.Index) = text & vbNewLine
     If RepeatCount > 0 Then Me.AppendLine text, (RepeatCount - 1)
-    If This.Index = This.AppendsBufferSize Then Compact
+    If this.Index = this.AppendsBufferSize Then Compact
     Set AppendLine = Me
 End Function
 
@@ -162,11 +162,11 @@ End Sub
 
 Private Sub Compact()
     GuardClauses.GuardDefaultInstance Me, StringBuilderNet
-    If This.Index > -1 Then
-        This.Builder.Append_3 Join(AppendsBuffer, vbNullString)
-        This.Index = -1
+    If this.Index > -1 Then
+        this.Builder.Append_3 Join(AppendsBuffer, vbNullString)
+        this.Index = -1
     End If
-    ReDim AppendsBuffer(This.AppendsBufferSize)
+    ReDim AppendsBuffer(this.AppendsBufferSize)
 End Sub
 
 Public Function EnsureCapacity(ByVal Length As Long) As StringBuilderNet
@@ -176,7 +176,7 @@ Public Function EnsureCapacity(ByVal Length As Long) As StringBuilderNet
         Set EnsureCapacity = result.EnsureCapacity(Length)
         Exit Function
     End If
-    This.Builder.EnsureCapacity Length
+    this.Builder.EnsureCapacity Length
     Set EnsureCapacity = Me
 End Function
 
@@ -189,7 +189,7 @@ Public Function Insert(ByVal StartIndex As Long, ByRef text As String, Optional 
         Exit Function
     End If
     Compact
-    This.Builder.Insert_2 StartIndex, text
+    this.Builder.Insert_2 StartIndex, text
     If RepeatCount > 0 Then Me.Insert StartIndex, text, (RepeatCount - 1)
     Set Insert = Me
 End Function
@@ -202,7 +202,7 @@ Public Function Remove(ByVal StartIndex As Long, ByVal Length As Long) As String
         Exit Function
     End If
     Compact
-    This.Builder.Remove StartIndex, Length
+    this.Builder.Remove StartIndex, Length
     Set Remove = Me
 End Function
 
@@ -217,16 +217,16 @@ Public Function Replace(ByRef OldValue As String, ByRef NewValue As String, Opti
     Compact
 
     If StartIndex > -1 And RepeatCount > 0 Then
-        This.Builder.Replace_2 OldValue, NewValue, StartIndex, RepeatCount
+        this.Builder.Replace_2 OldValue, NewValue, StartIndex, RepeatCount
     Else
-        This.Builder.Replace OldValue, NewValue
+        this.Builder.Replace OldValue, NewValue
     End If
     Set Replace = Me
 End Function
 
 Private Sub SetAppendsBufferSize(ByVal Length As Long)
     GuardClauses.GuardDefaultInstance Me, StringBuilderNet
-    This.AppendsBufferSize = Length
+    this.AppendsBufferSize = Length
     Compact
 End Sub
 
@@ -235,8 +235,8 @@ Public Function ToString(Optional ByVal StartIndex As Long = -1, Optional ByVal 
     Compact
 
     If StartIndex > -1 And Length > 0 Then
-        ToString = This.Builder.ToString_2(StartIndex, Length)
+        ToString = this.Builder.ToString_2(StartIndex, Length)
     Else
-        ToString = This.Builder.ToString
+        ToString = this.Builder.ToString
     End If
 End Function

@@ -37,7 +37,7 @@ Private Type TViewModel
     StringProperty As String
 End Type
 
-Private This As TViewModel
+Private this As TViewModel
 
 Public Function Create() As ExampleViewModel
     GuardClauses.GuardNonDefaultInstance Me, ExampleViewModel, TypeName(Me)
@@ -49,180 +49,180 @@ Public Function Create() As ExampleViewModel
 End Function
 
 Public Property Get BooleanProperty() As Boolean
-    BooleanProperty = This.BooleanProperty
+    BooleanProperty = this.BooleanProperty
 End Property
 
 Public Property Let BooleanProperty(ByVal RHS As Boolean)
-    If This.BooleanProperty <> RHS Then
-        This.BooleanProperty = RHS
+    If this.BooleanProperty <> RHS Then
+        this.BooleanProperty = RHS
         OnPropertyChanged "BooleanProperty"
     End If
 End Property
 
 Public Property Get ByteProperty() As Byte
-    ByteProperty = This.ByteProperty
+    ByteProperty = this.ByteProperty
 End Property
 
 Public Property Let ByteProperty(ByVal RHS As Byte)
-    If This.ByteProperty <> RHS Then
-        This.ByteProperty = RHS
+    If this.ByteProperty <> RHS Then
+        this.ByteProperty = RHS
         OnPropertyChanged "ByteProperty"
     End If
 End Property
 
 Public Property Get CurrencyProperty() As Currency
-    CurrencyProperty = This.CurrencyProperty
+    CurrencyProperty = this.CurrencyProperty
 End Property
 
 Public Property Let CurrencyProperty(ByVal RHS As Currency)
-    If This.CurrencyProperty <> RHS Then
-        This.CurrencyProperty = RHS
+    If this.CurrencyProperty <> RHS Then
+        this.CurrencyProperty = RHS
         OnPropertyChanged "CurrencyProperty"
     End If
 End Property
 
 Public Property Get DateProperty() As Date
-    DateProperty = This.DateProperty
+    DateProperty = this.DateProperty
 End Property
 
 Public Property Let DateProperty(ByVal RHS As Date)
-    If This.DateProperty <> RHS Then
-        This.DateProperty = RHS
+    If this.DateProperty <> RHS Then
+        this.DateProperty = RHS
         OnPropertyChanged "DateProperty"
     End If
 End Property
 
 Public Property Get DoubleProperty() As Double
-    DoubleProperty = This.DoubleProperty
+    DoubleProperty = this.DoubleProperty
 End Property
 
 Public Property Let DoubleProperty(ByVal RHS As Double)
-    If This.DoubleProperty <> RHS Then
-        This.DoubleProperty = RHS
+    If this.DoubleProperty <> RHS Then
+        this.DoubleProperty = RHS
         OnPropertyChanged "DoubleProperty"
     End If
 End Property
 
 Public Property Get LongProperty() As Long
-    LongProperty = This.LongProperty
+    LongProperty = this.LongProperty
 End Property
 
 Public Property Let LongProperty(ByVal RHS As Long)
-    If This.LongProperty <> RHS Then
-        This.LongProperty = RHS
+    If this.LongProperty <> RHS Then
+        this.LongProperty = RHS
         OnPropertyChanged "LongProperty"
     End If
 End Property
 
 Public Property Get StringProperty() As String
-    StringProperty = This.StringProperty
+    StringProperty = this.StringProperty
 End Property
 
 Public Property Let StringProperty(ByVal RHS As String)
-    If This.StringProperty <> RHS Then
-        This.StringProperty = RHS
+    If this.StringProperty <> RHS Then
+        this.StringProperty = RHS
         OnPropertyChanged "StringProperty"
     End If
 End Property
 
 Public Property Get SomeFilePath() As String
-    SomeFilePath = This.SomeFilePath
+    SomeFilePath = this.SomeFilePath
 End Property
 
 Public Property Let SomeFilePath(ByVal RHS As String)
-    If This.SomeFilePath <> RHS Then
-        This.SomeFilePath = RHS
+    If this.SomeFilePath <> RHS Then
+        this.SomeFilePath = RHS
         OnPropertyChanged "SomeFilePath"
     End If
 End Property
 
 Public Property Get SomeItems() As Variant
-    SomeItems = This.SomeItems
+    SomeItems = this.SomeItems
 End Property
 
 Public Property Get SelectedItemText() As String
-    SelectedItemText = This.SelectedItemText
+    SelectedItemText = this.SelectedItemText
 End Property
 
 Public Property Let SelectedItemText(ByVal RHS As String)
-    If This.SelectedItemText <> RHS Then
-        This.SelectedItemText = RHS
+    If this.SelectedItemText <> RHS Then
+        this.SelectedItemText = RHS
         OnPropertyChanged "SelectedItemText"
     End If
 End Property
 
 Public Property Get SelectedItemIndex() As Long
-    SelectedItemIndex = This.SelectedItemIndex
+    SelectedItemIndex = this.SelectedItemIndex
 End Property
 
 Public Property Let SelectedItemIndex(ByVal RHS As Long)
-    If This.SelectedItemIndex <> RHS Then
-        This.SelectedItemIndex = RHS
+    If this.SelectedItemIndex <> RHS Then
+        this.SelectedItemIndex = RHS
         OnPropertyChanged "SelectedItemIndex"
     End If
 End Property
 
 Public Property Get SomeAmount() As Currency
-    SomeAmount = This.SomeAmount
+    SomeAmount = this.SomeAmount
 End Property
 
 Public Property Let SomeAmount(ByVal RHS As Currency)
-    If This.SomeAmount <> RHS Then
-        This.SomeAmount = RHS
+    If this.SomeAmount <> RHS Then
+        this.SomeAmount = RHS
         OnPropertyChanged "SomeAmount"
     End If
 End Property
 
 Public Property Get SomeDate() As Date
-    SomeDate = This.SomeDate
+    SomeDate = this.SomeDate
 End Property
 
 Public Property Let SomeDate(ByVal RHS As Date)
-    If This.SomeDate <> RHS Then
-        This.SomeDate = RHS
+    If this.SomeDate <> RHS Then
+        this.SomeDate = RHS
         OnPropertyChanged "SomeDate"
     End If
 End Property
 
 Public Property Get SomeProperty() As String
-    SomeProperty = This.SomeProperty
+    SomeProperty = this.SomeProperty
 End Property
 
 Public Property Let SomeProperty(ByVal RHS As String)
-    If This.SomeProperty <> RHS Then
-        This.SomeProperty = RHS
+    If this.SomeProperty <> RHS Then
+        this.SomeProperty = RHS
         OnPropertyChanged "SomeProperty"
     End If
 End Property
 
 Public Property Get SomeOption() As Boolean
-    SomeOption = This.SomeOption
+    SomeOption = this.SomeOption
 End Property
 
 Public Property Let SomeOption(ByVal RHS As Boolean)
-    If This.SomeOption <> RHS Then
-        This.SomeOption = RHS
+    If this.SomeOption <> RHS Then
+        this.SomeOption = RHS
         OnPropertyChanged "SomeOption"
     End If
 End Property
 
 Public Property Get SomeOtherOption() As Boolean
-    SomeOtherOption = This.SomeOtherOption
+    SomeOtherOption = this.SomeOtherOption
 End Property
 
 Public Property Let SomeOtherOption(ByVal RHS As Boolean)
-    If This.SomeOtherOption <> RHS Then
-        This.SomeOtherOption = RHS
+    If this.SomeOtherOption <> RHS Then
+        this.SomeOtherOption = RHS
         OnPropertyChanged "SomeOtherOption"
     End If
 End Property
 
 Public Property Get SomeCommand() As ICommand
-    Set SomeCommand = This.SomeCommand
+    Set SomeCommand = this.SomeCommand
 End Property
 
 Public Property Set SomeCommand(ByVal RHS As ICommand)
-    Set This.SomeCommand = RHS
+    Set this.SomeCommand = RHS
 End Property
 
 Public Property Get SomeOptionName() As String
@@ -238,24 +238,24 @@ Public Property Get Instructions() As String
 End Property
 
 Private Sub OnPropertyChanged(ByVal PropertyName As String)
-    This.Notifier.OnPropertyChanged Me, PropertyName
+    this.Notifier.OnPropertyChanged Me, PropertyName
 End Sub
 
 Private Sub Class_Initialize()
-    Set This.Notifier = New PropertyChangeNotifierBase
-    ReDim This.SomeItems(0 To 4)
+    Set this.Notifier = New PropertyChangeNotifierBase
+    ReDim this.SomeItems(0 To 4)
     Dim i As Long
-    For i = LBound(This.SomeItems) To UBound(This.SomeItems)
-        This.SomeItems(i) = "Selection " & i
+    For i = LBound(this.SomeItems) To UBound(this.SomeItems)
+        this.SomeItems(i) = "Selection " & i
     Next
 End Sub
 
 Private Sub INotifyPropertyChanged_OnPropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
-    This.Notifier.OnPropertyChanged Source, PropertyName
+    this.Notifier.OnPropertyChanged Source, PropertyName
 End Sub
 
 Private Sub INotifyPropertyChanged_RegisterHandler(ByVal Handler As IHandlePropertyChanged)
-    This.Notifier.RegisterHandler Handler
+    this.Notifier.RegisterHandler Handler
 End Sub
 
 

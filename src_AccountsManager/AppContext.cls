@@ -33,7 +33,7 @@ Private Type TState
     Disposed As Boolean
 End Type
 
-Private This As TState
+Private this As TState
 
 '@Description "Creates a new MVVM application context."
 Public Function Create( _
@@ -65,7 +65,7 @@ End Function
 Private Sub InitStringFormatterFactory(ByVal Context As AppContext, ByVal FormatterFactory As IStringFormatterFactory)
     Dim Factory As IStringFormatterFactory
     If FormatterFactory Is Nothing Then
-        Select Case This.DefaultStringFormatSyntax
+        Select Case this.DefaultStringFormatSyntax
         
             Case StringFormatterStrategy.UseDotNetStringFormatSyntax
                 Set Factory = New StringFormatterNetFactory
@@ -131,106 +131,107 @@ End Sub
 Public Property Get Bindings() As IBindingManager
 Attribute Bindings.VB_Description = "Gets/sets the binding manager reference."
     GuardClauses.GuardDefaultInstance Me, AppContext
-    Set Bindings = This.Bindings
+    Set Bindings = this.Bindings
 End Property
 
 Friend Property Set Bindings(ByVal RHS As IBindingManager)
     GuardClauses.GuardDefaultInstance Me, AppContext
-    GuardClauses.GuardDoubleInitialization This.Bindings, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Bindings, TypeName(Me)
     GuardClauses.GuardNullReference RHS
-    Set This.Bindings = RHS
+    Set this.Bindings = RHS
 End Property
 
 '@Description "Gets/sets the command manager reference."
 Public Property Get Commands() As ICommandManager
 Attribute Commands.VB_Description = "Gets/sets the command manager reference."
     GuardClauses.GuardDefaultInstance Me, AppContext
-    Set Commands = This.Commands
+    Set Commands = this.Commands
 End Property
 
 Friend Property Set Commands(ByVal RHS As ICommandManager)
     GuardClauses.GuardDefaultInstance Me, AppContext
-    GuardClauses.GuardDoubleInitialization This.Commands, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Commands, TypeName(Me)
     GuardClauses.GuardNullReference RHS
-    Set This.Commands = RHS
+    Set this.Commands = RHS
 End Property
 
 '@Description "Gets/sets the validation manager reference."
 Public Property Get Validation() As IValidationManager
 Attribute Validation.VB_Description = "Gets/sets the validation manager reference."
     GuardClauses.GuardDefaultInstance Me, AppContext
-    Set Validation = This.Validation
+    Set Validation = this.Validation
 End Property
 
 Friend Property Set Validation(ByVal RHS As IValidationManager)
     GuardClauses.GuardDefaultInstance Me, AppContext
-    GuardClauses.GuardDoubleInitialization This.Validation, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.Validation, TypeName(Me)
     GuardClauses.GuardNullReference RHS
-    Set This.Validation = RHS
+    Set this.Validation = RHS
 End Property
 
 '@Description "Gets/sets the IStringFormatter factory reference."
 Public Property Get StringFormatterFactory() As IStringFormatterFactory
 Attribute StringFormatterFactory.VB_Description = "Gets/sets the IStringFormatter factory reference."
     'GuardClauses.GuardDefaultInstance Me, AppContext
-    Set StringFormatterFactory = This.StringFormatterFactory
+    Set StringFormatterFactory = this.StringFormatterFactory
 End Property
 
 Friend Property Set StringFormatterFactory(ByVal RHS As IStringFormatterFactory)
     'GuardClauses.GuardDefaultInstance Me, AppContext
-    GuardClauses.GuardDoubleInitialization This.StringFormatterFactory, TypeName(Me)
+    GuardClauses.GuardDoubleInitialization this.StringFormatterFactory, TypeName(Me)
     GuardClauses.GuardNullReference RHS
-    Set This.StringFormatterFactory = RHS
+    Set this.StringFormatterFactory = RHS
 End Property
 
 '@Description "Gets/sets a value that determines the StringFormat syntax to use when no implementation is provided."
 Public Property Get DefaultStringFormatSyntax() As StringFormatterStrategy
 Attribute DefaultStringFormatSyntax.VB_Description = "Gets/sets a value that determines the StringFormat syntax to use when no implementation is provided."
     GuardClauses.GuardNonDefaultInstance Me, AppContext
-    DefaultStringFormatSyntax = This.DefaultStringFormatSyntax
+    DefaultStringFormatSyntax = this.DefaultStringFormatSyntax
 End Property
 
 Public Property Let DefaultStringFormatSyntax(ByVal RHS As StringFormatterStrategy)
     GuardClauses.GuardNonDefaultInstance Me, AppContext
-    This.DefaultStringFormatSyntax = RHS
+    this.DefaultStringFormatSyntax = RHS
 End Property
 
 '@Description "Gets/sets a value that determines whether binding managers produce debugger output."
 Public Property Get DebugOutput() As Boolean
 Attribute DebugOutput.VB_Description = "Gets/sets a value that determines whether binding managers produce debugger output."
-    DebugOutput = This.DebugOutput
+    DebugOutput = this.DebugOutput
 End Property
 
 Public Property Let DebugOutput(ByVal RHS As Boolean)
-    This.DebugOutput = RHS
+    this.DebugOutput = RHS
 End Property
 
 Private Sub Dispose()
-    If This.Disposed Then
-        Debug.Print TypeName(Me) & " instance was already disposed."
+    If this.Disposed Then
+        Logging.logINFO TypeName(Me) & " instance was already disposed."
+'        Debug.Print TypeName(Me) & " instance was already disposed."
         Exit Sub
     End If
-    If Not This.Bindings Is Nothing Then
-        Disposable.TryDispose This.Bindings
-        Set This.Bindings = Nothing
+    If Not this.Bindings Is Nothing Then
+        Disposable.TryDispose this.Bindings
+        Set this.Bindings = Nothing
     End If
-    If Not This.Commands Is Nothing Then
-        Disposable.TryDispose This.Commands
-        Set This.Commands = Nothing
+    If Not this.Commands Is Nothing Then
+        Disposable.TryDispose this.Commands
+        Set this.Commands = Nothing
     End If
-    This.Disposed = True
+    this.Disposed = True
 End Sub
 
 Private Sub Class_Terminate()
-    If Not This.Disposed Then Dispose
+    If Not this.Disposed Then Dispose
 End Sub
 
 Private Property Get IAppContext_Bindings() As IBindingManager
-    Set IAppContext_Bindings = This.Bindings
+    Set IAppContext_Bindings = this.Bindings
 End Property
 
 Private Property Get IAppContext_Commands() As ICommandManager
-    Set IAppContext_Commands = This.Commands
+    Set IAppContext_Commands = this.Commands
 End Property
 
 Private Sub IAppContext_Dispose()
@@ -238,11 +239,11 @@ Private Sub IAppContext_Dispose()
 End Sub
 
 Private Property Get IAppContext_StringFormatterFactory() As IStringFormatterFactory
-    Set IAppContext_StringFormatterFactory = This.StringFormatterFactory
+    Set IAppContext_StringFormatterFactory = this.StringFormatterFactory
 End Property
 
 Private Property Get IAppContext_Validation() As IValidationManager
-    Set IAppContext_Validation = This.Validation
+    Set IAppContext_Validation = this.Validation
 End Property
 
 Private Sub IDisposable_Dispose()

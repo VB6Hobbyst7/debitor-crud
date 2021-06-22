@@ -20,7 +20,7 @@ Private Type TState
     Margin As Long
 End Type
 
-Private This As TState
+Private this As TState
 
 Public Function Create(ByVal ParentForm As MSForms.UserForm, _
 Optional ByVal Parent As MSForms.Controls, _
@@ -56,9 +56,9 @@ Optional ByVal Width As Single) As LayoutPanel
 End Function
 
 Public Property Get Frame() As MSForms.Frame
-    Set Frame = This.Frame
+    Set Frame = this.Frame
 End Property
 
 Friend Property Set Frame(ByVal RHS As MSForms.Frame)
-    Set This.Frame = RHS
+    Set this.Frame = RHS
 End Property
