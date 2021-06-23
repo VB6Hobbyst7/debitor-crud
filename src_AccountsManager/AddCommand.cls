@@ -85,9 +85,9 @@ Private Sub InitiateConfigure()
     Set View = ConfigureView.Create(this.Context, ViewModel)
     
     If View.ShowDialog() Then
-        Logging.logINFO "Configure Loaded"
+        Debug.Print "Configure Loaded"
     Else
-        Logging.logINFO "Configure was cancelled."
+        Debug.Print "Configure was cancelled."
     End If
     
     

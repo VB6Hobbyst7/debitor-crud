@@ -15,7 +15,7 @@ Implements ITestStub
 Private Type TState
     Stub As TestStubBase
     IsValid As Boolean
-    Message As String
+    message As String
 End Type
 
 Private this As TState
@@ -31,27 +31,27 @@ Public Property Let IsValid(ByVal RHS As Boolean)
 End Property
 
 '@Description "Gets/sets the validation error message for this validator."
-Public Property Get Message() As String
-Attribute Message.VB_Description = "Gets/sets the validation error message for this validator."
-    Message = this.Message
+Public Property Get message() As String
+Attribute message.VB_Description = "Gets/sets the validation error message for this validator."
+    message = this.message
 End Property
 
-Public Property Let Message(ByVal RHS As String)
-    this.Message = RHS
+Public Property Let message(ByVal RHS As String)
+    this.message = RHS
 End Property
 
 Private Sub Class_Initialize()
     Set this.Stub = New TestStubBase
 End Sub
 
-Private Function IValueValidator_IsValid(ByVal Value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
+Private Function IValueValidator_IsValid(ByVal value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
     this.Stub.OnInvoke "IsValid"
     IValueValidator_IsValid = this.IsValid
 End Function
 
 Private Property Get IValueValidator_Message() As String
     this.Stub.OnInvoke "Message"
-    IValueValidator_Message = this.Message
+    IValueValidator_Message = this.message
 End Property
 
 Private Property Get ITestStub_MemberInvokes(ByVal MemberName As String) As Long

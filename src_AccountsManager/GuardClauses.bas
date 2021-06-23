@@ -16,42 +16,42 @@ End Enum
 '@Description("Raises a run-time error if the specified Boolean expression is True.")
 Public Sub GuardExpression(ByVal Throw As Boolean, _
 Optional ByVal Source As String = vbNullString, _
-Optional ByVal Message As String = "Invalid procedure call or argument.", _
+Optional ByVal message As String = "Invalid procedure call or argument.", _
 Optional ByVal ErrNumber As Long = CustomError)
 Attribute GuardExpression.VB_Description = "Raises a run-time error if the specified Boolean expression is True."
-    If Throw Then VBA.Information.Err.Raise ErrNumber, Source, Message
+    If Throw Then VBA.Information.Err.Raise ErrNumber, Source, message
 End Sub
 
 '@Description("Raises a run-time error if the specified instance isn't the default instance.")
 Public Sub GuardNonDefaultInstance(ByVal Instance As Object, ByVal defaultInstance As Object, _
 Optional ByVal Source As String = vbNullString, _
-Optional ByVal Message As String = "Method should be invoked from the default/predeclared instance of this class.")
+Optional ByVal message As String = "Method should be invoked from the default/predeclared instance of this class.")
 Attribute GuardNonDefaultInstance.VB_Description = "Raises a run-time error if the specified instance isn't the default instance."
     Debug.Assert TypeName(Instance) = TypeName(defaultInstance)
-    GuardExpression Not Instance Is defaultInstance, IIf(Source = vbNullString, TypeName(Instance), Source), Message, InvalidFromNonDefaultInstance
+    GuardExpression Not Instance Is defaultInstance, IIf(Source = vbNullString, TypeName(Instance), Source), message, InvalidFromNonDefaultInstance
 End Sub
 
 '@Description("Raises a run-time error if the specified instance is the default instance.")
 Public Sub GuardDefaultInstance(ByVal Instance As Object, ByVal defaultInstance As Object, _
 Optional ByVal Source As String = vbNullString, _
-Optional ByVal Message As String = "Method should be invoked from a new instance of this class.")
+Optional ByVal message As String = "Method should be invoked from a new instance of this class.")
 Attribute GuardDefaultInstance.VB_Description = "Raises a run-time error if the specified instance is the default instance."
     Debug.Assert TypeName(Instance) = TypeName(defaultInstance)
-    GuardExpression Instance Is defaultInstance, Source, Message, InvalidFromDefaultInstance
+    GuardExpression Instance Is defaultInstance, Source, message, InvalidFromDefaultInstance
 End Sub
 
 '@Description("Raises a run-time error if the specified object reference is already set.")
-Public Sub GuardDoubleInitialization(ByVal Value As Variant, _
+Public Sub GuardDoubleInitialization(ByVal value As Variant, _
 Optional ByVal Source As String = vbNullString, _
-Optional ByVal Message As String = "Value is already initialized.")
+Optional ByVal message As String = "Value is already initialized.")
 Attribute GuardDoubleInitialization.VB_Description = "Raises a run-time error if the specified object reference is already set."
     Dim Throw As Boolean
-    If IsObject(Value) Then
-        Throw = Not Value Is Nothing
+    If IsObject(value) Then
+        Throw = Not value Is Nothing
     Else
-        Throw = Value <> GetDefaultValue(VarType(Value))
+        Throw = value <> GetDefaultValue(VarType(value))
     End If
-    GuardExpression Throw, Source, Message, ObjectAlreadyInitialized
+    GuardExpression Throw, Source, message, ObjectAlreadyInitialized
 End Sub
 
 Private Function GetDefaultValue(ByVal VType As VbVarType) As Variant
@@ -82,15 +82,15 @@ End Function
 '@Description("Raises a run-time error if the specified object reference is Nothing.")
 Public Sub GuardNullReference(ByVal Instance As Object, _
 Optional ByVal Source As String = vbNullString, _
-Optional ByVal Message As String = "Object reference cannot be Nothing.")
+Optional ByVal message As String = "Object reference cannot be Nothing.")
 Attribute GuardNullReference.VB_Description = "Raises a run-time error if the specified object reference is Nothing."
-    GuardExpression Instance Is Nothing, Source, Message, ObjectCannotBeNothing
+    GuardExpression Instance Is Nothing, Source, message, ObjectCannotBeNothing
 End Sub
 
 '@Description("Raises a run-time error if the specified string is empty.")
-Public Sub GuardEmptyString(ByVal Value As String, _
+Public Sub GuardEmptyString(ByVal value As String, _
 Optional ByVal Source As String = vbNullString, _
-Optional ByVal Message As String = "String cannot be empty.")
+Optional ByVal message As String = "String cannot be empty.")
 Attribute GuardEmptyString.VB_Description = "Raises a run-time error if the specified string is empty."
-    GuardExpression Value = vbNullString, Source, Message, StringCannotBeEmpty
+    GuardExpression value = vbNullString, Source, message, StringCannotBeEmpty
 End Sub

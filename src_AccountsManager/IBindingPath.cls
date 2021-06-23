@@ -45,7 +45,7 @@ Attribute TryReadPropertyValue.VB_Description = "Reads and returns the property 
 End Function
 
 '@Description "Writes the value to the bound property; False on error, True if successful."
-Public Function TryWritePropertyValue(ByVal Value As Variant) As Boolean
+Public Function TryWritePropertyValue(ByVal value As Variant) As Boolean
 Attribute TryWritePropertyValue.VB_Description = "Writes the value to the bound property; False on error, True if successful."
 End Function
 

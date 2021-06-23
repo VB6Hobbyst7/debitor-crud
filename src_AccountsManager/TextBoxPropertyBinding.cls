@@ -167,8 +167,7 @@ Private Sub TargetEventSource_Change()
     If Not this.Base.Target.TryReadPropertyValue(outText) Then 'pass invalid string for further validation
         this.Base.OnBindingUpdateSourceOpportunity Cancel, BindingUpdateSourceTrigger.OnChange, vbNullString
     Else
-        Logging.logINFO "TargetEventSource_Change " & outText
-'        Debug.Print "TargetEventSource_Change"; outText
+        Debug.Print "TargetEventSource_Change"; outText
         this.Base.OnBindingUpdateSourceOpportunity Cancel, BindingUpdateSourceTrigger.OnChange, outText ', Chr$(KeyAscii.Value)
     End If
     
@@ -186,11 +185,11 @@ Private Sub TargetEventSource_KeyPress(ByVal KeyAscii As MSForms.ReturnInteger)
     If this.Base.UpdateSourceTrigger <> OnKeyPress Then Exit Sub
 
     Dim Cancel As Boolean
-    this.Base.OnBindingUpdateSourceOpportunity Cancel, BindingUpdateSourceTrigger.OnKeyPress, Chr$(KeyAscii.Value)
+    this.Base.OnBindingUpdateSourceOpportunity Cancel, BindingUpdateSourceTrigger.OnKeyPress, Chr$(KeyAscii.value)
 
     If Cancel Then
         'swallow the invalid keypress:
-        KeyAscii.Value = 0
+        KeyAscii.value = 0
         'VF: but don't select all, just swallow invalid keypress <- was caused be calling OnEnter, which is commented out now
         'VF: must re-run
         'ToDo: 'VF: refactor to have clean structure

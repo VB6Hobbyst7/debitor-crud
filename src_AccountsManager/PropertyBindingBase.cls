@@ -205,7 +205,7 @@ Friend Property Let CancelExitOnValidationError(ByVal RHS As Boolean)
     this.CancelExitOnValidationError = RHS
 End Property
 
-Private Function TryConvert(ByRef Value As Variant) As Boolean
+Private Function TryConvert(ByRef value As Variant) As Boolean
     
     If this.Converter Is Nothing Then
         TryConvert = True
@@ -213,7 +213,7 @@ Private Function TryConvert(ByRef Value As Variant) As Boolean
     End If
     
     On Error Resume Next
-    Value = this.Converter.Convert(Value)
+    value = this.Converter.Convert(value)
     If Err.number = 0 Then
         DebugMessage "Value was successfully converted."
         TryConvert = True
@@ -224,7 +224,7 @@ Private Function TryConvert(ByRef Value As Variant) As Boolean
     
 End Function
 
-Private Function TryConvertBack(ByRef Value As Variant) As Boolean
+Private Function TryConvertBack(ByRef value As Variant) As Boolean
     
     If this.Converter Is Nothing Then
         TryConvertBack = True
@@ -232,7 +232,7 @@ Private Function TryConvertBack(ByRef Value As Variant) As Boolean
     End If
     
     On Error Resume Next
-    Value = this.Converter.ConvertBack(Value)
+    value = this.Converter.ConvertBack(value)
     If Err.number = 0 Then
         DebugMessage "Value was successfully converted back."
         TryConvertBack = True
@@ -526,13 +526,13 @@ Private Function TryGetDefaultBindingValue(ByRef outValue As Variant) As Boolean
     End Select
 End Function
 
-Private Function Convert(ByVal Value As Variant) As Variant
+Private Function Convert(ByVal value As Variant) As Variant
     
     On Error GoTo CleanFail
     If Not this.Converter Is Nothing Then
-        Convert = this.Converter.Convert(Value)
+        Convert = this.Converter.Convert(value)
     Else
-        Convert = Value
+        Convert = value
     End If
     
 CleanExit:
@@ -565,14 +565,14 @@ Public Function Validate(ByVal TargetValue As Variant, Optional ByVal Propagate 
     Else
         
         If Propagate Then
-            Dim Message As String
-            Message = this.Validator.Message
+            Dim message As String
+            message = this.Validator.message
             
             this.Context.Validation.OnValidationError _
                 Context:=this.Source.Context, _
-                ValidationError:=ValidationError.Create(Me, Message)
+                ValidationError:=ValidationError.Create(Me, message)
             
-            If Not this.ValidationAdorner Is Nothing Then this.ValidationAdorner.Show Message
+            If Not this.ValidationAdorner Is Nothing Then this.ValidationAdorner.Show message
             'VF: commented out as it leads to select all, which is not desired in text and numeric textboxes even though there may be more than one eventhandler
             'OnEnter
         End If
@@ -703,13 +703,12 @@ Public Sub OnBindingUpdateSourceOpportunity(ByRef Cancel As Boolean, ByVal Trigg
 End Sub
 
 Private Sub OnValidationError()
-    this.Context.Validation.OnValidationError this.Source.Context, ValidationError.Create(Me, this.Validator.Message)
-    this.ValidationAdorner.Show this.Validator.Message
+    this.Context.Validation.OnValidationError this.Source.Context, ValidationError.Create(Me, this.Validator.message)
+    this.ValidationAdorner.Show this.Validator.message
 End Sub
 
-Private Sub DebugMessage(ByVal Message As String)
-'    If this.Context.Bindings.DebugOutput Then Debug.Print "PropertyBinding: [" & ToString & "] " & Message
-    If this.Context.Bindings.DebugOutput Then Logging.logINFO "PropertyBinding: [" & ToString & "] " & Message
+Private Sub DebugMessage(ByVal message As String)
+    If this.Context.Bindings.DebugOutput Then Debug.Print "PropertyBinding: [" & ToString & "] " & message
 End Sub
 
 Private Sub Class_Initialize()
@@ -733,9 +732,9 @@ End Sub
 
 Private Sub IControlEvents_OnBeforeUpdate(ByVal Cancel As MSForms.IReturnBoolean)
     Dim LocalCancel As Boolean
-    LocalCancel = Cancel.Value
+    LocalCancel = Cancel.value
     OnBeforeUpdate LocalCancel
-    Cancel.Value = LocalCancel
+    Cancel.value = LocalCancel
 End Sub
 'VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
 Private Sub IControlEvents_OnChange()
@@ -748,7 +747,7 @@ End Sub
 
 Private Sub IControlEvents_OnExit(ByVal Cancel As MSForms.IReturnBoolean)
     Dim LocalCancel As Boolean
-    LocalCancel = Cancel.Value
+    LocalCancel = Cancel.value
     OnExit LocalCancel
     Cancel = LocalCancel
 End Sub

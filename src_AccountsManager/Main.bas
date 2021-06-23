@@ -9,23 +9,18 @@ Option Private Module
 Public Sub AppStart()
 
 Dim LogToConsole As Boolean: LogToConsole = False
-Dim LogToBuffer As Boolean: LogToBuffer = False
-Dim LogToFile As Boolean: LogToFile = True
 
 #If Debugging Then
     LogToConsole = True
-    LogToBuffer = True
 #End If
     
-    Logging.setLoggigParams Logging.lgALL, LogToConsole, LogToBuffer, LogToFile
-    Logging.logINFO ("***Starting Logger***")
-
     Dim Source As String: Source = "Manager"
     
     Dim XLProperties As ExcelProperties
     Set XLProperties = New ExcelProperties
     
-    XLProperties.Save
+    XLProperties.SaveApplicationProperties
+    XLProperties.SetThisApplicationProperties True
     
     Dim ViewModel As ManagerViewModel
     Set ViewModel = ManagerViewModel.Create()
@@ -54,18 +49,18 @@ Dim LogToFile As Boolean: LogToFile = True
     End With
     
     Dim app As AppContext
-    Set app = AppContext.Create(DebugOutput:=True)
+    Set app = AppContext.Create(DebugOutput:=LogToConsole)
 
     Dim View As IView
     Set View = ManagerView.Create(app, ViewModel)
 
     If View.ShowDialog Then
-        Logging.logINFO ViewModel.SourceTable
+        Debug.Print ViewModel.SourceTable
     Else
-        Logging.logINFO "Manager cancelled."
+        Debug.Print "Manager cancelled."
     End If
     
     Disposable.TryDispose app
-    XLProperties.Restore
+    XLProperties.RestoreApplicationProperties
     
 End Sub

@@ -47,9 +47,9 @@ Public Property Let Max(ByVal RHS As Variant)
     this.Max = RHS
 End Property
 
-Private Function IValueValidator_IsValid(ByVal Value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
-    If IsObject(Value) Or IsArray(Value) Or IsEmpty(Value) Or IsError(Value) Then Exit Function
-    IValueValidator_IsValid = Value >= this.Min And Value <= this.Max
+Private Function IValueValidator_IsValid(ByVal value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
+    If IsObject(value) Or IsArray(value) Or IsEmpty(value) Or IsError(value) Then Exit Function
+    IValueValidator_IsValid = value >= this.Min And value <= this.Max
 End Function
 
 Private Property Get IValueValidator_Message() As String

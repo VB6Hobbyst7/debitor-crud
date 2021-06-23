@@ -20,16 +20,16 @@ Public Property Get EscapeString() As String
     EscapeString = this.EscapeString
 End Property
 
-Friend Property Let EscapeString(Value As String)
-    this.EscapeString = Value
+Friend Property Let EscapeString(value As String)
+    this.EscapeString = value
 End Property
 
 Public Property Get ReplacementString() As String
     ReplacementString = this.ReplacementString
 End Property
 
-Friend Property Let ReplacementString(Value As String)
-    this.ReplacementString = Value
+Friend Property Let ReplacementString(value As String)
+    this.ReplacementString = value
 End Property
 
 Public Function Create(escape As String, replacement As String) As EscapeSequence

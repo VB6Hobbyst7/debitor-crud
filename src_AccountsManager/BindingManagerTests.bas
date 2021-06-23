@@ -86,21 +86,21 @@ Private Sub TestCleanup()
 End Sub
 
 Private Sub ExpectError()
-    Dim Message As String
+    Dim message As String
     If Err.number = Test.ExpectedErrNumber Then
         If (Test.ExpectedErrSource = vbNullString) Or (Err.Source = Test.ExpectedErrSource) Then
             Test.ExpectedErrorCaught = True
         Else
-            Message = "An error was raised, but not from the expected source. " & _
+            message = "An error was raised, but not from the expected source. " & _
                       "Expected: '" & TypeName(Test.ConcreteSUT) & "'; Actual: '" & Err.Source & "'."
         End If
     ElseIf Err.number <> 0 Then
-        Message = "An error was raised, but not with the expected number. Expected: '" & Test.ExpectedErrNumber & "'; Actual: '" & Err.number & "'."
+        message = "An error was raised, but not with the expected number. Expected: '" & Test.ExpectedErrNumber & "'; Actual: '" & Err.number & "'."
     Else
-        Message = "No error was raised."
+        message = "No error was raised."
     End If
     
-    If Not Test.ExpectedErrorCaught Then Assert.Fail Message
+    If Not Test.ExpectedErrorCaught Then Assert.Fail message
 End Sub
 
 '@TestMethod("GuardClauses")
@@ -334,7 +334,7 @@ Private Sub BindPropertyPath_AddsToPropertyBindingsCollection()
     Dim result As IPropertyBinding
     Set result = Test.AbstractSUT.BindPropertyPath(Test.BindingSource, Test.SourcePropertyPath, Test.BindingTarget, Test.TargetPropertyPath)
     Assert.AreEqual 1, Test.ConcreteSUT.PropertyBindings.Count
-    Assert.AreSame result, Test.ConcreteSUT.PropertyBindings.Item(1)
+    Assert.AreSame result, Test.ConcreteSUT.PropertyBindings.item(1)
 End Sub
 
 '@TestMethod("CallbackPropagation")

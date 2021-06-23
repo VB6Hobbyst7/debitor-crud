@@ -15,10 +15,10 @@ Attribute VB_Description = "A value converter that inverts a Boolean value."
 Option Explicit
 Implements IValueConverter
 
-Private Function IValueConverter_Convert(ByVal Value As Variant) As Variant
-    IValueConverter_Convert = Not CBool(Value)
+Private Function IValueConverter_Convert(ByVal value As Variant) As Variant
+    IValueConverter_Convert = Not CBool(value)
 End Function
 
-Private Function IValueConverter_ConvertBack(ByVal Value As Variant) As Variant
-    IValueConverter_ConvertBack = Not CBool(Value)
+Private Function IValueConverter_ConvertBack(ByVal value As Variant) As Variant
+    IValueConverter_ConvertBack = Not CBool(value)
 End Function

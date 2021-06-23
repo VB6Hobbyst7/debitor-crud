@@ -84,8 +84,7 @@ Private Function InferTargetPropertyFromSource(ByVal Source As IBindingPath) As 
             Case VbVarType.vbString
                 result = "Caption"
             Case Else
-                Logging.logINFO TypeName(Me) & ": binding source [" & Source.ToString & "] involves implicit value conversion."
-'                Debug.Print TypeName(Me) & ": binding source [" & Source.ToString & "] involves implicit value conversion."
+                Debug.Print TypeName(Me) & ": binding source [" & Source.ToString & "] involves implicit value conversion."
                 result = DefaultTargetControlProperty
         End Select
     Else

@@ -43,10 +43,10 @@ Optional ByRef OrderByExpression As String = vbNullString)
                     Dim viewListItem As MSComctlLib.ListItem
                     If Count = 1 Then 'If it's the first field of the recordset, that means we have the first column of a new row
                         'If it's a new row, then we will add a new ListItems (ROW) object
-                        Set viewListItem = ListViewObject.ListItems.add(text:=IIf(IsNull(fieldItem.Value), vbNullString, fieldItem.Value))
+                        Set viewListItem = ListViewObject.ListItems.add(text:=IIf(IsNull(fieldItem.value), vbNullString, fieldItem.value))
                     Else
                         'If it's not a new row, then add a ListSubItem (ELEMENT) instead
-                        viewListItem.ListSubItems.add text:=IIf(IsNull(fieldItem.Value), vbNullString, fieldItem.Value)
+                        viewListItem.ListSubItems.add text:=IIf(IsNull(fieldItem.value), vbNullString, fieldItem.value)
                     End If
                     Count = Count + 1 'Make sure to increment the count, or else EVERYONE will be a "New Row"
                 Next

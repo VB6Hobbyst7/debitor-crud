@@ -15,7 +15,7 @@ Attribute VB_Description = "Describes an object that can decorate a binding targ
 Option Explicit
 
 '@Description "Brings the adorner components into view."
-Public Sub Show(ByVal Message As String)
+Public Sub Show(ByVal message As String)
 Attribute Show.VB_Description = "Brings the adorner components into view."
 End Sub
 

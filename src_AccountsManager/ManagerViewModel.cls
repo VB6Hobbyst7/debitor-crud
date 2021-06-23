@@ -143,16 +143,16 @@ Public Property Get ModelWidth() As Double
     ModelWidth = this.ModelWidth
 End Property
 
-Public Property Let ModelWidth(ByVal Value As Double)
-    this.ModelWidth = Value
+Public Property Let ModelWidth(ByVal value As Double)
+    this.ModelWidth = value
 End Property
 
 Public Property Get ModelHeight() As Double
     ModelHeight = this.ModelHeight
 End Property
 
-Public Property Let ModelHeight(ByVal Value As Double)
-    this.ModelHeight = Value
+Public Property Let ModelHeight(ByVal value As Double)
+    this.ModelHeight = value
 End Property
 
 Public Property Get Filter() As Variant
@@ -168,9 +168,9 @@ Public Property Get FilterValue() As String
     FilterValue = this.FilterValue
 End Property
 
-Public Property Let FilterValue(ByVal Value As String)
-    If this.FilterValue <> Value Then
-        this.FilterValue = Value
+Public Property Let FilterValue(ByVal value As String)
+    If this.FilterValue <> value Then
+        this.FilterValue = value
         OnPropertyChanged "FilterValue"
     End If
 End Property

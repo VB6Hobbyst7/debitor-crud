@@ -47,13 +47,13 @@ Private Function IsComparable() As Boolean
     End If
 End Function
 
-Private Function CompareReferenceTypes(Value As Variant, other As Variant) As Integer
+Private Function CompareReferenceTypes(value As Variant, other As Variant) As Integer
 
     Dim comparable As IComparable
 
     If IsComparable Then
 
-        Set comparable = Value
+        Set comparable = value
         CompareReferenceTypes = comparable.CompareTo(other)
 
     Else
@@ -64,13 +64,13 @@ Private Function CompareReferenceTypes(Value As Variant, other As Variant) As In
 
 End Function
 
-Private Function CompareValueTypes(Value As Variant, other As Variant) As Integer
+Private Function CompareValueTypes(value As Variant, other As Variant) As Integer
 
-    If Value < other Then
+    If value < other Then
 
         CompareValueTypes = -1
 
-    ElseIf Value > other Then
+    ElseIf value > other Then
 
         CompareValueTypes = 1
 
@@ -84,33 +84,32 @@ Private Function IsEquatable() As Boolean
     End If
 End Function
 
-Private Function EquateReferenceTypes(Value As Variant, other As Variant) As Boolean
+Private Function EquateReferenceTypes(value As Variant, other As Variant) As Boolean
 
     Dim equatable As IEquatable
     If IsEquatable Then
 
-        Set equatable = Value
+        Set equatable = value
         EquateReferenceTypes = equatable.Equals(other)
 
     Else
-        Logging.logWARN "WARNING: Reference type doesn't implement IEquatable, using reference equality."
-'        Debug.Print "WARNING: Reference type doesn't implement IEquatable, using reference equality."
-        EquateReferenceTypes = (ObjPtr(Value) = ObjPtr(other))
+        Debug.Print "WARNING: Reference type doesn't implement IEquatable, using reference equality."
+        EquateReferenceTypes = (ObjPtr(value) = ObjPtr(other))
 
     End If
 
 End Function
 
-Private Function EquateValueTypes(Value As Variant, other As Variant) As Boolean
+Private Function EquateValueTypes(value As Variant, other As Variant) As Boolean
 
-    EquateValueTypes = (Value = other)
+    EquateValueTypes = (value = other)
 
 End Function
 
-Private Function ValidateItemType(Value As Variant) As Variant
+Private Function ValidateItemType(value As Variant) As Variant
 
-    If this.ItemTypeName = vbNullString Then this.ItemTypeName = TypeName(Value)
-    ValidateItemType = IsTypeSafe(Value)
+    If this.ItemTypeName = vbNullString Then this.ItemTypeName = TypeName(value)
+    ValidateItemType = IsTypeSafe(value)
 
 End Function
 
@@ -137,42 +136,42 @@ End Sub
 
 '@Description "Gets or sets the element at the specified index."
 '@DefaultMember
-Public Property Get Item(ByVal Index As Long) As Variant
-Attribute Item.VB_Description = "Gets or sets the element at the specified index."
-Attribute Item.VB_UserMemId = 0
+Public Property Get item(ByVal Index As Long) As Variant
+Attribute item.VB_Description = "Gets or sets the element at the specified index."
+Attribute item.VB_UserMemId = 0
 
     If IsReferenceType Then
-        Set Item = this.Encapsulated(Index)
+        Set item = this.Encapsulated(Index)
     Else
-        Item = this.Encapsulated(Index)
+        item = this.Encapsulated(Index)
     End If
 
 End Property
 
-Public Property Let Item(ByVal Index As Long, ByVal Value As Variant)
+Public Property Let item(ByVal Index As Long, ByVal value As Variant)
 'Sets the element at the specified index.
 
-    If Not IsTypeSafe(Value) Then RaiseErrorUnsafeType "Item(Let)", TypeName(Value)
+    If Not IsTypeSafe(value) Then RaiseErrorUnsafeType "Item(Let)", TypeName(value)
 
     RemoveAt Index
     If Index = Count Then
-        add Value
+        add value
     Else
-        Insert Index, Value
+        Insert Index, value
     End If
 
 End Property
 
-Public Property Set Item(ByVal Index As Long, ByVal Value As Variant)
+Public Property Set item(ByVal Index As Long, ByVal value As Variant)
 'Sets the element at the specified index.
 
-    If Not IsTypeSafe(Value) Then RaiseErrorUnsafeType "Item(Set)", TypeName(Value)
+    If Not IsTypeSafe(value) Then RaiseErrorUnsafeType "Item(Set)", TypeName(value)
 
     RemoveAt Index
     If Index = Count Then
-        add Value
+        add value
     Else
-        Insert Index, Value
+        Insert Index, value
     End If
 
 End Property
@@ -225,12 +224,12 @@ Public Sub AddArray(Values() As Variant)
 Attribute AddArray.VB_Description = "Adds the specified elements to the end of the List."
 
     '@Ignore UseMeaningfulName, MultipleDeclarations
-    Dim Value As Variant, i As Long
+    Dim value As Variant, i As Long
     For i = LBound(Values) To UBound(Values)
-        If ValidateItemType(Value) Then
+        If ValidateItemType(value) Then
             this.Encapsulated.add Values(i)
         Else
-            RaiseErrorUnsafeType "AddArray()", TypeName(Value)
+            RaiseErrorUnsafeType "AddArray()", TypeName(value)
         End If
     Next
 
@@ -247,11 +246,11 @@ Attribute Clear.VB_Description = "Removes all elements from the List."
 End Sub
 
 '@Description "Determines whether an element is in the List."
-Public Function Contains(Value As Variant) As Boolean
+Public Function Contains(value As Variant) As Boolean
 Attribute Contains.VB_Description = "Determines whether an element is in the List."
 'Determines whether an element is in the List.
 
-    Contains = (IndexOf(Value) <> -1)
+    Contains = (IndexOf(value) <> -1)
 
 End Function
 
@@ -261,9 +260,9 @@ Attribute First.VB_Description = "Returns the first element of the List."
 
     If Count = 0 Then Exit Function
     If IsReferenceType Then
-        Set First = Item(1)
+        Set First = item(1)
     Else
-        First = Item(1)
+        First = item(1)
     End If
 
 End Function
@@ -283,7 +282,7 @@ Attribute GetRange.VB_Description = "Creates a copy of a range of elements in th
     '@Ignore UseMeaningfulName
     Dim i As Long
     For i = Index To lastIndex
-        result.add Item(i)
+        result.add item(i)
     Next
 
     Set GetRange = result
@@ -291,7 +290,7 @@ Attribute GetRange.VB_Description = "Creates a copy of a range of elements in th
 End Function
 
 '@Description "Searches for the specified object and returns the 1-based index of the first occurrence within the entire List."
-Public Function IndexOf(Value As Variant) As Long
+Public Function IndexOf(value As Variant) As Long
 Attribute IndexOf.VB_Description = "Searches for the specified object and returns the 1-based index of the first occurrence within the entire List."
 
     Dim found As Boolean
@@ -306,11 +305,11 @@ Attribute IndexOf.VB_Description = "Searches for the specified object and return
 
         If isRef Then
 
-            found = EquateReferenceTypes(Value, Item(i))
+            found = EquateReferenceTypes(value, item(i))
 
         Else
 
-            found = EquateValueTypes(Value, Item(i))
+            found = EquateValueTypes(value, item(i))
 
         End If
 
@@ -382,7 +381,7 @@ Attribute IsSortable.VB_Description = "Determines whether the List can be sorted
 End Function
 
 '@Description "Determines whether a value can be safely added to the List."
-Public Function IsTypeSafe(Value As Variant) As Boolean
+Public Function IsTypeSafe(value As Variant) As Boolean
 Attribute IsTypeSafe.VB_Description = "Determines whether a value can be safely added to the List."
 
 'Returns true if the type of specified value matches the type of items already in the list,
@@ -392,16 +391,16 @@ Attribute IsTypeSafe.VB_Description = "Determines whether a value can be safely 
     Dim result As Boolean
 
     'most common cases: this.ItemTypeName isn't yet defined, or matches TypeName(value):
-    result = this.ItemTypeName = vbNullString Or this.ItemTypeName = TypeName(Value)
+    result = this.ItemTypeName = vbNullString Or this.ItemTypeName = TypeName(value)
     If result Then IsTypeSafe = result: Exit Function
 
     'all other cases demand more processing:
     IsTypeSafe = result _
-        Or this.ItemTypeName = "Integer" And StringType.MatchesAny(TypeName(Value), "Byte") _
-        Or this.ItemTypeName = "Long" And StringType.MatchesAny(TypeName(Value), "Integer", "Byte") _
-        Or this.ItemTypeName = "Single" And StringType.MatchesAny(TypeName(Value), "Long", "Integer", "Byte") _
-        Or this.ItemTypeName = "Double" And StringType.MatchesAny(TypeName(Value), "Long", "Integer", "Byte", "Single") _
-        Or this.ItemTypeName = "Currency" And StringType.MatchesAny(TypeName(Value), "Long", "Integer", "Byte", "Single", "Double")
+        Or this.ItemTypeName = "Integer" And StringType.MatchesAny(TypeName(value), "Byte") _
+        Or this.ItemTypeName = "Long" And StringType.MatchesAny(TypeName(value), "Integer", "Byte") _
+        Or this.ItemTypeName = "Single" And StringType.MatchesAny(TypeName(value), "Long", "Integer", "Byte") _
+        Or this.ItemTypeName = "Double" And StringType.MatchesAny(TypeName(value), "Long", "Integer", "Byte", "Single") _
+        Or this.ItemTypeName = "Currency" And StringType.MatchesAny(TypeName(value), "Long", "Integer", "Byte", "Single", "Double")
 
 End Function
 
@@ -411,15 +410,15 @@ Attribute Last.VB_Description = "Returns the last element of the List."
 
     If Count = 0 Then Exit Function
     If IsReferenceType Then
-        Set Last = Item(Count)
+        Set Last = item(Count)
     Else
-        Last = Item(Count)
+        Last = item(Count)
     End If
 
 End Function
 
 '@Description "Searches for the specified object and returns the 1-based index of the last occurrence within the entire List."
-Public Function LastIndexOf(Value As Variant) As Long
+Public Function LastIndexOf(value As Variant) As Long
 Attribute LastIndexOf.VB_Description = "Searches for the specified object and returns the 1-based index of the last occurrence within the entire List."
 
     Dim found As Boolean
@@ -435,11 +434,11 @@ Attribute LastIndexOf.VB_Description = "Searches for the specified object and re
 
         If isRef Then
 
-            found = EquateReferenceTypes(Value, Item(i))
+            found = EquateReferenceTypes(value, item(i))
 
         Else
 
-            found = EquateValueTypes(Value, Item(i))
+            found = EquateValueTypes(value, item(i))
 
         End If
 
@@ -465,21 +464,21 @@ Attribute Max.VB_Description = "Returns the maximum value in the List."
 
         If isRef Then
 
-            If IsEmpty(largest) Then Set largest = Item(i)
-            isLarger = CompareReferenceTypes(Item(i), largest) > 0
+            If IsEmpty(largest) Then Set largest = item(i)
+            isLarger = CompareReferenceTypes(item(i), largest) > 0
 
             If isLarger Or IsEmpty(Max) Then
-                Set largest = Item(i)
+                Set largest = item(i)
                 Set Max = largest
             End If
 
         Else
 
-            If IsEmpty(largest) Then largest = Item(i)
-            isLarger = CompareValueTypes(Item(i), largest) > 0
+            If IsEmpty(largest) Then largest = item(i)
+            isLarger = CompareValueTypes(item(i), largest) > 0
 
             If isLarger Or IsEmpty(Max) Then
-                largest = Item(i)
+                largest = item(i)
                 Max = largest
             End If
 
@@ -506,21 +505,21 @@ Attribute Min.VB_Description = "Returns the minimum value in the List."
 
         If isRef Then
 
-            If IsEmpty(smallest) Then Set smallest = Item(i)
-            isSmaller = CompareReferenceTypes(Item(i), smallest) < 0
+            If IsEmpty(smallest) Then Set smallest = item(i)
+            isSmaller = CompareReferenceTypes(item(i), smallest) < 0
 
             If isSmaller Or IsEmpty(Min) Then
-                Set smallest = Item(i)
+                Set smallest = item(i)
                 Set Min = smallest
             End If
 
         Else
 
-            If IsEmpty(smallest) Then smallest = Item(i)
-            isSmaller = CompareValueTypes(Item(i), smallest) < 0
+            If IsEmpty(smallest) Then smallest = item(i)
+            isSmaller = CompareValueTypes(item(i), smallest) < 0
 
             If isSmaller Or IsEmpty(Min) Then
-                smallest = Item(i)
+                smallest = item(i)
                 Min = smallest
             End If
 
@@ -538,7 +537,7 @@ Attribute Reverse.VB_Description = "Reverses the order of the elements in the en
     Dim temp As New list
     Do Until Count = 0
 
-        temp.add Item(Count)
+        temp.add item(Count)
         RemoveAt Count
 
     Loop
@@ -664,11 +663,11 @@ Attribute ToArray.VB_Description = "Copies the elements of the List to a new arr
 
     If IsReferenceType Then
         For i = 1 To Count
-            Set result(i) = Item(i)
+            Set result(i) = item(i)
         Next
     Else
         For i = 1 To Count
-            result(i) = Item(i)
+            result(i) = item(i)
         Next
     End If
 

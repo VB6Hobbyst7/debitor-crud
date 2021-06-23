@@ -41,17 +41,17 @@ End Property
 
 '@DefaultMember
 '@Description "Gets the IValidationError for the specified property; returns Nothing if there is no validation error."
-Public Property Get Item(ByVal PropertyName As String) As IValidationError
-Attribute Item.VB_Description = "Gets the IValidationError for the specified property; returns Nothing if there is no validation error."
-Attribute Item.VB_UserMemId = 0
+Public Property Get item(ByVal PropertyName As String) As IValidationError
+Attribute item.VB_Description = "Gets the IValidationError for the specified property; returns Nothing if there is no validation error."
+Attribute item.VB_UserMemId = 0
 'QUESTION: 'VF: Can this be set via Ruberduck?   Attribute Item.VB_UserMemId = 0
 'I thought this were a trick I would be telling you as I think you did not mention it anywhere on your blog,  well you know them all ;-)
 'actually, this trick needs some explanations for other to understand how come this works
     Dim result As IValidationError
     On Error Resume Next
-    Set result = this.ValidationErrors.Item(PropertyName)
+    Set result = this.ValidationErrors.item(PropertyName)
     On Error GoTo 0 'key not found: returns Nothing
-    Set Item = result
+    Set item = result
 End Property
 
 '@Description "Gets the number of properties with a validation error in this binding context."
@@ -92,7 +92,7 @@ End Sub
 Public Function Remove(ByVal PropertyName As String) As Boolean
 Attribute Remove.VB_Description = "Removes validation error for the specified property if it exists. True if successful, False if nothing was done."
     Dim Existing As IValidationError
-    Set Existing = Item(PropertyName)
+    Set Existing = item(PropertyName)
     If Not Existing Is Nothing Then
         this.ValidationErrors.Remove PropertyName
         Remove = True

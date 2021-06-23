@@ -53,6 +53,6 @@ Private Sub IDynamicAdorner_Hide()
     this.TargetFormatter.Restore this.Target
 End Sub
 
-Private Sub IDynamicAdorner_Show(ByVal Message As String)
-    this.TargetFormatter.Apply this.Target, Message
+Private Sub IDynamicAdorner_Show(ByVal message As String)
+    this.TargetFormatter.Apply this.Target, message
 End Sub

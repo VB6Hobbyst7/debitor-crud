@@ -11,7 +11,7 @@ Option Explicit
 Option Compare Text
 Option Private Module
 
-Public Const HKEY_CURRENT_user As Long = &H80000001
+Public Const HKEY_CURRENT_USER As Long = &H80000001
 Public Const HKEY_LOCAL_MACHINE As Long = &H80000002
 Public Const HKEY_CLASSES_ROOT As Long = &H80000000
 Public Const HKEY_CURRENT_CONFIG As Long = &H80000005
@@ -20,7 +20,7 @@ Public Const HKEY_PERFORMANCE_DATA As Long = &H80000004
 Public Const HKEY_userS As Long = &H80000003
 Public Const KEY_ALL_ACCESS As Long = &H3F
 Public Const ERROR_SUCCESS As Long = 0&
-Public Const HKCU As Long = HKEY_CURRENT_user
+Public Const HKCU As Long = HKEY_CURRENT_USER
 '@Ignore UseMeaningfulName
 Public Const HKLM As Long = HKEY_LOCAL_MACHINE
 Public Const C_userFORM_CLASSNAME = "ThunderDFrame"
@@ -425,7 +425,7 @@ Private Function HWndOfuserForm(ByRef View As Object) As LongPtr
     
 End Function
 
-Private Function ClearBit(ByRef Value As Long, ByRef BitNumber As Long) As Long
+Private Function ClearBit(ByRef value As Long, ByRef BitNumber As Long) As Long
     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     ' ClearBit
     ' Clears the specified bit in Value and returns the result. Bits are
@@ -436,12 +436,12 @@ Private Function ClearBit(ByRef Value As Long, ByRef BitNumber As Long) As Long
     Dim ClearMask As Long
     
     BitNumber = Abs(BitNumber) Mod 32
-    SetMask = Value
+    SetMask = value
     
     If BitNumber < 30 Then
         ClearMask = Not (2 ^ (BitNumber - 1))
         ClearBit = SetMask And ClearMask
     Else
-        ClearBit = Value And &H7FFFFFFF
+        ClearBit = value And &H7FFFFFFF
     End If
 End Function

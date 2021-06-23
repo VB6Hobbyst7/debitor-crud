@@ -218,13 +218,13 @@ Private Sub PositionAdornerControlX(ByVal Target As MSForms.Control, ByVal Adorn
     End Select
 End Sub
 
-Private Sub TrySetTextAlign(ByVal Target As Object, ByVal Value As MSForms.fmTextAlign)
+Private Sub TrySetTextAlign(ByVal Target As Object, ByVal value As MSForms.fmTextAlign)
     'late-bound assignment will fail if Target doesn't have a TextAlign property.
     On Error Resume Next
     'if execution stops here, go Tools ~> Options ~> General ~> Error Trapping,
     'and make sure "Break on unhandled errors" is selected.
     'only use "Break on all errors" for debugging & diagnostics.
-    Target.TextAlign = Value
+    Target.TextAlign = value
     On Error GoTo 0
 End Sub
 
@@ -320,20 +320,20 @@ Private Sub IDynamicAdorner_Hide()
     this.Visible = False
 End Sub
 
-Private Sub IDynamicAdorner_Show(ByVal Message As String)
+Private Sub IDynamicAdorner_Show(ByVal message As String)
     'If This.Visible Then Exit Sub '<~ what if we just wanted to update the message?
     GuardClauses.GuardDefaultInstance Me, ValidationErrorAdorner
     GuardClauses.GuardNullReference this.TargetFormatter, TypeName(Me), "TargetFormatter is not set for this instance."
     
-    this.TargetFormatter.Apply this.Target, Message
-    If Not this.LabelControl Is Nothing Then ShowAdornerLabel Message
-    If Not this.IconControl Is Nothing Then ShowAdornerIcon Message
+    this.TargetFormatter.Apply this.Target, message
+    If Not this.LabelControl Is Nothing Then ShowAdornerLabel message
+    If Not this.IconControl Is Nothing Then ShowAdornerIcon message
     
     this.Visible = True
 End Sub
 
-Private Sub ShowAdornerLabel(ByVal Message As String)
-    this.LabelFormatter.Apply this.LabelControl, Message
+Private Sub ShowAdornerLabel(ByVal message As String)
+    this.LabelFormatter.Apply this.LabelControl, message
     If Not this.LabelPositionSet Then
         PositionAdornerControlX this.Target, this.AdornerLabel, this.LabelPosition
         PositionAdornerControlY this.Target, this.AdornerLabel, this.LabelPosition
@@ -341,8 +341,8 @@ Private Sub ShowAdornerLabel(ByVal Message As String)
     End If
 End Sub
 
-Private Sub ShowAdornerIcon(ByVal Message As String)
-    this.IconFormatter.Apply this.IconControl, Message
+Private Sub ShowAdornerIcon(ByVal message As String)
+    this.IconFormatter.Apply this.IconControl, message
     If Not this.IconPositionSet Then
         PositionAdornerControlX this.Target, this.AdornerIcon, this.IconPosition
         PositionAdornerControlY this.Target, this.AdornerIcon, this.IconPosition

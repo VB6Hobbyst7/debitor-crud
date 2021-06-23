@@ -15,11 +15,11 @@ Attribute VB_Description = "An object that can convert a binding value to/from a
 Option Explicit
 
 '@Description "Converts the source-provided value to a value that is applicable to the binding target."
-Public Function Convert(ByVal Value As Variant) As Variant
+Public Function Convert(ByVal value As Variant) As Variant
 Attribute Convert.VB_Description = "Converts the source-provided value to a value that is applicable to the binding target."
 End Function
 
 '@Description "Converts the target-provided value to a value that is applicable to the binding source, for 2-way bindings."
-Public Function ConvertBack(ByVal Value As Variant) As Variant
+Public Function ConvertBack(ByVal value As Variant) As Variant
 Attribute ConvertBack.VB_Description = "Converts the target-provided value to a value that is applicable to the binding source, for 2-way bindings."
 End Function

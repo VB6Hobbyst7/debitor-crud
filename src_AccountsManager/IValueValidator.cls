@@ -20,11 +20,11 @@ Attribute Trigger.VB_Description = "Using this validator in a property binding w
 End Property
 
 '@Description "A user-friendly message describing the validation rule(s)."
-Public Property Get Message() As String
-Attribute Message.VB_Description = "A user-friendly message describing the validation rule(s)."
+Public Property Get message() As String
+Attribute message.VB_Description = "A user-friendly message describing the validation rule(s)."
 End Property
 
 '@Description "True if the specified value is valid in itself or in the context of the binding source and target."
-Public Function IsValid(ByVal Value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
+Public Function IsValid(ByVal value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
 Attribute IsValid.VB_Description = "True if the specified value is valid in itself or in the context of the binding source and target."
 End Function

@@ -86,19 +86,16 @@ Private Function InferTargetPropertyFromSource(ByVal Source As IBindingPath, ByR
             Case VarType(SourceValue) = VbVarType.vbString
                 result = "Text"
             Case IsArray(SourceValue) Or VarType(SourceValue) = VbVarType.vbArray
-                Logging.logINFO TypeName(Me) & ": binding [" & Source.ToString & "] one-way."
-'                Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way."
+                Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way."
                 outMode = BindingMode.OneWayBinding
                 result = "List"
             Case Else
-                Logging.logINFO TypeName(Me) & ": binding [" & Source.ToString & "] one-way to source."
-'                Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way to source."
+                Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way to source."
                 outMode = BindingMode.OneWayToSource
                 result = DefaultTargetControlProperty
         End Select
     Else
-        Logging.logINFO TypeName(Me) & ": Could not read source property value; binding to default target property."
-'        Debug.Print TypeName(Me) & ": Could not read source property value; binding to default target property."
+        Debug.Print TypeName(Me) & ": Could not read source property value; binding to default target property."
         result = DefaultTargetControlProperty
     End If
     InferTargetPropertyFromSource = result

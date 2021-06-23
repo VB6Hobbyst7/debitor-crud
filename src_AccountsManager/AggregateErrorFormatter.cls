@@ -81,10 +81,10 @@ Private Sub Class_Initialize()
     If Not IsDefaultInstance Then Set this.Formatters = New Collection
 End Sub
 
-Private Sub IValidationErrorFormatter_Apply(ByVal Target As Object, ByVal Message As String)
+Private Sub IValidationErrorFormatter_Apply(ByVal Target As Object, ByVal message As String)
     Dim Formatter As IValidationErrorFormatter
     For Each Formatter In this.Formatters
-        Formatter.Apply Target, Message
+        Formatter.Apply Target, message
     Next
 End Sub
 

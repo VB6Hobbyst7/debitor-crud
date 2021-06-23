@@ -193,14 +193,13 @@ Private Sub StoreInitialFormat(ByVal RHS As Object)
             this.InitialForeColor = RangeTarget.Font.Color
             
         Case Else
-            Logging.logINFO TypeName(Me) & ": Target of type " & TypeName(RHS) & " is not currently supported."
-'            Debug.Print TypeName(Me) & ": Target of type " & TypeName(RHS) & " is not currently supported."
+            Debug.Print TypeName(Me) & ": Target of type " & TypeName(RHS) & " is not currently supported."
             
     End Select
     
 End Sub
 
-Private Sub IValidationErrorFormatter_Apply(ByVal Target As Object, ByVal Message As String)
+Private Sub IValidationErrorFormatter_Apply(ByVal Target As Object, ByVal message As String)
 
     If this.Applied Then Exit Sub
     StoreInitialFormat Target
@@ -209,7 +208,7 @@ Private Sub IValidationErrorFormatter_Apply(ByVal Target As Object, ByVal Messag
         Dim Control As MSForms.Control
         Set Control = Target
         If Not this.TargetOnlyVisibleOnError Then
-            Control.ControlTipText = Message
+            Control.ControlTipText = message
         End If
     End If
     
@@ -238,7 +237,7 @@ Private Sub IValidationErrorFormatter_Apply(ByVal Target As Object, ByVal Messag
             If this.FormatBorderColor Then LabelTarget.BorderColor = this.ErrorBorderColor
             If this.FormatFontBold Then LabelTarget.Font.Bold = this.ErrorFontBold
             If this.FormatForeColor Then LabelTarget.ForeColor = this.ErrorForeColor
-            If this.TargetOnlyVisibleOnError Then LabelTarget.Caption = Message
+            If this.TargetOnlyVisibleOnError Then LabelTarget.Caption = message
             this.Applied = True
             
         Case TypeOf Target Is MSForms.Frame

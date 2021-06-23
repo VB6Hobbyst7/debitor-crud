@@ -40,7 +40,7 @@ Public Type TError
     number As ErrNo
     Name As String
     Source As String
-    Message As String
+    message As String
     Description As String
     trapped As Boolean
 End Type
@@ -52,8 +52,7 @@ Public Sub RethrowOnError()
 Attribute RethrowOnError.VB_Description = "Re-raises the current error, if there is one."
     With VBA.Err
         If .number <> 0 Then
-            Logging.logINFO "Error " & " " & .number & " " & .Description
-'            Debug.Print "Error " & .number, .Description
+            Debug.Print "Error " & .number, .Description
             .Raise .number
         End If
     End With
@@ -64,15 +63,15 @@ End Sub
 Public Sub RaiseError(ByRef errorDetails As TError)
 Attribute RaiseError.VB_Description = "Formats and raises a run-time error."
     With errorDetails
-        Dim Message As Variant
-        Message = Array("Error:", _
+        Dim message As Variant
+        message = Array("Error:", _
             "name: " & .Name, _
             "number: " & .number, _
-            "message: " & .Message, _
+            "message: " & .message, _
             "description: " & .Description, _
             "source: " & .Source)
-        Debug.Print Join(Message, vbNewLine & vbTab)
-        VBA.Err.Raise .number, .Source, .Message
+        Debug.Print Join(message, vbNewLine & vbTab)
+        VBA.Err.Raise .number, .Source, .message
     End With
 End Sub
 

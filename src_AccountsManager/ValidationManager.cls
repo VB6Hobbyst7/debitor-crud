@@ -67,7 +67,7 @@ Public Property Get IsValid(ByVal BindingContext As Object, Optional ByVal Prope
     For Each Key In this.ValidationErrors.Keys
         
         Dim Errors As ValidationErrors
-        Set Errors = this.ValidationErrors.Item(Key)
+        Set Errors = this.ValidationErrors.item(Key)
         
         If BindingContext Is Errors.BindingContext Or Errors.BindingContext Is Nothing Then
             
@@ -99,7 +99,7 @@ Public Property Get ValidationError(ByVal BindingPath As IBindingPath) As IValid
     Set Errors = this.ValidationErrors(ContextKey)
     
     'ValidationErrors.Item getter returns Nothing if there's no error for the given property:
-    Set ValidationError = Errors.Item(BindingPath.PropertyName)
+    Set ValidationError = Errors.item(BindingPath.PropertyName)
 End Property
 
 Private Sub ClearValidationErrors(ByVal BindingPath As IBindingPath)
@@ -118,13 +118,13 @@ Private Sub OnValidationError(ByVal Context As Object, ByVal ValidationError As 
     
     Dim Errors As ValidationErrors
     If this.ValidationErrors.Exists(ContextKey) Then
-        Set Errors = this.ValidationErrors.Item(ContextKey)
+        Set Errors = this.ValidationErrors.item(ContextKey)
     Else
         Set Errors = ValidationErrors.Create(Context)
     End If
     
     Errors.add ValidationError
-    Set this.ValidationErrors.Item(ContextKey) = Errors
+    Set this.ValidationErrors.item(ContextKey) = Errors
 End Sub
 
 Private Sub Class_Initialize()

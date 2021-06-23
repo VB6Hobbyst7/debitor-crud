@@ -15,8 +15,8 @@ Implements IValueValidator
 
 'VF: failed space bar/blank spaces between words entered in TextBox that's why TextBox event (IValueValidator_Trigger) switched to onChange from onKeyPress
 'but OnChange was also needed to capture Cut and Paste in TextBox
-Private Function IValueValidator_IsValid(ByVal Value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
-    IValueValidator_IsValid = Len(Trim$(Value)) > 0
+Private Function IValueValidator_IsValid(ByVal value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
+    IValueValidator_IsValid = Len(Trim$(value)) > 0
 End Function
 
 Private Property Get IValueValidator_Message() As String

@@ -115,7 +115,7 @@ Public Property Set Target(ByVal RHS As Object)
             GuardClauses.GuardExpression _
                 Throw:=True, _
                 Source:=TypeName(Me), _
-                Message:="Type '" & TypeName(RHS) & "' does not support command bindings at the moment."
+                message:="Type '" & TypeName(RHS) & "' does not support command bindings at the moment."
     End Select
     
 End Property
@@ -138,8 +138,7 @@ Private Sub OnExecute()
     If Not this.command Is Nothing Then
         this.command.Execute this.ViewModel
     Else
-        Logging.logINFO "BUG in " & TypeName(Me) & ": Command is 'Nothing', cannot execute."
-'        Debug.Print "BUG in " & TypeName(Me) & ": Command is 'Nothing', cannot execute."
+        Debug.Print "BUG in " & TypeName(Me) & ": Command is 'Nothing', cannot execute."
         Debug.Assert False ' should not happen, break here if it does.
     End If
 End Sub

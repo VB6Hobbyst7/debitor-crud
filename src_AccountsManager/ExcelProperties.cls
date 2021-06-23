@@ -30,14 +30,13 @@ Private Type TMembers
   DisplayAlerts As Boolean
   EnableEvents As Boolean
   ScreenUpdating As Boolean
+  Visible As Boolean
+  DisplayFormulaBar As Boolean
+  EnableAnimations As Boolean
   
-  RestoreCA As Boolean
   RestoreCalcualion As Boolean
-  RestoreDA As Boolean
   RestoreDisplayAlert As Boolean
-  RestoreEE As Boolean
   RestoreEventsEnable As Boolean
-  RestoreSU As Boolean
   RestoreScreenUpdate As Boolean
   RestoreAppVisible As Boolean
   RestoreDisplayFormulaBar As Boolean
@@ -61,7 +60,7 @@ End Sub
 'By default, restore the settings if we didn't do it explicitly
 Private Sub Class_Terminate()
   If this.IsPersisted And Not this.IsRestored And RESTORE_ON_TERMINATE Then
-    Me.Restore
+    Me.RestoreApplicationProperties
   End If
 End Sub
 
@@ -69,37 +68,59 @@ Public Property Get RestoreCalculation() As Boolean
   RestoreCalculation = this.RestoreCalcualion
 End Property
 
-Public Property Let RestoreCalculation(Value As Boolean)
-  this.RestoreCalcualion = Value
+Public Property Let RestoreCalculation(value As Boolean)
+  this.RestoreCalcualion = value
 End Property
 
 Public Property Get RestoreDisplayAlerts() As Boolean
   RestoreDisplayAlerts = this.RestoreDisplayAlert
 End Property
 
-Public Property Let RestoreDisplayAlerts(Value As Boolean)
-  this.RestoreDisplayAlert = Value
+Public Property Let RestoreDisplayAlerts(value As Boolean)
+  this.RestoreDisplayAlert = value
 End Property
 
 Public Property Get RestoreEnableEvents() As Boolean
-  RestoreEnableEvents = this.RestoreEE
+  RestoreEnableEvents = this.RestoreEventsEnable
 End Property
 
-Public Property Let RestoreEnableEvents(Value As Boolean)
-  this.RestoreEE = Value
+Public Property Let RestoreEnableEvents(value As Boolean)
+  this.RestoreEventsEnable = value
 End Property
 
 Public Property Get RestoreScreenUpdating() As Boolean
   RestoreScreenUpdating = this.RestoreScreenUpdate
 End Property
 
-Public Property Let RestoreScreenUpdating(Value As Boolean)
-  this.RestoreScreenUpdate = Value
+Public Property Let RestoreScreenUpdating(value As Boolean)
+  this.RestoreScreenUpdate = value
 End Property
 
+Public Property Get RestoreAppVisible() As Boolean
+  RestoreAppVisible = this.RestoreAppVisible
+End Property
 
+Public Property Let RestoreAppVisible(value As Boolean)
+  this.RestoreAppVisible = value
+End Property
 
-Public Sub Save()
+Public Property Get RestoreDisplayFormulaBar() As Boolean
+  RestoreDisplayFormulaBar = this.RestoreAppVisible
+End Property
+
+Public Property Let RestoreDisplayFormulaBar(value As Boolean)
+  this.RestoreDisplayFormulaBar = value
+End Property
+
+Public Property Get RestoreEnableAnimations() As Boolean
+  RestoreEnableAnimations = this.RestoreEnableAnimations
+End Property
+
+Public Property Let RestoreEnableAnimations(value As Boolean)
+  this.RestoreEnableAnimations = value
+End Property
+
+Public Sub SaveApplicationProperties()
   If Not this.IsPersisted Then
     'Save all of the settings
     With Application
@@ -107,15 +128,17 @@ Public Sub Save()
       this.DisplayAlerts = .DisplayAlerts
       this.EnableEvents = .EnableEvents
       this.ScreenUpdating = .ScreenUpdating
+      this.Visible = .Visible
+      this.DisplayFormulaBar = .DisplayFormulaBar
+      this.EnableAnimations = .EnableAnimations
     End With
     this.IsPersisted = True
   Else
-    Logging.logFATAL "ExcelProperties", "Properties have already been persisted."
     Err.Raise CustomError, "ExcelProperties", "Properties have already been persisted."
   End If
 End Sub
 
-Public Sub Restore()
+Public Sub RestoreApplicationProperties()
   'Only restore the settings that we want restored
   '(which by default is all of them)
   With Application
@@ -131,21 +154,27 @@ Public Sub Restore()
     If this.RestoreScreenUpdate Then
       .ScreenUpdating = this.ScreenUpdating
     End If
+    If this.RestoreAppVisible Then
+        .Visible = this.Visible
+    End If
+    If this.RestoreDisplayFormulaBar Then
+        .DisplayFormulaBar = this.DisplayFormulaBar
+    End If
+    If this.EnableAnimations Then
+        .EnableAnimations = this.EnableAnimations
+    End If
   End With
   this.IsRestored = True
 End Sub
 
-Public Sub SetApplicationProperties()
-
+Public Sub SetThisApplicationProperties(Optional ByVal swich As Boolean = True)
     With Application
-          .Calculation = xlCalculationManual
-          .DisplayAlerts = False
-          .EnableEvents = False
-          .ScreenUpdating = False
-          .Visible = False
-          .DisplayFormulaBar = False
-          .EnableAnimations = False
-          
+        .Calculation = IIf(swich, xlCalculationManual, xlCalculationAutomatic)
+        .DisplayAlerts = Not swich
+        .ScreenUpdating = Not swich
+        .Visible = Not swich
+        .DisplayFormulaBar = Not swich
+        .EnableAnimations = Not swich
     End With
-
+ 
 End Sub

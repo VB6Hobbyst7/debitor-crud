@@ -15,7 +15,7 @@ Attribute VB_Description = "An object that describes how a control changes its a
 Option Explicit
 
 '@Description "Applies error styling to the target given the specified validation error message."
-Public Sub Apply(ByVal Target As Object, ByVal Message As String)
+Public Sub Apply(ByVal Target As Object, ByVal message As String)
 Attribute Apply.VB_Description = "Applies error styling to the target given the specified validation error message."
 End Sub
 

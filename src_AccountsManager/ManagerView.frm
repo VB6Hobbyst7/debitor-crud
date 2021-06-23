@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} ManagerView 
    Caption         =   "[Titel]"
-   ClientHeight    =   6015
+   ClientHeight    =   6012
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   10560
@@ -187,8 +187,8 @@ Private Sub OnCancel()
     Me.Hide
 End Sub
 
-Private Sub TablesValuesList_ItemClick(ByVal Item As MSComctlLib.ListItem)
-    EditButton.Enabled = Item.selected
+Private Sub TablesValuesList_ItemClick(ByVal item As MSComctlLib.ListItem)
+    EditButton.Enabled = item.selected
 End Sub
 
 Private Property Get ICancellable_IsCancelled() As Boolean

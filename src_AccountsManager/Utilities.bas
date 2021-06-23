@@ -44,7 +44,7 @@ End Enum
     (ByRef destination As Any, ByRef Source As Any, ByVal Length As Long)
 #Else
     Public Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" _
-                       (ByRef destination As Any, ByRef Source As Any, ByVal length As Long)
+                       (ByRef destination As Any, ByRef Source As Any, ByVal Length As Long)
 #End If
 
 #If VBA7 Then

@@ -15,8 +15,8 @@ Attribute VB_Description = "An object representing a binding validation error."
 Option Explicit
 
 '@Description "The validation error message."
-Public Property Get Message() As String
-Attribute Message.VB_Description = "The validation error message."
+Public Property Get message() As String
+Attribute message.VB_Description = "The validation error message."
 End Property
 
 '@Description "The binding that failed to validate."

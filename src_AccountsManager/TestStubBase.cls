@@ -21,21 +21,20 @@ Public Sub OnInvoke(ByVal MemberName As String)
 Attribute OnInvoke.VB_Description = "Tracks a new invoke of the specified member."
     Dim NewValue As Long
     If this.MemberInvokes.Exists(MemberName) Then
-        NewValue = this.MemberInvokes.Item(MemberName) + 1
+        NewValue = this.MemberInvokes.item(MemberName) + 1
         this.MemberInvokes.Remove MemberName
     Else
         NewValue = 1
     End If
     this.MemberInvokes.add MemberName, NewValue
-'    Debug.Print TypeName(Me) & ": OnInvoke(" & MemberName & ") was invoked"
-    Logging.logINFO TypeName(Me) & ": OnInvoke(" & MemberName & ") was invoked"
+    Debug.Print TypeName(Me) & ": OnInvoke(" & MemberName & ") was invoked"
 End Sub
 
 '@Description "Gets the number of invokes made against the specified member in the lifetime of this object."
 Public Property Get MemberInvokes(ByVal MemberName As String) As Long
 Attribute MemberInvokes.VB_Description = "Gets the number of invokes made against the specified member in the lifetime of this object."
     If this.MemberInvokes.Exists(MemberName) Then
-        MemberInvokes = this.MemberInvokes.Item(MemberName)
+        MemberInvokes = this.MemberInvokes.item(MemberName)
     Else
         MemberInvokes = 0
     End If
@@ -52,7 +51,7 @@ Attribute ToString.VB_Description = "Gets a string listing the MemberInvokes cac
         For i = LBound(MemberNames) To UBound(MemberNames)
             Dim Name As String
             Name = MemberNames(i)
-            .AppendFormat "{0} was invoked {1} time(s)", Name, this.MemberInvokes.Item(Name)
+            .AppendFormat "{0} was invoked {1} time(s)", Name, this.MemberInvokes.item(Name)
         Next
         ToString = .ToString
     End With
@@ -70,7 +69,7 @@ Private Sub Class_Initialize()
 End Sub
 
 Private Property Get ITestStub_MemberInvokes(ByVal MemberName As String) As Long
-    ITestStub_MemberInvokes = this.MemberInvokes.Item(MemberName)
+    ITestStub_MemberInvokes = this.MemberInvokes.item(MemberName)
 End Property
 
 Private Function ITestStub_ToString() As String

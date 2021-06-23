@@ -200,11 +200,9 @@ Optional ByVal ValidationAdorner As IDynamicAdorner) As IPropertyBinding
     
     On Error Resume Next
     If this.DebugOutput And TargetProperty = vbNullString Then
-        Logging.logINFO TypeName(Me) & ": Binding property path '" & PropertyPath & "' to the default-binding property of type '" & TypeName(Target) & "'."
-'        Debug.Print TypeName(Me) & ": Binding property path '" & PropertyPath & "' to the default-binding property of type '" & TypeName(Target) & "'."
+        Debug.Print TypeName(Me) & ": Binding property path '" & PropertyPath & "' to the default-binding property of type '" & TypeName(Target) & "'."
     ElseIf this.DebugOutput Then
-        Logging.logINFO TypeName(Me) & ": Binding property path '" & PropertyPath & "' to '" & TypeName(Target) & "." & TargetProperty & "'."
-'        Debug.Print TypeName(Me) & ": Binding property path '" & PropertyPath & "' to '" & TypeName(Target) & "." & TargetProperty & "'."
+        Debug.Print TypeName(Me) & ": Binding property path '" & PropertyPath & "' to '" & TypeName(Target) & "." & TargetProperty & "'."
     End If
     On Error GoTo 0
     
@@ -226,7 +224,7 @@ Private Function TryGetBindingStrategyFor(ByVal Target As Object, ByRef outStrat
     Dim Key As String
     Key = LibraryName & "." & TypeName(Target)
     If this.BindingTargetStrategies.Exists(Key) Then
-        Set outStrategy = this.BindingTargetStrategies.Item(Key)
+        Set outStrategy = this.BindingTargetStrategies.item(Key)
         TryGetBindingStrategyFor = True
     End If
     

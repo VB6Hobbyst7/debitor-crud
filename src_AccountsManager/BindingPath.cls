@@ -140,10 +140,10 @@ Private Function IBindingPath_TryReadPropertyValue(ByRef outValue As Variant) As
     On Error GoTo 0
 End Function
 
-Private Function IBindingPath_TryWritePropertyValue(ByVal Value As Variant) As Boolean
+Private Function IBindingPath_TryWritePropertyValue(ByVal value As Variant) As Boolean
     If this.object Is Nothing Then Resolve
     On Error Resume Next
-    VBA.Interaction.CallByName this.object, this.PropertyName, VbLet, Value
+    VBA.Interaction.CallByName this.object, this.PropertyName, VbLet, value
     IBindingPath_TryWritePropertyValue = (Err.number = 0)
     On Error GoTo 0
 End Function

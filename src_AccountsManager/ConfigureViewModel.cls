@@ -55,8 +55,8 @@ Public Property Get LanguageIDUI() As String
     LanguageIDUI = this.LanguageIDUI
 End Property
 
-Public Property Let LanguageIDUI(ByVal Value As String)
-    this.LanguageIDUI = Value
+Public Property Let LanguageIDUI(ByVal value As String)
+    this.LanguageIDUI = value
 End Property
 
 Public Property Get Instructions() As String
@@ -83,9 +83,9 @@ Public Property Get AccountGroupValue() As String
     AccountGroupValue = this.AccountGroupValue
 End Property
 
-Public Property Let AccountGroupValue(ByVal Value As String)
-    If this.AccountGroupValue <> Value Then
-        this.AccountGroupValue = Value
+Public Property Let AccountGroupValue(ByVal value As String)
+    If this.AccountGroupValue <> value Then
+        this.AccountGroupValue = value
         OnPropertyChanged "AccountGroupValue"
     End If
 End Property
@@ -103,14 +103,14 @@ Public Property Get SalesOrganizationValue() As String
     SalesOrganizationValue = this.SalesOrganizationValue
 End Property
 
-Public Property Let SalesOrganizationValue(ByVal Value As String)
-    If this.SalesOrganizationValue <> Value Then
-        this.SalesOrganizationValue = Value
+Public Property Let SalesOrganizationValue(ByVal value As String)
+    If this.SalesOrganizationValue <> value Then
+        this.SalesOrganizationValue = value
         OnPropertyChanged "SalesOrganizationValue"
         ChannelValue = vbNullString
         NewCustomer = False
         Reactivate = False
-        FilterChannelsToOrganisations Value
+        FilterChannelsToOrganisations value
     End If
 End Property
 
@@ -127,9 +127,9 @@ Public Property Get ChannelValue() As String
     ChannelValue = this.ChannelValue
 End Property
 
-Public Property Let ChannelValue(ByVal Value As String)
-    If this.ChannelValue <> Value Then
-        this.ChannelValue = Value
+Public Property Let ChannelValue(ByVal value As String)
+    If this.ChannelValue <> value Then
+        this.ChannelValue = value
         OnPropertyChanged "ChannelValue"
     End If
 End Property

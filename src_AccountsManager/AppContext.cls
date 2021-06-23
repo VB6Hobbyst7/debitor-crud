@@ -207,8 +207,7 @@ End Property
 
 Private Sub Dispose()
     If this.Disposed Then
-        Logging.logINFO TypeName(Me) & " instance was already disposed."
-'        Debug.Print TypeName(Me) & " instance was already disposed."
+        Debug.Print TypeName(Me) & " instance was already disposed."
         Exit Sub
     End If
     If Not this.Bindings Is Nothing Then

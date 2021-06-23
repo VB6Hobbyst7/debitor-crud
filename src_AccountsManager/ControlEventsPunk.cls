@@ -87,13 +87,13 @@ Public Sub OnBeforeUpdate(ByVal Cancel As MSForms.IReturnBoolean)
 Attribute OnBeforeUpdate.VB_Description = "A callback that handles MSForms.Control.BeforeUpdate events for the registered target control."
 Attribute OnBeforeUpdate.VB_UserMemId = -2147384831
     Dim LocalCancel As Boolean
-    LocalCancel = Cancel.Value
+    LocalCancel = Cancel.value
     
     Dim Handler As IHandleControlEvents
     For Each Handler In this.Handlers
         
         Handler.HandleBeforeUpdate LocalCancel
-        Cancel.Value = LocalCancel
+        Cancel.value = LocalCancel
         If LocalCancel Then Exit For
     Next
 End Sub
@@ -104,12 +104,12 @@ Public Sub OnExit(ByVal Cancel As MSForms.IReturnBoolean)
 Attribute OnExit.VB_Description = "A callback that handles MSForms.Control.Exit events for the registered target control."
 Attribute OnExit.VB_UserMemId = -2147384829
     Dim LocalCancel As Boolean
-    LocalCancel = Cancel.Value
+    LocalCancel = Cancel.value
     
     Dim Handler As IHandleControlEvents
     For Each Handler In this.Handlers
         Handler.HandleExit LocalCancel
-        Cancel.Value = LocalCancel
+        Cancel.value = LocalCancel
         If LocalCancel Then Exit For
     Next
 End Sub

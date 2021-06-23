@@ -38,7 +38,7 @@ Attribute Dispose.VB_Description = "Releases all held ICommandBinding references
     '@Ignore VariableNotUsed
     Dim Index As Long
     For Index = 1 To this.CommandBindings.Count
-        Disposable.TryDispose this.CommandBindings.Item(this.CommandBindings.Count)
+        Disposable.TryDispose this.CommandBindings.item(this.CommandBindings.Count)
         this.CommandBindings.Remove this.CommandBindings.Count
     Next
     Set this.CommandBindings = Nothing
@@ -51,9 +51,8 @@ Private Sub EvaluateCanExecute(ByVal BindingContext As Object)
     Next
 End Sub
 
-Private Sub DebugMessage(ByVal Message As String)
-'    If this.DebugOutput Then Debug.Print TypeName(Me) & ": " & Message
-    If this.DebugOutput Then Logging.logINFO TypeName(Me) & ": " & Message
+Private Sub DebugMessage(ByVal message As String)
+    If this.DebugOutput Then Debug.Print TypeName(Me) & ": " & message
 End Sub
 
 Private Sub Class_Initialize()
